@@ -19,25 +19,30 @@ export default function Splash() {
     ];
 
     useEffect(() => {
-        // Progress bar animation
-        const duration = 5000; // 5 seconds total
+        // Returning visitor within the same tab session skips straight to /main.
+        if (sessionStorage.getItem('splashSeen')) {
+            navigate('/main', { replace: true });
+            return;
+        }
+
+        // Branded intro, capped at 900ms (was a hardcoded 5s fake bar).
+        const duration = 900;
         const interval = 50;
         const steps = duration / interval;
         let currentStep = 0;
 
         const timer = setInterval(() => {
             currentStep++;
-            setProgress(Math.min(100, Math.floor((currentStep / steps) * 100)));
-            
+            setProgress(Math.min(100, Math.round((currentStep / steps) * 100)));
+
             // Update loading stage based on progress
-            const stageIndex = Math.floor((currentStep / steps) * stages.length);
-            if (stageIndex < stages.length) {
-                setLoadingStage(stageIndex);
-            }
+            const stageIndex = Math.min(stages.length - 1, Math.floor((currentStep / steps) * stages.length));
+            setLoadingStage(stageIndex);
 
             if (currentStep >= steps) {
                 clearInterval(timer);
-                setTimeout(() => navigate('/main'), 800); // Wait a bit at 100% before navigating
+                sessionStorage.setItem('splashSeen', '1');
+                navigate('/main', { replace: true });
             }
         }, interval);
 
@@ -63,7 +68,7 @@ export default function Splash() {
                 <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                     className="flex flex-col items-center mb-16"
                 >
                     <div className="w-24 h-24 bg-red-950/60 rounded-3xl flex items-center justify-center border border-red-500/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-8 relative overflow-hidden backdrop-blur-md">

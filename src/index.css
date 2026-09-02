@@ -1,4 +1,60 @@
 @import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — centralize the colors/spacing/type already in
+   use so they stay consistent. Values are the app's existing
+   ones (no visual change), just named.
+   ============================================================ */
+:root{
+    /* surfaces & text */
+    --bg:#080304;
+    --surface:#0f0507;
+    --surface-2:#1a080c;
+    --text:#f1f5f9;
+    --text-muted:#d19ca3;
+
+    /* brand accents */
+    --accent:#ff2a4b;
+    --accent-strong:#ff1a3c;
+    --accent-deep:#990019;
+
+    /* status */
+    --ok:#22c55e;
+    --warning:#ffb703;
+    --error:#ff4d6d;
+
+    /* fonts */
+    --font-sans:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --font-display:'Orbitron', var(--font-sans);
+
+    /* spacing scale */
+    --space-1:4px;
+    --space-2:8px;
+    --space-3:12px;
+    --space-4:16px;
+    --space-6:24px;
+    --space-8:32px;
+
+    /* radius scale */
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:20px;
+    --radius-xl:24px;
+
+    /* elevation */
+    --shadow-1:0 4px 12px rgba(0,0,0,.3);
+    --shadow-2:0 8px 32px rgba(0,0,0,.5);
+
+    /* type scale */
+    --text-xs:12px;
+    --text-sm:14px;
+    --text-base:16px;
+    --text-lg:18px;
+    --text-xl:24px;
+    --text-2xl:32px;
+}
+
 *{
     margin:0;
     padding:0;
@@ -13,10 +69,12 @@ body,
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#080304;
-    color:#f1f5f9;
+    font-family:var(--font-sans);
+    background:var(--bg);
+    color:var(--text);
     overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
 }
 
 #root{

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Activity } from "lucide-react";
 import Header from "../components/Header";
 import MissionStatus from "../components/MissionStatus";
 import MissionToolbar from "../components/MissionToolbar";
@@ -13,20 +14,37 @@ import { getSensorData } from "../services/api";
 export default function Dashboard() {
     const navigate = useNavigate();
     const [sensors, setSensors] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let inFlight = null; // AbortController of the current poll
+
         async function loadData() {
-            try {
-                const data = await getSensorData();
-                setSensors(Array.isArray(data) ? data : []);
-            }
-            catch (err) {
-                console.log(err);
-            }
+            // Cancel any previous poll so a slow request can't stack or land late.
+            if (inFlight) inFlight.abort();
+            const controller = new AbortController();
+            inFlight = controller;
+            const data = await getSensorData({ signal: controller.signal });
+            if (controller.signal.aborted) return; // superseded by a newer poll
+            setSensors(Array.isArray(data) ? data : []);
+            setLoading(false);
         }
+
         loadData();
-        const timer = setInterval(loadData, 10000);
-        return () => clearInterval(timer);
+        // Only poll while the tab is visible — no wasted CPU/battery when hidden.
+        const timer = setInterval(() => {
+            if (document.visibilityState === 'visible') loadData();
+        }, 10000);
+        const onVisibility = () => {
+            if (document.visibilityState === 'visible') loadData();
+        };
+        document.addEventListener('visibilitychange', onVisibility);
+
+        return () => {
+            clearInterval(timer);
+            document.removeEventListener('visibilitychange', onVisibility);
+            if (inFlight) inFlight.abort();
+        };
     }, []);
 
     return (
@@ -108,19 +126,32 @@ export default function Dashboard() {
                 </div>
             </div>
             {/* SENSOR CARDS */}
-            <div className="sensor-section">
-                {sensors.map((s, index) => (
-                    <SensorCard
-                        key={index}
-                        title={s.name}
-                        value={s.value}
-                        unit={s.unit}
-                        status={s.status}
-                        error={s.error}
-                        solution={s.solution}
-                    />
-                ))}
-            </div>
+            {loading ? (
+                <div className="sensor-section" aria-busy="true">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="sensor-card sensor-card--skeleton" />
+                    ))}
+                </div>
+            ) : sensors.length === 0 ? (
+                <div className="sensor-empty">
+                    <Activity size={20} />
+                    <span>No sensor data available yet.</span>
+                </div>
+            ) : (
+                <div className="sensor-section">
+                    {sensors.map((s, index) => (
+                        <SensorCard
+                            key={s.name ?? index}
+                            title={s.name}
+                            value={s.value}
+                            unit={s.unit}
+                            status={s.status}
+                            error={s.error}
+                            solution={s.solution}
+                        />
+                    ))}
+                </div>
+            )}
             <HealthPanel />
         </div>
     );

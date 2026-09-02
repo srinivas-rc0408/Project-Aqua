@@ -1,6 +1,15 @@
 const BASE_URL = "";
+const REQUEST_TIMEOUT_MS = 8000;
 
 export async function safeFetchJson(url, options = {}) {
+    // Time-box every request so a hung backend can't leave the UI spinning.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    // A caller-supplied signal (e.g. poll cancellation) also aborts this request.
+    if (options.signal) {
+        if (options.signal.aborted) controller.abort();
+        else options.signal.addEventListener('abort', () => controller.abort(), { once: true });
+    }
     try {
         const token = localStorage.getItem('token');
         const headers = {
@@ -9,7 +18,7 @@ export async function safeFetchJson(url, options = {}) {
         if (token && !headers['Authorization']) {
             headers['Authorization'] = `Bearer ${token}`;
         }
-        const res = await fetch(url, { ...options, headers });
+        const res = await fetch(url, { ...options, headers, signal: controller.signal });
         if (!res.ok) {
             return null;
         }
@@ -25,7 +34,32 @@ export async function safeFetchJson(url, options = {}) {
     } catch (err) {
         console.warn(`safeFetchJson failed for ${url}:`, err);
         return null;
+    } finally {
+        clearTimeout(timeoutId);
     }
+}
+
+// De-duplicate identical in-flight GETs: if several components hit the same
+// read endpoint on the same tick, they share one request/response for a short
+// TTL. A cancellable caller (passes a signal) opts out so its abort is honored.
+const _getCache = new Map(); // url -> { time, promise }
+const GET_TTL_MS = 1500;
+
+function cachedGet(url, options) {
+    if (options && options.signal) {
+        return safeFetchJson(url, options);
+    }
+    const now = Date.now();
+    const hit = _getCache.get(url);
+    if (hit && now - hit.time < GET_TTL_MS) {
+        return hit.promise;
+    }
+    const promise = safeFetchJson(url);
+    _getCache.set(url, { time: now, promise });
+    setTimeout(() => {
+        if (_getCache.get(url)?.promise === promise) _getCache.delete(url);
+    }, GET_TTL_MS);
+    return promise;
 }
 
 // ======================================================
@@ -98,24 +132,24 @@ export async function captureRpiSnapshot(streamUrl, filename) {
 // SENSOR
 // ======================================================
 
-export async function getSensorData() {
-    return await safeFetchJson(`${BASE_URL}/api/sensors`);
+export async function getSensorData(options) {
+    return await cachedGet(`${BASE_URL}/api/sensors`, options);
 }
 
 // ======================================================
 // ROBOT STATUS
 // ======================================================
 
-export async function getRobotStatus(){
-    return await safeFetchJson(`${BASE_URL}/api/status`).catch(() => ({ status: "READY" }));
+export async function getRobotStatus(options){
+    return await cachedGet(`${BASE_URL}/api/status`, options).catch(() => ({ status: "READY" }));
 }
 
 // ======================================================
 // TELEMETRY
 // ======================================================
 
-export async function getTelemetry(){
-    return await safeFetchJson(`${BASE_URL}/api/telemetry`);
+export async function getTelemetry(options){
+    return await cachedGet(`${BASE_URL}/api/telemetry`, options);
 }
 
 // ======================================================

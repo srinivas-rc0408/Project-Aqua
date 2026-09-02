@@ -43,8 +43,12 @@ button{
     transition:.3s;
 }
 
+/* Global hover gives every button subtle feedback WITHOUT a vertical jump.
+   The -3px lift used to fire on tiny icon buttons too; the intentional lift/
+   scale now lives only on primary & card buttons (see .system-card button,
+   .info-card, .control-btn, etc.). */
 button:hover{
-    transform:translateY(-3px);
+    filter:brightness(1.08);
 }
 
 img{
@@ -740,9 +744,9 @@ section{
 
     grid-template-columns:repeat(4,1fr);
 
-    gap:22px;
+    gap:var(--space-4);
 
-    margin-bottom:30px;
+    margin-bottom:var(--space-4);
 
 }
 

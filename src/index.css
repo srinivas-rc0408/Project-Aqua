@@ -103,3 +103,16 @@ body{
 .animate-levitate {
     animation: levitate 2.5s ease-in-out infinite;
 }
+
+/* Respect the user's reduced-motion preference: neutralize the app's many
+   infinite pulse/scan/levitate loops and long transitions for AT users. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

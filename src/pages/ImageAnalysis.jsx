@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMission } from "../context/MissionContext";
+import { toast } from "../components/Toast";
 import Gallery from "../components/Gallery";
 import Header from "../components/Header";
 import DetectionPanel from "../components/DetectionPanel";
@@ -93,12 +94,12 @@ export default function ImageAnalysis() {
         try {
             const res = await fetch("/capture", { method: "POST" });
             if (!res.ok) {
-                alert("ESP Cam capture failed (Server error " + res.status + ").");
+                toast.error("ESP Cam capture failed (Server error " + res.status + ").");
                 return;
             }
             const contentType = res.headers.get("content-type") || "";
             if (!contentType.includes("application/json")) {
-                alert("ESP Cam capture endpoint unavailable.");
+                toast.error("ESP Cam capture endpoint unavailable.");
                 return;
             }
             const text = await res.text();
@@ -111,7 +112,7 @@ export default function ImageAnalysis() {
             }
         } catch (e) {
             console.error("Capture error", e);
-            alert("Failed to capture image from ESP cam.");
+            toast.error("Failed to capture image from ESP cam.");
         }
     };
 
@@ -124,17 +125,17 @@ export default function ImageAnalysis() {
                 body: JSON.stringify({ image: imgSrc, missionName, inspectionArea })
             });
             if (!res.ok) {
-                alert("Analysis failed with HTTP " + res.status);
+                toast.error("Analysis failed with HTTP " + res.status);
                 return;
             }
             const contentType = res.headers.get("content-type") || "";
             if (!contentType.includes("application/json")) {
-                alert("Server returned non-JSON response.");
+                toast.error("Server returned non-JSON response.");
                 return;
             }
             const text = await res.text();
             if (!text || text.trim().startsWith("<")) {
-                alert("Server returned HTML response.");
+                toast.error("Server returned HTML response.");
                 return;
             }
             const data = JSON.parse(text);
@@ -148,11 +149,11 @@ export default function ImageAnalysis() {
                 });
                 fetchHistory(); // Refresh history list
             } else {
-                alert("Analysis failed: " + (data.message || "Unknown error"));
+                toast.error("Analysis failed: " + (data.message || "Unknown error"));
             }
         } catch (e) {
             console.error("Analysis error", e);
-            alert("Failed to run AI analysis.");
+            toast.error("Failed to run AI analysis.");
         } finally {
             setIsAnalyzing(false);
         }
@@ -193,7 +194,7 @@ return (
                     <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #7b61ff, #6d28d9)'}} onClick={handleUploadClick}>
                         📤 Upload Image
                     </button>
-                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #12d3e0, #b91c1c)'}} onClick={() => navigate("/history")}>
+                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #12d3e0, #0a6b78)'}} onClick={() => navigate("/history")}>
                         🕒 View History
                     </button>
                     <input 

@@ -61,7 +61,7 @@ export default function MapsGroundingPanel() {
                         width: "38px",
                         height: "38px",
                         borderRadius: "10px",
-                        background: "linear-gradient(135deg, #12d3e0, #990011)",
+                        background: "linear-gradient(135deg, #12d3e0, #0a6b78)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -89,7 +89,7 @@ export default function MapsGroundingPanel() {
                     borderRadius: "20px",
                     padding: "6px 14px",
                     fontSize: "12px",
-                    color: "#ff8093"
+                    color: "#2ee6f0"
                 }}>
                     <Compass size={14} className="spin-slow" />
                     <span>Robot Lat: <strong>{robot.latitude.toFixed(5)}</strong>, Lng: <strong>{robot.longitude.toFixed(5)}</strong></span>
@@ -158,7 +158,7 @@ export default function MapsGroundingPanel() {
                     type="submit"
                     disabled={loading}
                     style={{
-                        background: "linear-gradient(135deg, #12d3e0, #cc001a)",
+                        background: "linear-gradient(135deg, #12d3e0, #0a6b78)",
                         color: "#ffffff",
                         border: "none",
                         borderRadius: "10px",
@@ -216,7 +216,7 @@ export default function MapsGroundingPanel() {
                     {/* Grounded Places Cards */}
                     {results.places && results.places.length > 0 && (
                         <div style={{ marginBottom: "20px" }}>
-                            <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "#ff8093", display: "flex", alignItems: "center", gap: "6px" }}>
+                            <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: "600", color: "#2ee6f0", display: "flex", alignItems: "center", gap: "6px" }}>
                                 <MapPin size={16} /> Grounded Google Maps Locations ({results.places.length})
                             </h4>
                             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "12px" }}>

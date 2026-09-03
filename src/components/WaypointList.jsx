@@ -43,7 +43,7 @@ export default function WaypointList() {
                                 gap: '12px',
                                 padding: '10px 12px',
                                 marginBottom: '8px',
-                                background: isCurrent ? 'rgba(18,211,224, 0.15)' : 'rgba(26, 8, 12, 0.6)',
+                                background: isCurrent ? 'rgba(18,211,224, 0.15)' : 'rgba(15,36,56, 0.6)',
                                 border: `1px solid ${isCurrent ? '#12d3e0' : 'rgba(18,211,224, 0.15)'}`,
                                 borderRadius: '10px'
                             }}

@@ -53,7 +53,7 @@
 }
 
 .mode-btn.active{
-    background:linear-gradient(135deg,#2ee6f0,#b3001b);
+    background:linear-gradient(135deg,#2ee6f0,#0a6b78);
     color:#ffffff;
     box-shadow:0 0 12px rgba(46,230,240,0.5);
 }

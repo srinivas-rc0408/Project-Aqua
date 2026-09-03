@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Folder, Image as ImageIcon, Video, Upload, Trash2, Eye, Play, Sparkles, RefreshCw, Loader2 } from "lucide-react";
 import { fetchMedia, uploadMedia, deleteMedia } from "../services/api";
+import { confirmDialog } from "./ConfirmDialog";
 
 export default function MediaGallery() {
     const [mediaItems, setMediaItems] = useState([]);
@@ -62,7 +63,13 @@ export default function MediaGallery() {
     // Permanently remove file from backend storage
     const handleDelete = async (item) => {
         const filename = item.filename || item.name;
-        if (!confirm(`Delete "${filename}" permanently from backend storage?`)) return;
+        const ok = await confirmDialog({
+            title: "Delete file?",
+            message: `"${filename}" will be permanently removed from backend storage. This can't be undone.`,
+            confirmText: "Delete",
+            tone: "danger",
+        });
+        if (!ok) return;
 
         try {
             await deleteMedia(filename);
@@ -121,7 +128,7 @@ export default function MediaGallery() {
                     </button>
 
                     <label style={{
-                        background: uploading ? "#881337" : "#12d3e0",
+                        background: uploading ? "#0a6b78" : "#12d3e0",
                         color: "#ffffff",
                         padding: "8px 16px",
                         borderRadius: "10px",
@@ -249,7 +256,7 @@ export default function MediaGallery() {
                         <div
                             key={item.id || item.filename}
                             style={{
-                                background: "rgba(26, 8, 12, 0.8)",
+                                background: "rgba(15,36,56, 0.8)",
                                 border: "1px solid rgba(18,211,224, 0.2)",
                                 borderRadius: "12px",
                                 padding: "12px",

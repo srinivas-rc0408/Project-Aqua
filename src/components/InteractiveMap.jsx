@@ -672,7 +672,7 @@ export default function InteractiveMap(){
     <button className="btn-relocate" onClick={handleRelocate} style={{ background: "linear-gradient(135deg, #e74c3c, #c0392b)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
         📍 Relocate Bot
     </button>
-    <button className="btn-sethome" onClick={() => setHome(robot.latitude, robot.longitude)} style={{ background: "linear-gradient(135deg, #12d3e0, #be123c)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
+    <button className="btn-sethome" onClick={() => setHome(robot.latitude, robot.longitude)} style={{ background: "linear-gradient(135deg, #12d3e0, #0a6b78)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
         📍 Set Home
     </button>
 

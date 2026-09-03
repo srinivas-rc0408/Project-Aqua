@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, Lock, ArrowRight, Eye, EyeOff, ShieldCheck, Activity, Cpu, Database } from 'lucide-react';
+import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Activity, Cpu, Database } from 'lucide-react';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -10,6 +10,13 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    // Sign-in is optional: enter mission control as a guest with a demo session.
+    const handleGuest = () => {
+        localStorage.setItem('token', 'guest-' + Date.now());
+        localStorage.setItem('user', JSON.stringify({ username: 'Guest Operator', role: 'guest' }));
+        navigate('/dashboard');
+    };
 
     const handlePasswordLogin = async (e) => {
         e.preventDefault();
@@ -54,7 +61,14 @@ export default function Login() {
 
     return (
         <div className="min-h-screen bg-[#050b13] flex items-center justify-center p-4">
-            <motion.div 
+            <button
+                type="button"
+                onClick={() => navigate('/main')}
+                className="fixed top-6 left-6 z-20 flex items-center gap-2 text-cyan-300/80 hover:text-cyan-100 text-sm font-medium transition-colors"
+            >
+                <ArrowLeft className="w-4 h-4" /> Back
+            </button>
+            <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
@@ -75,9 +89,13 @@ export default function Login() {
 
                     <form className="flex flex-col gap-5" onSubmit={handlePasswordLogin}>
                         {error && (
-                            <div className="bg-cyan-950/80 text-cyan-400 p-3 rounded-lg text-sm font-medium border border-cyan-500/50 text-center">
+                            <motion.div
+                                initial={{ opacity: 0, y: -6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-red-950/80 text-red-300 p-3 rounded-lg text-sm font-medium border border-red-500/50 text-center"
+                            >
                                 {error}
-                            </div>
+                            </motion.div>
                         )}
                         
                         <div className="relative flex items-center">
@@ -133,6 +151,21 @@ export default function Login() {
                             {isLoading ? 'Authenticating...' : 'Sign In'} <ArrowRight className="w-5 h-5" />
                         </button>
                     </form>
+
+                    <div className="flex items-center gap-3 my-5">
+                        <div className="h-px flex-1 bg-cyan-500/15" />
+                        <span className="text-xs text-gray-500 uppercase tracking-wider">or</span>
+                        <div className="h-px flex-1 bg-cyan-500/15" />
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={handleGuest}
+                        className="w-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-200 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 border border-cyan-500/30 transition-all"
+                    >
+                        <UserCheck className="w-5 h-5" /> Continue as Guest
+                    </button>
+                    <p className="text-center text-xs text-gray-500 mt-3">Sign-in is optional — explore the full dashboard as a guest.</p>
                 </div>
                 
                 <div className="bg-[#0d1f30] border-t border-cyan-500/20 p-4 flex justify-between items-center text-xs text-gray-400 font-medium px-8">

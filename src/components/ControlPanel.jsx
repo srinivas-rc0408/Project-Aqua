@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "./Toast";
 
 import { useMission } from "../context/MissionContext";
 
@@ -166,7 +167,7 @@ export default function ControlPanel() {
 
             console.log(result);
 
-            alert("Image Captured Successfully");
+            toast.success("Image captured successfully");
 
         }
 
@@ -190,7 +191,7 @@ export default function ControlPanel() {
 
             console.log(result);
 
-            alert("AI Inspection Completed");
+            toast.success("AI inspection completed");
 
         }
 
@@ -208,7 +209,7 @@ export default function ControlPanel() {
 
     function handleLight() {
 
-        alert("Lights Control (Hardware Coming Soon)");
+        toast.info("Lights control — hardware coming soon");
 
     }
 
@@ -230,7 +231,7 @@ export default function ControlPanel() {
 
             setMissionStatus("EMERGENCY");
 
-            alert("Emergency Stop Activated");
+            toast.error("Emergency stop activated");
 
         }
 

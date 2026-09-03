@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { generateInspectionReport } from "../utils/pdfGenerator";
+import { confirmDialog } from "../components/ConfirmDialog";
 import Header from "../components/Header";
 import "../styles/History.css";
 
@@ -127,7 +128,13 @@ export default function History() {
             </button>
             <button 
                 onClick={async () => {
-                    if(window.confirm('Are you sure you want to delete this inspection?')) {
+                    const ok = await confirmDialog({
+                        title: 'Delete inspection?',
+                        message: 'This inspection record will be permanently removed. This action cannot be undone.',
+                        confirmText: 'Delete',
+                        tone: 'danger',
+                    });
+                    if(ok) {
                         await fetch('/api/analysis-history/' + selectedItem.id, { method: 'DELETE' });
                         setSelectedItem(null);
                         fetchHistory();

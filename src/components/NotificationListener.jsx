@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { toast } from "./Toast";
 
 const playAlertSound = () => {
     try {
@@ -44,8 +45,8 @@ export default function NotificationListener() {
                             icon: "/icon.png" // Fallback icon
                         });
                     } else {
-                        // Fallback to browser alert if permissions aren't granted
-                        alert(`${data.title}\n${data.body}`);
+                        // In-app toast if OS notification permission isn't granted
+                        toast.error(data.body, { title: data.title, duration: 6000 });
                     }
                 } else if (data.type === "LOGO_UPDATED") {
                     window.dispatchEvent(new CustomEvent('logoUpdated', { detail: data }));

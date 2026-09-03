@@ -1,4 +1,5 @@
-import { Users, Bot, GraduationCap, Library } from "lucide-react";
+import { Users, Bot, GraduationCap, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -107,7 +108,7 @@ export default function Main() {
     ];
 
     const panelStyle = {
-        background: "linear-gradient(145deg, #0f2438, #0a0304)",
+        background: "linear-gradient(145deg, #0f2438, #060d16)",
         border: "1px solid rgba(18,211,224, 0.35)",
         boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.75)",
         backdropFilter: "blur(16px)",
@@ -125,7 +126,11 @@ export default function Main() {
             <div className="w-full max-w-[1400px] flex flex-col gap-6">
                 
                 {/* Top Banner (College Info) */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 p-6 sm:p-8 relative overflow-hidden text-center sm:text-left" style={panelStyle}>
+                <motion.div
+                    initial={{ opacity: 0, y: -14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 p-6 sm:p-8 relative overflow-hidden text-center sm:text-left" style={panelStyle}>
                     <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(18,211,224,0.2), transparent)' }}></div>
                     
                     <div className="w-28 h-28 sm:w-36 sm:h-36 bg-white rounded-full flex items-center justify-center p-1 sm:p-2 z-10 relative shadow-[0_0_30px_rgba(18,211,224,0.4)] border-2 border-cyan-500/70 shrink-0 overflow-hidden">
@@ -151,7 +156,7 @@ export default function Main() {
                             Bengaluru – 560074
                         </p>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Main Content Split */}
                 <div className="flex flex-col lg:flex-row gap-6">
@@ -160,7 +165,7 @@ export default function Main() {
                     <div className="w-full lg:w-5/12 flex flex-col gap-6">
                         
                         {/* Project Hero Panel */}
-                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden" style={{...panelStyle, background: 'radial-gradient(circle at center, rgba(128,0,20,0.35) 0%, rgba(10,26,43,0.9) 100%)'}}>
+                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden" style={{...panelStyle, background: 'radial-gradient(circle at center, rgba(18,211,224,0.22) 0%, rgba(10,26,43,0.92) 70%)'}}>
                             <div className="absolute inset-0 flex justify-center items-center opacity-[0.04] pointer-events-none">
                                 <Bot size={280} />
                             </div>
@@ -232,7 +237,7 @@ export default function Main() {
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 h-full">
                             {teamMates.map((member, idx) => (
-                                <div key={idx} className="flex flex-col p-5 rounded-xl transition-all border border-cyan-500/20 shadow-inner h-full justify-between" style={{ background: 'rgba(26, 8, 12, 0.6)' }}>
+                                <div key={idx} className="flex flex-col p-5 rounded-xl transition-all border border-cyan-500/20 hover:border-cyan-400/50 shadow-inner h-full justify-between" style={{ background: 'rgba(13, 30, 48, 0.55)' }}>
                                     
                                     {/* Top Area: Icon + Name */}
                                     <div className="flex items-center gap-4 mb-4">
@@ -288,11 +293,21 @@ export default function Main() {
 
                 </div>
                 
-                <div className="flex justify-center items-center text-center w-full mt-6 mb-4 cursor-pointer" onClick={() => navigate('/login')}>
-                    <span className="text-cyan-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase drop-shadow-[0_0_15px_rgba(18,211,224,0.7)] bg-cyan-950/80 px-8 py-4 rounded-full border border-cyan-500/60 hover:bg-cyan-800/60 hover:text-white transition-all hover:scale-105 active:scale-95 animate-levitate mx-auto flex items-center justify-center text-center shadow-[0_0_25px_rgba(18,211,224,0.4)]">
-                        Press [ENTER] to initialise mission control
-                    </span>
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
+                    className="flex flex-col items-center gap-3 w-full mt-6 mb-4"
+                >
+                    <button
+                        onClick={() => navigate('/login')}
+                        className="group flex items-center gap-3 text-white text-sm sm:text-base font-bold tracking-[0.18em] uppercase bg-gradient-to-r from-cyan-500 to-cyan-700 px-10 py-4 rounded-full border border-cyan-400/40 hover:from-cyan-400 hover:to-cyan-600 transition-all hover:scale-[1.03] active:scale-95 shadow-[0_0_30px_rgba(18,211,224,0.45)]"
+                    >
+                        Initialise Mission Control
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <span className="text-cyan-400/60 text-[11px] tracking-[0.25em] uppercase">or press [ Enter ]</span>
+                </motion.div>
             </div>
         </div>
     );

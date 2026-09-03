@@ -2707,7 +2707,7 @@ font-size:24px;
 }
 
 .ai{
-    background:linear-gradient(135deg,#ec4899,#be185d);
+    background:linear-gradient(135deg,#12d3e0,#0a6b78);
     box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
 }
 
@@ -3271,7 +3271,7 @@ border:1px solid rgba(18,211,224,.35);
 
 box-shadow:
 0 0 35px rgba(18,211,224,.35),
-0 0 70px rgba(128,0,20,.3);
+0 0 70px rgba(18,211,224,.3);
 
 }
 
@@ -4093,7 +4093,7 @@ display:none;
 }
 
 .camera-offline button:hover{
-    background:linear-gradient(135deg,#ff405b,#b3001b);
+    background:linear-gradient(135deg,#2ee6f0,#0a6b78);
 }
 
 .camera-info{

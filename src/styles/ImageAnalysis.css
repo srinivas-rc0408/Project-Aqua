@@ -146,7 +146,7 @@
 
 .detail-box{
 
-    background:rgba(26, 8, 12, 0.85);
+    background:rgba(15,36,56, 0.85);
     backdrop-filter: blur(5px);
 
     padding:15px;
@@ -228,7 +228,7 @@
 
 .report-card tr:hover{
 
-    background:rgba(40, 10, 15, 0.7);
+    background:rgba(22,48,72, 0.7);
     backdrop-filter: blur(5px);
 
     transition:.3s;

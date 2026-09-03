@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotificationListener from "./components/NotificationListener";
 import AnimatedBackground from "./components/AnimatedBackground";
 import LoadingAnimation from "./components/LoadingAnimation";
+import ToastHost from "./components/Toast";
+import ConfirmHost from "./components/ConfirmDialog";
 
 // Route-based code splitting: each page loads its own chunk on demand,
 // so the login/splash paint no longer download Three.js, Leaflet, gsap, etc.
@@ -29,6 +31,8 @@ function App() {
     <BrowserRouter>
       <AnimatedBackground />
       <NotificationListener />
+      <ToastHost />
+      <ConfirmHost />
       <Suspense fallback={<LoadingAnimation />}>
         <Routes>
           <Route path="/" element={<Splash />} />

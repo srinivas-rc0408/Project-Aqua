@@ -1,140 +1,97 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Navigation, ShieldCheck, Database, Camera, Activity } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 
 export default function Splash() {
     const navigate = useNavigate();
-    const [loadingStage, setLoadingStage] = useState(0);
-    const [progress, setProgress] = useState(0);
-
-    const stages = [
-        { text: "System Initialization", icon: <Activity className="w-4 h-4" /> },
-        { text: "Checking Sensors", icon: <Activity className="w-4 h-4" /> },
-        { text: "Loading AI Engine", icon: <Database className="w-4 h-4" /> },
-        { text: "Initializing Mission Control", icon: <Navigation className="w-4 h-4" /> },
-        { text: "Preparing Camera", icon: <Camera className="w-4 h-4" /> },
-        { text: "Connecting Database", icon: <Database className="w-4 h-4" /> },
-        { text: "Starting Secure Session", icon: <ShieldCheck className="w-4 h-4" /> }
-    ];
+    const reduce = useReducedMotion();
+    const [leaving, setLeaving] = useState(false);
 
     useEffect(() => {
-        // Returning visitor within the same tab session skips straight to /main.
+        // Returning visitor within the tab session skips straight to /home.
         if (sessionStorage.getItem('splashSeen')) {
-            navigate('/main', { replace: true });
+            navigate('/home', { replace: true });
             return;
         }
-
-        // Branded intro, capped at 900ms (was a hardcoded 5s fake bar).
-        const duration = 900;
-        const interval = 50;
-        const steps = duration / interval;
-        let currentStep = 0;
-
-        const timer = setInterval(() => {
-            currentStep++;
-            setProgress(Math.min(100, Math.round((currentStep / steps) * 100)));
-
-            // Update loading stage based on progress
-            const stageIndex = Math.min(stages.length - 1, Math.floor((currentStep / steps) * stages.length));
-            setLoadingStage(stageIndex);
-
-            if (currentStep >= steps) {
-                clearInterval(timer);
-                sessionStorage.setItem('splashSeen', '1');
-                navigate('/main', { replace: true });
-            }
-        }, interval);
-
-        return () => clearInterval(timer);
-    }, [navigate, stages.length]);
+        // Fade out smoothly, then route — capped at 900ms, no stalling counter.
+        const fade = setTimeout(() => setLeaving(true), 650);
+        const go = setTimeout(() => {
+            sessionStorage.setItem('splashSeen', '1');
+            navigate('/home', { replace: true });
+        }, 900);
+        return () => { clearTimeout(fade); clearTimeout(go); };
+    }, [navigate]);
 
     return (
-        <div className="fixed inset-0 bg-transparent overflow-hidden flex flex-col items-center justify-center z-50">
-
-            {/* Simulated Robot Wake / Ripple */}
-            <motion.div
-                className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-48 h-12 rounded-full border border-white/50 shadow-[0_0_20px_rgba(255,255,255,0.5)]"
-                animate={{
-                    scale: [1, 5],
-                    opacity: [0.8, 0],
-                }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
-                style={{ transformStyle: 'preserve-3d', transform: 'rotateX(75deg)' }}
-            />
-
-            <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-2xl px-6">
-                {/* Logo & Title */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="flex flex-col items-center mb-16"
+        <motion.div
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden px-6"
+            style={{ background: '#060d16' }}
+            animate={{ opacity: leaving ? 0 : 1 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+        >
+            {/* Concentric sonar rings + submarine mark */}
+            <div className="relative flex items-center justify-center mb-12" style={{ width: 200, height: 200 }}>
+                {!reduce && [0, 1, 2].map((i) => (
+                    <motion.span
+                        key={i}
+                        className="absolute rounded-full"
+                        style={{ width: 68, height: 68, border: '1px solid rgba(18,211,224,0.5)' }}
+                        animate={{ scale: [1, 2.7], opacity: [0.55, 0] }}
+                        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeOut', delay: i * 0.8 }}
+                    />
+                ))}
+                <div
+                    className="relative grid place-items-center"
+                    style={{
+                        width: 82, height: 82, borderRadius: 22,
+                        background: 'linear-gradient(145deg, rgba(18,211,224,0.16), rgba(10,26,43,0.92))',
+                        border: '1px solid rgba(18,211,224,0.45)',
+                        boxShadow: '0 0 44px rgba(18,211,224,0.4)',
+                    }}
                 >
-                    <div className="w-24 h-24 bg-cyan-950/60 rounded-3xl flex items-center justify-center border border-cyan-500/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-8 relative overflow-hidden backdrop-blur-md">
-                        <Navigation className="w-12 h-12 text-cyan-500 drop-shadow-md" />
-                        <motion.div
-                            className="absolute inset-0 bg-gradient-to-t from-cyan-500/20 to-transparent"
-                            animate={{ y: ["100%", "-100%"] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        />
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-black text-white tracking-widest text-center mb-4 uppercase drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]" style={{ fontFamily: '"Orbitron", sans-serif' }}>
-                        Submersible
-                        <br />
-                        Micro Robot
-                    </h1>
-                    <p className="text-cyan-500 tracking-[0.2em] text-sm md:text-base font-bold uppercase opacity-90 text-center drop-shadow-md">
-                        AI Powered Ocean Inspection System
-                    </p>
-                </motion.div>
-
-                {/* Loading Status */}
-                <div className="w-full max-w-md flex flex-col items-center bg-[#0f2438]/80 p-6 rounded-3xl backdrop-blur-md border border-cyan-500/30 shadow-2xl">
-                    <div className="flex justify-between w-full text-xs font-bold font-mono text-cyan-300 mb-3 px-1 drop-shadow-md">
-                        <span className="uppercase flex items-center gap-2">
-                            <motion.span
-                                animate={{ opacity: [1, 0, 1] }}
-                                transition={{ duration: 1, repeat: Infinity }}
-                                className="w-2 h-2 rounded-full bg-cyan-500 inline-block shadow-[0_0_8px_rgba(18,211,224,1)]"
-                            />
-                            Scanning...
-                        </span>
-                        <span>{progress}%</span>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden relative mb-5 border border-cyan-500/20">
-                        <motion.div 
-                            className="h-full bg-gradient-to-r from-cyan-800 via-cyan-500 to-cyan-300 shadow-[0_0_10px_rgba(18,211,224,0.8)]"
-                            style={{ width: `${progress}%` }}
-                        />
-                        {/* Scanning beam effect */}
-                        <motion.div
-                            className="absolute top-0 bottom-0 w-12 bg-white/60 blur-[3px]"
-                            animate={{ left: ["-20%", "120%"] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                        />
-                    </div>
-
-                    {/* Stage Text */}
-                    <div className="h-6 w-full relative overflow-hidden flex items-center justify-center">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={loadingStage}
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -15 }}
-                                transition={{ duration: 0.3 }}
-                                className="text-xs font-bold font-mono text-cyan-400 flex items-center gap-2 tracking-wider uppercase drop-shadow-md"
-                            >
-                                {stages[loadingStage]?.icon}
-                                {stages[loadingStage]?.text}
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
+                    <Navigation style={{ width: 36, height: 36, color: '#7fe9f0' }} />
                 </div>
             </div>
-        </div>
+
+            <motion.h1
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="text-3xl md:text-5xl font-black text-center uppercase"
+                style={{
+                    fontFamily: '"Orbitron", sans-serif',
+                    letterSpacing: '0.12em',
+                    lineHeight: 1.1,
+                    background: 'linear-gradient(180deg,#eaf6ff 0%,#12d3e0 55%,#4f7bff 100%)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                }}
+            >
+                Submersible<br />Micro Robot
+            </motion.h1>
+
+            <motion.p
+                initial={reduce ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="mt-5 text-[11px] md:text-sm uppercase text-center"
+                style={{ color: 'var(--text-dim)', letterSpacing: '0.36em' }}
+            >
+                AI-Powered Underwater Inspection System
+            </motion.p>
+
+            {/* Slim indeterminate progress line */}
+            <div className="absolute bottom-0 left-0 right-0" style={{ height: 2, background: 'rgba(18,211,224,0.1)', overflow: 'hidden' }}>
+                {!reduce && (
+                    <motion.div
+                        style={{ height: '100%', width: '30%', background: 'linear-gradient(90deg, transparent, #12d3e0, transparent)' }}
+                        animate={{ x: ['-100%', '430%'] }}
+                        transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                )}
+            </div>
+        </motion.div>
     );
 }

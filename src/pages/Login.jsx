@@ -63,7 +63,7 @@ export default function Login() {
         <div className="min-h-screen bg-[#050b13] flex items-center justify-center p-4">
             <button
                 type="button"
-                onClick={() => navigate('/main')}
+                onClick={() => navigate('/home')}
                 className="fixed top-6 left-6 z-20 flex items-center gap-2 text-cyan-300/80 hover:text-cyan-100 text-sm font-medium transition-colors"
             >
                 <ArrowLeft className="w-4 h-4" /> Back

@@ -38,7 +38,7 @@ export default function Welcome() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2, duration: 0.5 }}
-                        onClick={() => navigate('/main')}
+                        onClick={() => navigate('/home')}
                         className="group relative flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-600 to-cyan-800 text-white shadow-[0_0_20px_rgba(18,211,224,0.4)] hover:shadow-[0_0_30px_rgba(18,211,224,0.6)] px-8 py-5 rounded-2xl font-black uppercase tracking-widest overflow-hidden transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
                     >
                         <div className="absolute inset-0 bg-cyan-500/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />

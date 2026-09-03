@@ -18,10 +18,20 @@
     --accent-strong:#2ee6f0;
     --accent-deep:#0a6b78;
 
+    /* semantic aliases (spec naming) */
+    --primary:#12d3e0;
+    --primary-strong:#2ee6f0;
+    --primary-deep:#0a6b78;
+    --border:rgba(18,211,224,0.18);
+    --text-dim:#9fb3c8;
+
     /* status */
     --ok:#22c55e;
     --warning:#ffb703;
     --error:#ff4d6d;
+    --success:#22c55e;
+    --danger:#ff4d6d;
+    --info:#38bdf8;
 
     /* fonts */
     --font-sans:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -35,6 +45,7 @@
     --space-4:16px;
     --space-6:24px;
     --space-8:32px;
+    --space-12:48px;
 
     /* radius scale */
     --radius-sm:8px;

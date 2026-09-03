@@ -1,314 +1,201 @@
-import { Users, Bot, GraduationCap, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info } from "lucide-react";
+import { PROJECT, INSTITUTION, GUIDE, TEAM } from "../data/project";
+import TopNav from "../components/TopNav";
+import AboutModal from "../components/AboutModal";
+import Button from "../components/ui/Button";
+import "../styles/Home.css";
+
+const FEATURES = [
+    { icon: Compass, title: "Autonomous Navigation", text: "Boustrophedon survey paths with auto-turn & hardware thruster timing." },
+    { icon: Radar, title: "Live Telemetry", text: "Depth, turbidity, pH, battery & GPS at a 1-second refresh." },
+    { icon: ScanSearch, title: "AI Detection", text: "Cracks, corrosion, algae & pollution from on-board imagery." },
+    { icon: FileText, title: "PDF Reports", text: "Full mission history with one-click inspection reports." },
+];
+
+const reveal = {
+    hidden: { opacity: 0, y: 26 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
 
 export default function Main() {
     const navigate = useNavigate();
-
+    const [aboutOpen, setAboutOpen] = useState(false);
     const [memberPhotos, setMemberPhotos] = useState({});
+    const [guidePhoto, setGuidePhoto] = useState(null);
 
     useEffect(() => {
-        const storedPhotos = localStorage.getItem('teamPhotos');
-        if (storedPhotos) {
-            try {
-                setMemberPhotos(JSON.parse(storedPhotos));
-            } catch (e) {
-                console.error("Failed to load photos", e);
-            }
-        }
+        try {
+            const p = localStorage.getItem("teamPhotos");
+            if (p) setMemberPhotos(JSON.parse(p));
+        } catch (e) { console.warn("team photos load failed", e); }
+        const g = localStorage.getItem("guidePhoto");
+        if (g) setGuidePhoto(g);
     }, []);
 
     const handlePhotoUpload = (e, usn) => {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const newPhotos = { ...memberPhotos, [usn]: reader.result };
-                setMemberPhotos(newPhotos);
-                try {
-                    localStorage.setItem('teamPhotos', JSON.stringify(newPhotos));
-                } catch (e) {
-                    console.warn('Could not save team photos to localStorage', e);
-                }
-            };
-            reader.readAsDataURL(file);
-        }
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const next = { ...memberPhotos, [usn]: reader.result };
+            setMemberPhotos(next);
+            try { localStorage.setItem("teamPhotos", JSON.stringify(next)); } catch (err) { console.warn(err); }
+        };
+        reader.readAsDataURL(file);
     };
-
-    const [guidePhoto, setGuidePhoto] = useState(null);
-
-    useEffect(() => {
-        const storedGuide = localStorage.getItem('guidePhoto');
-        if (storedGuide) {
-            setGuidePhoto(storedGuide);
-        }
-    }, []);
 
     const handleGuideUpload = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setGuidePhoto(reader.result);
-                try {
-                    localStorage.setItem('guidePhoto', reader.result);
-                } catch (e) {
-                    console.warn('Could not save guide photo to localStorage', e);
-                }
-            };
-            reader.readAsDataURL(file);
-        }
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setGuidePhoto(reader.result);
+            try { localStorage.setItem("guidePhoto", reader.result); } catch (err) { console.warn(err); }
+        };
+        reader.readAsDataURL(file);
     };
 
-    const containerRef = useRef(null);
-
+    // Enter stays as a bonus shortcut to the console.
     useEffect(() => {
-        // Focus the container on mount so it can immediately catch keyboard events
-        if (containerRef.current) {
-            containerRef.current.focus();
-        }
-
-        const handleKeyDown = (e) => {
-            if (e.key === "Enter") {
-                navigate('/login');
-            }
-        };
-
-        // Attach to document to catch events more reliably
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
+        const onKey = (e) => { if (e.key === "Enter") navigate("/login"); };
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
     }, [navigate]);
 
-    const teamMates = [
-        {
-            name: "Venkatesh C L",
-            usn: "1RR24RA402",
-            roles: ["Team Leader", "Project Management", "Software Development", "Circuit Design"],
-            isLeader: true
-        },
-        {
-            name: "Soujanya M",
-            usn: "1RR23RA035",
-            roles: ["System Integration", "Hardware Integration"],
-            isLeader: false
-        },
-        {
-            name: "Y Ganashree",
-            usn: "1RR23RA041",
-            roles: ["Documentation", "Testing & Validation"],
-            isLeader: false
-        },
-        {
-            name: "Thanmay R",
-            usn: "1RR23RA036",
-            roles: ["Mechanical Design", "Assembly"],
-            isLeader: false
-        }
-    ];
-
-    const panelStyle = {
-        background: "linear-gradient(145deg, #0f2438, #060d16)",
-        border: "1px solid rgba(18,211,224, 0.35)",
-        boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.75)",
-        backdropFilter: "blur(16px)",
-        borderRadius: "1rem",
-    };
-
     return (
-        <div 
-            ref={containerRef}
-            tabIndex={0}
-            className="min-h-screen w-full flex flex-col items-center justify-center overflow-auto outline-none p-4 sm:p-6 md:p-8" 
-            style={{ background: 'transparent' }}
-        >
-            
-            <div className="w-full max-w-[1400px] flex flex-col gap-6">
-                
-                {/* Top Banner (College Info) */}
-                <motion.div
-                    initial={{ opacity: 0, y: -14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 p-6 sm:p-8 relative overflow-hidden text-center sm:text-left" style={panelStyle}>
-                    <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(18,211,224,0.2), transparent)' }}></div>
-                    
-                    <div className="w-28 h-28 sm:w-36 sm:h-36 bg-white rounded-full flex items-center justify-center p-1 sm:p-2 z-10 relative shadow-[0_0_30px_rgba(18,211,224,0.4)] border-2 border-cyan-500/70 shrink-0 overflow-hidden">
-                        <img 
-                            src="/rrce-logo.jpg" 
-                            alt="College Logo" 
-                            className="w-full h-full object-contain rounded-full" 
-                            style={{ imageRendering: 'high-quality' }}
-                        />
-                    </div>
-                    
-                    <div className="text-center sm:text-left flex flex-col items-center sm:items-start justify-center z-10">
-                        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-wide uppercase drop-shadow-lg mb-2 text-center sm:text-left break-words">
-                            RajaRajeswari College of Engineering
-                        </h2>
-                        <h3 className="text-cyan-500 text-xs sm:text-sm md:text-base font-bold tracking-[0.15em] uppercase mb-1.5">
-                            Department of Robotics and Automation Engineering
-                        </h3>
-                        <p className="text-gray-400 text-[10px] sm:text-xs tracking-widest uppercase mb-1">
-                            Affiliated to Visvesvaraya Technological University, Belagavi
-                        </p>
-                        <p className="text-gray-400 text-[10px] sm:text-xs tracking-widest uppercase">
-                            Bengaluru – 560074
-                        </p>
-                    </div>
-                </motion.div>
+        <div className="home">
+            <TopNav onAbout={() => setAboutOpen(true)} />
 
-                {/* Main Content Split */}
-                <div className="flex flex-col lg:flex-row gap-6">
-                    
-                    {/* Left: Project Hero & Guide */}
-                    <div className="w-full lg:w-5/12 flex flex-col gap-6">
-                        
-                        {/* Project Hero Panel */}
-                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden" style={{...panelStyle, background: 'radial-gradient(circle at center, rgba(18,211,224,0.22) 0%, rgba(10,26,43,0.92) 70%)'}}>
-                            <div className="absolute inset-0 flex justify-center items-center opacity-[0.04] pointer-events-none">
-                                <Bot size={280} />
-                            </div>
-                            
-                            <span className="z-10 px-4 py-1.5 rounded-full border border-cyan-500/50 bg-cyan-950/50 text-cyan-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-6">
-                                Major Project Phase 2
-                            </span>
-                            
-                            <h1 className="z-10 text-6xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-200 to-cyan-600 tracking-tighter mb-4" style={{ filter: 'drop-shadow(0 0 25px rgba(18,211,224,0.4))', fontFamily: '"Orbitron", sans-serif' }}>
-                                VSTY
-                            </h1>
-                            
-                            <div className="z-10 w-16 h-[2px] bg-cyan-500/50 mb-6"></div>
-                            
-                            <h2 className="z-10 text-lg lg:text-xl font-bold text-white max-w-sm leading-relaxed mb-3 tracking-wide">
-                                Autonomous Submersible Micro Robot for Water Inspection & Monitoring
-                            </h2>
-                            
-                            <h3 className="z-10 text-sm font-semibold text-cyan-400 uppercase tracking-widest max-w-sm">
-                                AI-Based Underwater Inspection System
-                            </h3>
-                        </div>
-
-                        {/* Guide Panel */}
-                        <div className="p-6 flex items-center justify-between gap-4" style={panelStyle}>
-                            <div className="flex items-center gap-5">
-                                <label className="w-16 h-16 bg-cyan-950/40 rounded-full flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(18,211,224,0.2)] shrink-0 cursor-pointer overflow-hidden group relative">
-                                    {guidePhoto ? (
-                                        <img src={guidePhoto} alt="Guide" className="w-full h-full object-cover rounded-full" />
-                                    ) : (
-                                        <GraduationCap className="text-cyan-400 group-hover:opacity-0 transition-opacity" size={32} />
-                                    )}
-                                    <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center rounded-full">
-                                        <span className="text-[9px] text-white font-bold uppercase tracking-widest text-center">Change</span>
-                                    </div>
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" 
-                                        onChange={handleGuideUpload} 
-                                    />
-                                </label>
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-cyan-400 font-extrabold uppercase tracking-widest mb-1">Guided By</span>
-                                    <h4 className="text-xl md:text-2xl font-black text-white tracking-wide mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Dr. Vishwanath K C</h4>
-                                    <p className="text-xs text-cyan-200/90 font-bold uppercase tracking-wider mb-0.5">Professor</p>
-                                    <p className="text-[10px] text-gray-300 font-medium uppercase tracking-widest">Dept. of Robotics & Automation Engineering</p>
-                                </div>
-                            </div>
-                            
-                            <div className="text-right border-l border-cyan-500/20 pl-5 flex flex-col justify-center h-full shrink-0">
-                                <p className="text-cyan-500 font-bold tracking-[0.2em] uppercase text-[10px] mb-1">Academic Year</p>
-                                <p className="text-white text-xl md:text-2xl font-black tracking-widest" style={{ fontFamily: '"Orbitron", sans-serif' }}>2026–27</p>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    {/* Right: Team Grid */}
-                    <div className="w-full lg:w-7/12 flex flex-col" style={{...panelStyle, padding: '24px'}}>
-                        
-                        <div className="flex items-center justify-center gap-4 mb-6 pb-4 border-b border-cyan-500/20">
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
-                            <h2 className="text-xl md:text-2xl font-black text-white text-center tracking-[0.25em] uppercase" style={{ fontFamily: '"Orbitron", sans-serif' }}>
-                                Project Team
-                            </h2>
-                            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/50"></div>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 h-full">
-                            {teamMates.map((member, idx) => (
-                                <div key={idx} className="flex flex-col p-5 rounded-xl transition-all border border-cyan-500/20 hover:border-cyan-400/50 shadow-inner h-full justify-between" style={{ background: 'rgba(13, 30, 48, 0.55)' }}>
-                                    
-                                    {/* Top Area: Icon + Name */}
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <label className="w-12 h-12 rounded-full border border-cyan-500/30 shrink-0 flex items-center justify-center bg-black/60 shadow-[0_0_10px_rgba(18,211,224,0.2)] cursor-pointer overflow-hidden group relative">
-                                            {memberPhotos[member.usn] ? (
-                                                <>
-                                                    <img src={memberPhotos[member.usn]} alt={member.name} className="w-full h-full object-cover rounded-full" />
-                                                    <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center rounded-full">
-                                                        <span className="text-[8px] text-white font-bold uppercase tracking-widest text-center">Change</span>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <div className="flex items-center justify-center w-full h-full hover:bg-cyan-900/30 transition-colors">
-                                                    <Users className="text-cyan-400 w-6 h-6" />
-                                                </div>
-                                            )}
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" 
-                                                onChange={(e) => handlePhotoUpload(e, member.usn)} 
-                                            />
-                                        </label>
-                                        
-                                        <div className="flex flex-col">
-                                            <h3 className="text-white text-lg font-bold flex items-center gap-2 tracking-wide">
-                                                {member.name}
-                                                {member.isLeader && <span className="text-[8px] bg-cyan-900/40 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-widest">Leader</span>}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Roles / Skills List */}
-                                    <div className="flex-1 flex flex-col justify-center gap-2 mb-4 pl-1">
-                                        {member.roles.map((role, rIdx) => (
-                                            <div key={rIdx} className="flex items-center gap-2">
-                                                <div className="w-1 h-1 rounded-full bg-cyan-500/70"></div>
-                                                <span className="text-gray-300 text-sm font-medium tracking-wide">{role}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    
-                                    {/* Bottom Footer: USN */}
-                                    <div className="bg-black/80 rounded-lg p-3 border border-cyan-500/20 flex items-center justify-between">
-                                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">USN</span>
-                                        <span className="text-cyan-400 font-bold text-sm tracking-widest" style={{ fontFamily: '"Orbitron", sans-serif' }}>{member.usn}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        
-                    </div>
-
+            {/* ---------------- HERO ---------------- */}
+            <section className="home-hero">
+                <div className="home-hero__bg" aria-hidden>
+                    {Array.from({ length: 7 }).map((_, i) => (
+                        <span key={i} className={`bubble bubble-${i}`} />
+                    ))}
                 </div>
-                
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
-                    className="flex flex-col items-center gap-3 w-full mt-6 mb-4"
-                >
-                    <button
-                        onClick={() => navigate('/login')}
-                        className="group flex items-center gap-3 text-white text-sm sm:text-base font-bold tracking-[0.18em] uppercase bg-gradient-to-r from-cyan-500 to-cyan-700 px-10 py-4 rounded-full border border-cyan-400/40 hover:from-cyan-400 hover:to-cyan-600 transition-all hover:scale-[1.03] active:scale-95 shadow-[0_0_30px_rgba(18,211,224,0.45)]"
+
+                <div className="home-hero__inner">
+                    <motion.div
+                        className="home-banner"
+                        initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
                     >
-                        Initialise Mission Control
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <span className="text-cyan-400/60 text-[11px] tracking-[0.25em] uppercase">or press [ Enter ]</span>
+                        <div className="home-banner__logo">
+                            <img src="/rrce-logo.jpg" alt="College logo" />
+                        </div>
+                        <div className="home-banner__text">
+                            <h2>{INSTITUTION.college}</h2>
+                            <p className="home-banner__dept">{INSTITUTION.department}</p>
+                            <p className="home-banner__meta">{INSTITUTION.affiliation} · {INSTITUTION.city}</p>
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        className="home-hero__content"
+                        initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                    >
+                        <span className="home-wordmark">{PROJECT.phase} · {PROJECT.wordmark}</span>
+                        <h1 className="home-title">{PROJECT.name}</h1>
+                        <p className="home-tagline">{PROJECT.tagline}</p>
+                        <p className="home-desc">{PROJECT.description}</p>
+                        <div className="home-cta">
+                            <Button variant="primary" size="lg" iconLeft={<Rocket size={18} />} onClick={() => navigate("/login")}>
+                                Launch Mission Control
+                            </Button>
+                            <Button variant="secondary" size="lg" iconLeft={<Info size={18} />} onClick={() => setAboutOpen(true)}>
+                                About the Project
+                            </Button>
+                        </div>
+                        <span className="home-hint">or press <kbd>Enter</kbd></span>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ---------------- FEATURES ---------------- */}
+            <motion.section
+                className="home-section"
+                variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
+            >
+                <h3 className="home-section__title">What it does</h3>
+                <motion.div className="home-features" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                    {FEATURES.map(({ icon: Icon, title, text }) => (
+                        <motion.div key={title} className="feature-tile" variants={reveal}>
+                            <span className="feature-tile__icon"><Icon size={22} /></span>
+                            <h4>{title}</h4>
+                            <p>{text}</p>
+                        </motion.div>
+                    ))}
                 </motion.div>
-            </div>
+            </motion.section>
+
+            {/* ---------------- TEAM ---------------- */}
+            <motion.section
+                className="home-section"
+                variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.12 }}
+            >
+                <h3 className="home-section__title"><Users size={18} /> Project Team</h3>
+                <motion.div className="home-team" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.12 }}>
+                    {TEAM.map((m) => (
+                        <motion.div key={m.usn} className="team-card" variants={reveal}>
+                            <div className="team-card__top">
+                                <label className="team-card__avatar" title="Upload photo">
+                                    {memberPhotos[m.usn] ? <img src={memberPhotos[m.usn]} alt={m.name} /> : <Users size={22} />}
+                                    <input type="file" accept="image/*" onChange={(e) => handlePhotoUpload(e, m.usn)} />
+                                </label>
+                                <h4>
+                                    {m.name}
+                                    {m.isLeader && <span className="team-chip">Leader</span>}
+                                </h4>
+                            </div>
+                            <ul className="team-card__roles">
+                                {m.roles.map((r) => (
+                                    <li key={r}><span className="dot" />{r}</li>
+                                ))}
+                            </ul>
+                            <div className="team-card__usn">
+                                <span>USN</span>
+                                <span>{m.usn}</span>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </motion.section>
+
+            {/* ---------------- GUIDE ---------------- */}
+            <motion.section
+                className="home-section"
+                variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}
+            >
+                <div className="home-guide">
+                    <label className="home-guide__avatar" title="Upload photo">
+                        {guidePhoto ? <img src={guidePhoto} alt="Guide" /> : <GraduationCap size={30} />}
+                        <input type="file" accept="image/*" onChange={handleGuideUpload} />
+                    </label>
+                    <div className="home-guide__info">
+                        <span className="home-guide__kicker">Guided By</span>
+                        <h4>{GUIDE.name}</h4>
+                        <p>{GUIDE.title} · {GUIDE.dept}</p>
+                    </div>
+                    <div className="home-guide__year">
+                        <span>Academic Year</span>
+                        <strong>{PROJECT.academicYear}</strong>
+                    </div>
+                </div>
+            </motion.section>
+
+            {/* ---------------- FOOTER ---------------- */}
+            <footer className="home-footer">
+                <div className="home-footer__divider" />
+                <p className="home-footer__main">{INSTITUTION.college}</p>
+                <p className="home-footer__meta">{INSTITUTION.department} · {PROJECT.academicYear} · {INSTITUTION.city}</p>
+            </footer>
+
+            <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
         </div>
     );
 }

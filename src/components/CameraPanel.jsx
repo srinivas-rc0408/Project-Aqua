@@ -148,7 +148,7 @@ export default function CameraPanel() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Grid lines
-      ctx.strokeStyle = "rgba(255, 42, 75, 0.15)";
+      ctx.strokeStyle = "rgba(18,211,224, 0.15)";
       ctx.lineWidth = 1;
       for (let x = 0; x < canvas.width; x += 40) {
         ctx.beginPath();
@@ -173,28 +173,28 @@ export default function CameraPanel() {
 
       ctx.beginPath();
       ctx.arc(0, 0, 140, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 42, 75, 0.4)";
+      ctx.strokeStyle = "rgba(18,211,224, 0.4)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       ctx.beginPath();
       ctx.arc(0, 0, 80, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 42, 75, 0.25)";
+      ctx.strokeStyle = "rgba(18,211,224, 0.25)";
       ctx.stroke();
 
       // Sweeping line
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(Math.cos(angle) * 140, Math.sin(angle) * 140);
-      ctx.strokeStyle = "#ff2a4b";
+      ctx.strokeStyle = "#12d3e0";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Simulated robot central indicator
       ctx.beginPath();
       ctx.arc(0, 0, 6, 0, Math.PI * 2);
-      ctx.fillStyle = "#ff2a4b";
-      ctx.shadowColor = "#ff2a4b";
+      ctx.fillStyle = "#12d3e0";
+      ctx.shadowColor = "#12d3e0";
       ctx.shadowBlur = 20;
       ctx.fill();
 
@@ -202,14 +202,14 @@ export default function CameraPanel() {
       ctx.font = "900 36px 'Arial Black', sans-serif";
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
-      ctx.shadowColor = "#ff2a4b";
+      ctx.shadowColor = "#12d3e0";
       ctx.shadowBlur = 15;
       ctx.fillText("VSTY SUBMERSIBLE", 0, 75);
 
       ctx.restore();
 
       // HUD Overlay details
-      ctx.fillStyle = "#ff2a4b";
+      ctx.fillStyle = "#12d3e0";
       ctx.font = "bold 12px monospace";
       ctx.fillText("● AUTOMATIC VSTY STREAM FEED", 20, 30);
       ctx.fillText(`FPS: 60 | ESP32-CAM NOT CONNECTED 🔴`, canvas.width - 320, 30);
@@ -287,11 +287,11 @@ void loop() { delay(1000); }`;
 
   return (
     <div className="map-card camera-card" style={{
-      background: "#0f0507",
+      background: "#0a1a2b",
       borderRadius: "20px",
       padding: "20px",
-      boxShadow: "0 0 25px rgba(255, 42, 75, .2)",
-      border: "1px solid rgba(255, 42, 75, .3)",
+      boxShadow: "0 0 25px rgba(18,211,224, .2)",
+      border: "1px solid rgba(18,211,224, .3)",
       display: "flex",
       flexDirection: "column",
       gap: "14px"
@@ -301,17 +301,17 @@ void loop() { delay(1000); }`;
       <div className="map-header" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
           <h2 style={{ color: '#ffffff', fontSize: '22px', margin: 0, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Video size={22} className="text-red-500 animate-pulse" />
+            <Video size={22} className="text-cyan-500 animate-pulse" />
             📹 Mission Camera Control
           </h2>
           <span className="map-status" style={{
-            background: espConnected ? '#15803d' : '#ff2a4b',
+            background: espConnected ? '#15803d' : '#12d3e0',
             color: '#ffffff',
             padding: '6px 14px',
             borderRadius: '25px',
             fontWeight: 'bold',
             fontSize: '12px',
-            boxShadow: espConnected ? '0 0 15px rgba(34,197,94,.4)' : '0 0 15px rgba(255,42,75,.4)'
+            boxShadow: espConnected ? '0 0 15px rgba(34,197,94,.4)' : '0 0 15px rgba(18,211,224,.4)'
           }}>
             {espConnected ? "LIVE ESP32" : "STANDBY"}
           </span>
@@ -325,7 +325,7 @@ void loop() { delay(1000); }`;
             value={missionName || ""} 
             onChange={(e) => setMissionName && setMissionName(e.target.value)}
             disabled={missionStarted}
-            style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none' }}
+            style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
           />
           <select 
             value={isCustomEnv ? "Custom" : (inspectionArea || "")} 
@@ -341,7 +341,7 @@ void loop() { delay(1000); }`;
               }
             }}
             disabled={missionStarted}
-            style={{ flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none' }}
+            style={{ flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
           >
             <option value="">Select Inspection Area</option>
             <option value="Water Tank">Water Tank</option>
@@ -360,7 +360,7 @@ void loop() { delay(1000); }`;
               value={inspectionArea || ""} 
               onChange={(e) => setInspectionArea && setInspectionArea(e.target.value)}
               disabled={missionStarted}
-              style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none' }}
+              style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
             />
           )}
         </div>
@@ -374,7 +374,7 @@ void loop() { delay(1000); }`;
         background: "#000000",
         borderRadius: "16px",
         overflow: "hidden",
-        border: "2px solid rgba(255, 42, 75, 0.4)",
+        border: "2px solid rgba(18,211,224, 0.4)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
@@ -419,7 +419,7 @@ void loop() { delay(1000); }`;
           top: "12px",
           left: "12px",
           background: "rgba(15, 5, 7, 0.85)",
-          border: "1px solid rgba(255, 42, 75, 0.5)",
+          border: "1px solid rgba(18,211,224, 0.5)",
           borderRadius: "8px",
           padding: "6px 12px",
           display: "flex",
@@ -432,8 +432,8 @@ void loop() { delay(1000); }`;
             width: "10px",
             height: "10px",
             borderRadius: "50%",
-            background: missionPaused ? "#eab308" : activeSource === "esp-wifi" && espConnected ? "#22c55e" : "#ff2a4b",
-            boxShadow: activeSource === "esp-wifi" && espConnected ? "0 0 10px #22c55e" : "0 0 10px #ff2a4b"
+            background: missionPaused ? "#eab308" : activeSource === "esp-wifi" && espConnected ? "#22c55e" : "#12d3e0",
+            boxShadow: activeSource === "esp-wifi" && espConnected ? "0 0 10px #22c55e" : "0 0 10px #12d3e0"
           }} />
           <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
             {missionPaused ? "MISSION PAUSED" : activeSource === "esp-wifi" ? "ESP32-CAM WIRELESS STREAM" : "LIVE FEED ACTIVE"}
@@ -447,22 +447,22 @@ void loop() { delay(1000); }`;
             top: "12px",
             right: "12px",
             background: "rgba(25, 5, 8, 0.92)",
-            border: "1px solid #ff2a4b",
+            border: "1px solid #12d3e0",
             borderRadius: "8px",
             padding: "8px 14px",
             display: "flex",
             alignItems: "center",
             gap: "10px",
             backdropFilter: "blur(6px)",
-            boxShadow: "0 0 15px rgba(255, 42, 75, 0.4)",
+            boxShadow: "0 0 15px rgba(18,211,224, 0.4)",
             zIndex: 10
           }}>
-            <WifiOff size={16} style={{ color: "#ff2a4b" }} className="animate-pulse" />
+            <WifiOff size={16} style={{ color: "#12d3e0" }} className="animate-pulse" />
             <div>
               <div style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
                 ESP32-CAM NOT CONNECTED
               </div>
-              <div style={{ color: "#a08085", fontSize: "10px", marginTop: "1px" }}>
+              <div style={{ color: "#8296a8", fontSize: "10px", marginTop: "1px" }}>
                 Main MCU: Arduino Nano Active | Video feed standby
               </div>
             </div>

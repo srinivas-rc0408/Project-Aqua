@@ -75,13 +75,13 @@ const createRobotIcon = (heading = 0, isThrusterActive = false) => new L.DivIcon
             width:46px;
             height:46px;
             border-radius:50%;
-            background:#0f0507;
-            border:3px solid ${isThrusterActive ? '#4ade80' : '#ff2a4b'};
+            background:#0a1a2b;
+            border:3px solid ${isThrusterActive ? '#4ade80' : '#12d3e0'};
             display:flex;
             justify-content:center;
             align-items:center;
             font-size:22px;
-            box-shadow: 0 0 ${isThrusterActive ? '20px #4ade80' : '15px #ff2a4b'};
+            box-shadow: 0 0 ${isThrusterActive ? '20px #4ade80' : '15px #12d3e0'};
             position: relative;
         ">
             <span style="display:inline-block; transform: rotate(-45deg);">🤿</span>
@@ -92,7 +92,7 @@ const createRobotIcon = (heading = 0, isThrusterActive = false) => new L.DivIcon
                 height: 0;
                 border-left: 6px solid transparent;
                 border-right: 6px solid transparent;
-                border-bottom: 8px solid ${isThrusterActive ? '#4ade80' : '#ff2a4b'};
+                border-bottom: 8px solid ${isThrusterActive ? '#4ade80' : '#12d3e0'};
             "></div>
         </div>
     </div>
@@ -111,7 +111,7 @@ const createWaypointIcon = (number, isCurrent) => new L.DivIcon({
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: ${isCurrent ? '#facc15' : '#1a080c'};
+            background: ${isCurrent ? '#facc15' : '#0f2438'};
             border: 2px solid ${isCurrent ? '#ffffff' : '#00d9ff'};
             color: ${isCurrent ? '#000000' : '#ffffff'};
             display: flex;
@@ -232,8 +232,8 @@ export default function InteractiveMap(){
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {/* GPS Location Mode & Status Banner */}
             <div style={{
-                background: "linear-gradient(90deg, #130609 0%, #1a080c 100%)",
-                border: "1px solid rgba(255, 42, 75, 0.3)",
+                background: "linear-gradient(90deg, #0a1826 0%, #0f2438 100%)",
+                border: "1px solid rgba(18,211,224, 0.3)",
                 borderRadius: "12px",
                 padding: "8px 14px",
                 display: "flex",
@@ -255,7 +255,7 @@ export default function InteractiveMap(){
                     }}>
                         {locationSource === "BROWSER_GPS" ? "📡 LIVE SYSTEM GPS (1s REFRESH)" : locationSource === "IP_GEOLOCATION" ? "🌐 NETWORK GPS" : "⚙️ MANUAL OVERRIDE"}
                     </span>
-                    <span style={{ color: "#d19ca3", fontSize: "11px" }}>{gpsStatusMessage}</span>
+                    <span style={{ color: "#9fb3c8", fontSize: "11px" }}>{gpsStatusMessage}</span>
                 </div>
 
                 <div style={{ display: "flex", gap: "6px" }}>
@@ -281,9 +281,9 @@ export default function InteractiveMap(){
                         type="button"
                         onClick={() => setShowManualGps(!showManualGps)}
                         style={{
-                            background: showManualGps ? "#ff2a4b" : "rgba(255,42,75,0.15)",
+                            background: showManualGps ? "#12d3e0" : "rgba(18,211,224,0.15)",
                             color: "#ffffff",
-                            border: "1px solid rgba(255,42,75,0.4)",
+                            border: "1px solid rgba(18,211,224,0.4)",
                             borderRadius: "8px",
                             padding: "4px 10px",
                             fontSize: "11px",
@@ -301,8 +301,8 @@ export default function InteractiveMap(){
                 <form
                     onSubmit={applyCustomCoordinates}
                     style={{
-                        background: "#1a080c",
-                        border: "1px solid rgba(255,42,75,0.4)",
+                        background: "#0f2438",
+                        border: "1px solid rgba(18,211,224,0.4)",
                         borderRadius: "12px",
                         padding: "12px",
                         display: "flex",
@@ -312,26 +312,26 @@ export default function InteractiveMap(){
                     }}
                 >
                     <div style={{ display: "flex", gap: "6px", alignItems: "center", flex: 1 }}>
-                        <span style={{ color: "#d19ca3", fontSize: "11px", fontWeight: "bold" }}>LAT:</span>
+                        <span style={{ color: "#9fb3c8", fontSize: "11px", fontWeight: "bold" }}>LAT:</span>
                         <input
                             type="number"
                             step="0.000001"
                             value={customLat}
                             onChange={(e) => setCustomLat(e.target.value)}
-                            style={{ background: "#0f0507", border: "1px solid rgba(255,42,75,0.3)", color: "#fff", padding: "6px 8px", borderRadius: "6px", fontSize: "12px", width: "120px" }}
+                            style={{ background: "#0a1a2b", border: "1px solid rgba(18,211,224,0.3)", color: "#fff", padding: "6px 8px", borderRadius: "6px", fontSize: "12px", width: "120px" }}
                         />
-                        <span style={{ color: "#d19ca3", fontSize: "11px", fontWeight: "bold" }}>LNG:</span>
+                        <span style={{ color: "#9fb3c8", fontSize: "11px", fontWeight: "bold" }}>LNG:</span>
                         <input
                             type="number"
                             step="0.000001"
                             value={customLng}
                             onChange={(e) => setCustomLng(e.target.value)}
-                            style={{ background: "#0f0507", border: "1px solid rgba(255,42,75,0.3)", color: "#fff", padding: "6px 8px", borderRadius: "6px", fontSize: "12px", width: "120px" }}
+                            style={{ background: "#0a1a2b", border: "1px solid rgba(18,211,224,0.3)", color: "#fff", padding: "6px 8px", borderRadius: "6px", fontSize: "12px", width: "120px" }}
                         />
                         <button
                             type="submit"
                             style={{
-                                background: "#ff2a4b",
+                                background: "#12d3e0",
                                 color: "#fff",
                                 border: "none",
                                 borderRadius: "6px",
@@ -368,15 +368,15 @@ export default function InteractiveMap(){
 
             {/* Map Click Mode Selector Bar */}
             <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                <span style={{ color: "#d19ca3", fontSize: "11px", fontWeight: "bold" }}>MAP CLICK ACTION:</span>
+                <span style={{ color: "#9fb3c8", fontSize: "11px", fontWeight: "bold" }}>MAP CLICK ACTION:</span>
                 <button
                     type="button"
                     onClick={() => setMapClickMode("WAYPOINT")}
                     style={{
                         padding: "5px 12px",
                         borderRadius: "6px",
-                        border: "1px solid rgba(255,42,75,0.4)",
-                        background: mapClickMode === "WAYPOINT" ? "#ff2a4b" : "#1a080c",
+                        border: "1px solid rgba(18,211,224,0.4)",
+                        background: mapClickMode === "WAYPOINT" ? "#12d3e0" : "#0f2438",
                         color: "#fff",
                         fontSize: "11px",
                         fontWeight: "bold",
@@ -391,8 +391,8 @@ export default function InteractiveMap(){
                     style={{
                         padding: "5px 12px",
                         borderRadius: "6px",
-                        border: "1px solid rgba(255,42,75,0.4)",
-                        background: mapClickMode === "MOVE_BOT" ? "#4ade80" : "#1a080c",
+                        border: "1px solid rgba(18,211,224,0.4)",
+                        background: mapClickMode === "MOVE_BOT" ? "#4ade80" : "#0f2438",
                         color: mapClickMode === "MOVE_BOT" ? "#000" : "#fff",
                         fontSize: "11px",
                         fontWeight: "bold",
@@ -407,8 +407,8 @@ export default function InteractiveMap(){
                     style={{
                         padding: "5px 12px",
                         borderRadius: "6px",
-                        border: "1px solid rgba(255,42,75,0.4)",
-                        background: mapClickMode === "SET_HOME" ? "#38bdf8" : "#1a080c",
+                        border: "1px solid rgba(18,211,224,0.4)",
+                        background: mapClickMode === "SET_HOME" ? "#38bdf8" : "#0f2438",
                         color: mapClickMode === "SET_HOME" ? "#000" : "#fff",
                         fontSize: "11px",
                         fontWeight: "bold",
@@ -572,7 +572,7 @@ export default function InteractiveMap(){
                     <Popup>
                         <div style={{ textAlign: "center", minWidth: "130px" }}>
                             <b style={{ color: "#00d9ff", fontSize: "13px" }}>📍 Waypoint #{index + 1}</b>
-                            <hr style={{ borderColor: "rgba(255,42,75,0.3)", margin: "4px 0" }} />
+                            <hr style={{ borderColor: "rgba(18,211,224,0.3)", margin: "4px 0" }} />
                             <div style={{ fontSize: "11px", color: "#333" }}>
                                 <b>Lat:</b> {point.lat.toFixed(6)}
                                 <br />
@@ -583,7 +583,7 @@ export default function InteractiveMap(){
                                     onClick={() => removeWaypoint(index)}
                                     style={{
                                         marginTop: "8px",
-                                        background: "#ff2a4b",
+                                        background: "#12d3e0",
                                         color: "#fff",
                                         border: "none",
                                         borderRadius: "6px",
@@ -672,7 +672,7 @@ export default function InteractiveMap(){
     <button className="btn-relocate" onClick={handleRelocate} style={{ background: "linear-gradient(135deg, #e74c3c, #c0392b)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
         📍 Relocate Bot
     </button>
-    <button className="btn-sethome" onClick={() => setHome(robot.latitude, robot.longitude)} style={{ background: "linear-gradient(135deg, #ff2a4b, #be123c)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
+    <button className="btn-sethome" onClick={() => setHome(robot.latitude, robot.longitude)} style={{ background: "linear-gradient(135deg, #12d3e0, #be123c)", color: "white", padding: "10px", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: "bold" }}>
         📍 Set Home
     </button>
 

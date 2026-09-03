@@ -1,14 +1,14 @@
 .detect-card{
 
-background:#0f0507;
+background:#0a1a2b;
 
 padding:20px;
 
 border-radius:18px;
 
-box-shadow:0 0 25px rgba(255,42,75,.2);
+box-shadow:0 0 25px rgba(18,211,224,.2);
 
-border:1px solid rgba(255,42,75,.3);
+border:1px solid rgba(18,211,224,.3);
 
 }
 
@@ -46,7 +46,7 @@ font-weight:bold;
 
 .detect-item{
 
-background:#1a080c;
+background:#0f2438;
 
 padding:16px;
 
@@ -56,7 +56,7 @@ margin-bottom:16px;
 
 transition:.3s;
 
-border:1px solid rgba(255,42,75,0.15);
+border:1px solid rgba(18,211,224,0.15);
 
 }
 
@@ -104,7 +104,7 @@ display:flex;
 
 justify-content:space-between;
 
-color:#d19ca3;
+color:#9fb3c8;
 
 margin-bottom:8px;
 
@@ -114,7 +114,7 @@ margin-bottom:8px;
 
 height:8px;
 
-background:#1a080c;
+background:#0f2438;
 
 border-radius:20px;
 
@@ -155,7 +155,7 @@ margin-bottom:20px;
 
 .stat-box{
 
-background:#1a080c;
+background:#0f2438;
 
 border-radius:12px;
 
@@ -163,7 +163,7 @@ padding:12px;
 
 text-align:center;
 
-border-left:4px solid #ff2a4b;
+border-left:4px solid #12d3e0;
 
 }
 
@@ -171,7 +171,7 @@ border-left:4px solid #ff2a4b;
 
 margin:0;
 
-color:#ff2a4b;
+color:#12d3e0;
 
 font-size:22px;
 
@@ -183,7 +183,7 @@ margin-top:6px;
 
 font-size:13px;
 
-color:#d19ca3;
+color:#9fb3c8;
 
 }
 
@@ -209,11 +209,11 @@ margin-top:20px;
 
 padding:18px;
 
-background:#1a080c;
+background:#0f2438;
 
 border-radius:14px;
 
-border:1px solid rgba(255,42,75,0.2);
+border:1px solid rgba(18,211,224,0.2);
 
 }
 
@@ -258,9 +258,9 @@ border:none;
     border-radius: 10px;
 }
 .detect-scroll-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 42, 75, 0.4);
+    background: rgba(18,211,224, 0.4);
     border-radius: 10px;
 }
 .detect-scroll-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 42, 75, 0.7);
+    background: rgba(18,211,224, 0.7);
 }

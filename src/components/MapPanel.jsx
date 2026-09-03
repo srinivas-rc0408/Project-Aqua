@@ -41,7 +41,7 @@ export default function MapPanel() {
                         value={missionName} 
                         onChange={(e) => setMissionName(e.target.value)}
                         disabled={missionStarted}
-                        style={{flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none'}}
+                        style={{flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none'}}
                     />
                     <select 
                         value={isCustom ? "Custom" : (inspectionArea || "")} 
@@ -57,7 +57,7 @@ export default function MapPanel() {
                             }
                         }}
                         disabled={missionStarted}
-                        style={{flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none'}}
+                        style={{flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none'}}
                     >
                         <option value="">Select Inspection Area</option>
                         <option value="Water Tank">Water Tank</option>
@@ -76,7 +76,7 @@ export default function MapPanel() {
                             value={inspectionArea} 
                             onChange={(e) => setInspectionArea(e.target.value)}
                             disabled={missionStarted}
-                            style={{flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #ff2a4b', background: '#1a080c', color: 'white', outline: 'none'}}
+                            style={{flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none'}}
                         />
                     )}
                 </div>

@@ -17,14 +17,14 @@ function SensorCard({
       case "ERROR":
         return "#ff4d6d";
       default:
-        return "#ff2a4b";
+        return "#12d3e0";
     }
   };
 
   return (
     <div className="sensor-card" style={{ 
-      border: status === "ERROR" ? "1px solid #ff4d6d" : (status === "WARNING" ? "1px solid #ffb703" : "1px solid rgba(255,42,75,0.2)"),
-      backgroundColor: status === "ERROR" ? "rgba(255, 77, 109, 0.15)" : "#1a080c"
+      border: status === "ERROR" ? "1px solid #ff4d6d" : (status === "WARNING" ? "1px solid #ffb703" : "1px solid rgba(18,211,224,0.2)"),
+      backgroundColor: status === "ERROR" ? "rgba(255, 77, 109, 0.15)" : "#0f2438"
     }}>
       <div className="sensor-header">
         <span className="sensor-title">
@@ -59,7 +59,7 @@ function SensorCard({
         </div>
       )}
       {solution && (
-        <div style={{ marginTop: "8px", fontSize: "14px", color: "#ff2a4b" }}>
+        <div style={{ marginTop: "8px", fontSize: "14px", color: "#12d3e0" }}>
           <strong>Fix:</strong> {solution}
         </div>
       )}

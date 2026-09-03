@@ -47,7 +47,7 @@ export default function MapsGroundingPanel() {
         <div style={{
             background: "rgba(22, 10, 16, 0.85)",
             backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255, 42, 75, 0.3)",
+            border: "1px solid rgba(18,211,224, 0.3)",
             borderRadius: "16px",
             padding: "20px",
             color: "#ffffff",
@@ -61,11 +61,11 @@ export default function MapsGroundingPanel() {
                         width: "38px",
                         height: "38px",
                         borderRadius: "10px",
-                        background: "linear-gradient(135deg, #ff2a4b, #990011)",
+                        background: "linear-gradient(135deg, #12d3e0, #990011)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        boxShadow: "0 0 12px rgba(255, 42, 75, 0.5)"
+                        boxShadow: "0 0 12px rgba(18,211,224, 0.5)"
                     }}>
                         <MapPin size={22} color="#ffffff" />
                     </div>
@@ -73,7 +73,7 @@ export default function MapsGroundingPanel() {
                         <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "700", color: "#ffffff", letterSpacing: "0.5px" }}>
                             Google Maps Site Intelligence
                         </h3>
-                        <p style={{ margin: 0, fontSize: "12px", color: "#d19ca3" }}>
+                        <p style={{ margin: 0, fontSize: "12px", color: "#9fb3c8" }}>
                             Grounded in real-time Google Maps data via Gemini 3.5 Flash
                         </p>
                     </div>
@@ -84,8 +84,8 @@ export default function MapsGroundingPanel() {
                     display: "flex",
                     alignItems: "center",
                     gap: "8px",
-                    background: "rgba(255, 42, 75, 0.1)",
-                    border: "1px solid rgba(255, 42, 75, 0.25)",
+                    background: "rgba(18,211,224, 0.1)",
+                    border: "1px solid rgba(18,211,224, 0.25)",
                     borderRadius: "20px",
                     padding: "6px 14px",
                     fontSize: "12px",
@@ -108,7 +108,7 @@ export default function MapsGroundingPanel() {
                         disabled={loading}
                         style={{
                             background: "rgba(255, 255, 255, 0.05)",
-                            border: "1px solid rgba(255, 42, 75, 0.2)",
+                            border: "1px solid rgba(18,211,224, 0.2)",
                             borderRadius: "20px",
                             padding: "6px 12px",
                             color: "#ffd6dc",
@@ -120,12 +120,12 @@ export default function MapsGroundingPanel() {
                             gap: "6px"
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "rgba(255, 42, 75, 0.2)";
-                            e.currentTarget.style.borderColor = "#ff2a4b";
+                            e.currentTarget.style.background = "rgba(18,211,224, 0.2)";
+                            e.currentTarget.style.borderColor = "#12d3e0";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
-                            e.currentTarget.style.borderColor = "rgba(255, 42, 75, 0.2)";
+                            e.currentTarget.style.borderColor = "rgba(18,211,224, 0.2)";
                         }}
                     >
                         {item.label}
@@ -136,7 +136,7 @@ export default function MapsGroundingPanel() {
             {/* Custom Query Search Bar */}
             <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
                 <div style={{ position: "relative", flex: 1 }}>
-                    <Search size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#d19ca3" }} />
+                    <Search size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#9fb3c8" }} />
                     <input
                         type="text"
                         placeholder="Ask Gemini to find nearby inspection targets, water plants, dams, or hardware suppliers..."
@@ -146,7 +146,7 @@ export default function MapsGroundingPanel() {
                             width: "100%",
                             padding: "12px 14px 12px 42px",
                             background: "rgba(0, 0, 0, 0.4)",
-                            border: "1px solid rgba(255, 42, 75, 0.3)",
+                            border: "1px solid rgba(18,211,224, 0.3)",
                             borderRadius: "10px",
                             color: "#ffffff",
                             fontSize: "13px",
@@ -158,7 +158,7 @@ export default function MapsGroundingPanel() {
                     type="submit"
                     disabled={loading}
                     style={{
-                        background: "linear-gradient(135deg, #ff2a4b, #cc001a)",
+                        background: "linear-gradient(135deg, #12d3e0, #cc001a)",
                         color: "#ffffff",
                         border: "none",
                         borderRadius: "10px",
@@ -169,7 +169,7 @@ export default function MapsGroundingPanel() {
                         display: "flex",
                         alignItems: "center",
                         gap: "8px",
-                        boxShadow: "0 4px 14px rgba(255, 42, 75, 0.4)",
+                        boxShadow: "0 4px 14px rgba(18,211,224, 0.4)",
                         whiteSpace: "nowrap"
                     }}
                 >
@@ -198,14 +198,14 @@ export default function MapsGroundingPanel() {
                 <div style={{
                     textAlign: "center",
                     padding: "30px",
-                    color: "#d19ca3",
+                    color: "#9fb3c8",
                     fontSize: "13px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     gap: "10px"
                 }}>
-                    <RefreshCw size={28} style={{ animation: "spin 1s linear infinite", color: "#ff2a4b" }} />
+                    <RefreshCw size={28} style={{ animation: "spin 1s linear infinite", color: "#12d3e0" }} />
                     <div>Retrieving real-time spatial data via <strong>Gemini 3.5 Flash</strong> + <strong>Google Maps Grounding</strong>...</div>
                 </div>
             )}
@@ -223,7 +223,7 @@ export default function MapsGroundingPanel() {
                                 {results.places.map((place, idx) => (
                                     <div key={idx} style={{
                                         background: "rgba(35, 12, 20, 0.7)",
-                                        border: "1px solid rgba(255, 42, 75, 0.25)",
+                                        border: "1px solid rgba(18,211,224, 0.25)",
                                         borderRadius: "12px",
                                         padding: "12px 14px",
                                         display: "flex",
@@ -236,7 +236,7 @@ export default function MapsGroundingPanel() {
                                                 {place.title}
                                             </div>
                                             {place.address && (
-                                                <div style={{ fontSize: "11px", color: "#d19ca3", marginBottom: "6px" }}>
+                                                <div style={{ fontSize: "11px", color: "#9fb3c8", marginBottom: "6px" }}>
                                                     📍 {place.address}
                                                 </div>
                                             )}

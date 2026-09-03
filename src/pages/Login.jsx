@@ -53,29 +53,29 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-[#080203] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[#050b13] flex items-center justify-center p-4">
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="w-full max-w-md bg-[#0f0507] rounded-3xl shadow-2xl overflow-hidden border border-red-500/30"
+                className="w-full max-w-md bg-[#0a1a2b] rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/30"
             >
                 <div className="p-8 sm:p-10">
                     <div className="flex flex-col items-center mb-8">
-                        <div className="w-16 h-16 bg-red-950/60 text-red-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg border border-red-500/30">
+                        <div className="w-16 h-16 bg-cyan-950/60 text-cyan-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg border border-cyan-500/30">
                             <ShieldCheck className="w-8 h-8" />
                         </div>
                         <h2 className="text-2xl font-bold text-white text-center">
                             Welcome Back
                         </h2>
-                        <p className="text-red-300/70 text-sm mt-2 text-center">
+                        <p className="text-cyan-300/70 text-sm mt-2 text-center">
                             Please enter your credentials to continue
                         </p>
                     </div>
 
                     <form className="flex flex-col gap-5" onSubmit={handlePasswordLogin}>
                         {error && (
-                            <div className="bg-red-950/80 text-red-400 p-3 rounded-lg text-sm font-medium border border-red-500/50 text-center">
+                            <div className="bg-cyan-950/80 text-cyan-400 p-3 rounded-lg text-sm font-medium border border-cyan-500/50 text-center">
                                 {error}
                             </div>
                         )}
@@ -89,7 +89,7 @@ export default function Login() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 style={{ paddingLeft: '3.25rem', paddingRight: '1rem' }}
-                                className="w-full bg-[#1a080c] border border-red-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all leading-normal"
+                                className="w-full bg-[#0f2438] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
                                 required
                             />
                         </div>
@@ -103,7 +103,7 @@ export default function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 style={{ paddingLeft: '3.25rem', paddingRight: '3.25rem' }}
-                                className="w-full bg-[#1a080c] border border-red-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all leading-normal"
+                                className="w-full bg-[#0f2438] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
                                 required
                             />
                             <button 
@@ -117,10 +117,10 @@ export default function Login() {
 
                         <div className="flex items-center justify-between text-sm mt-1">
                             <label className="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-white transition-colors">
-                                <input type="checkbox" className="rounded text-red-500 focus:ring-red-500 accent-red-500 w-4 h-4" /> 
+                                <input type="checkbox" className="rounded text-cyan-500 focus:ring-cyan-500 accent-cyan-500 w-4 h-4" /> 
                                 Remember me
                             </label>
-                            <button type="button" className="text-red-400 font-medium hover:text-red-300 transition-colors">
+                            <button type="button" className="text-cyan-400 font-medium hover:text-cyan-300 transition-colors">
                                 Forgot password?
                             </button>
                         </div>
@@ -128,17 +128,17 @@ export default function Login() {
                         <button 
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 mt-4 transition-all shadow-lg shadow-red-600/30 disabled:opacity-70"
+                            className="w-full bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-500 hover:to-cyan-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 mt-4 transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-70"
                         >
                             {isLoading ? 'Authenticating...' : 'Sign In'} <ArrowRight className="w-5 h-5" />
                         </button>
                     </form>
                 </div>
                 
-                <div className="bg-[#180609] border-t border-red-500/20 p-4 flex justify-between items-center text-xs text-gray-400 font-medium px-8">
+                <div className="bg-[#0d1f30] border-t border-cyan-500/20 p-4 flex justify-between items-center text-xs text-gray-400 font-medium px-8">
                     <div className="flex items-center gap-1.5"><Activity className="w-3.5 h-3.5 text-green-400" /> Status: Online</div>
                     <div className="flex items-center gap-1.5"><Database className="w-3.5 h-3.5 text-green-400" /> Secure</div>
-                    <div className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-red-400" /> v2.4.1</div>
+                    <div className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-cyan-400" /> v2.4.1</div>
                 </div>
             </motion.div>
         </div>

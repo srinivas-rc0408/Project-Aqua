@@ -10,7 +10,7 @@ export default function LoadingAnimation() {
         inset: 0,
         display: "grid",
         placeItems: "center",
-        background: "#080304",
+        background: "#060d16",
         zIndex: 40,
       }}
     >
@@ -19,10 +19,10 @@ export default function LoadingAnimation() {
           width: 46,
           height: 46,
           borderRadius: "50%",
-          border: "3px solid rgba(255,42,75,0.18)",
-          borderTopColor: "#ff2a4b",
+          border: "3px solid rgba(18,211,224,0.18)",
+          borderTopColor: "#12d3e0",
           animation: "sub-spin 0.75s linear infinite",
-          boxShadow: "0 0 24px rgba(255,42,75,0.25)",
+          boxShadow: "0 0 24px rgba(18,211,224,0.25)",
         }}
       />
       <style>{`@keyframes sub-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion: reduce){[role=status] div{animation-duration:1.6s}}`}</style>

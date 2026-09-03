@@ -12,7 +12,7 @@ export default function Welcome() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                className="relative z-10 w-full max-w-4xl p-8 md:p-12 bg-gradient-to-br from-[#1a080c] to-[#080203] backdrop-blur-2xl border border-red-500/30 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center"
+                className="relative z-10 w-full max-w-4xl p-8 md:p-12 bg-gradient-to-br from-[#0f2438] to-[#050b13] backdrop-blur-2xl border border-cyan-500/30 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center"
             >
                 <motion.h1 
                     initial={{ opacity: 0, y: -20 }}
@@ -28,7 +28,7 @@ export default function Welcome() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 0.8 }}
-                    className="text-red-300 text-lg md:text-xl font-bold tracking-wider mb-12 text-center max-w-lg drop-shadow-md"
+                    className="text-cyan-300 text-lg md:text-xl font-bold tracking-wider mb-12 text-center max-w-lg drop-shadow-md"
                 >
                     Ready to begin your underwater inspection mission?
                 </motion.p>
@@ -39,9 +39,9 @@ export default function Welcome() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2, duration: 0.5 }}
                         onClick={() => navigate('/main')}
-                        className="group relative flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 to-red-800 text-white shadow-[0_0_20px_rgba(255,42,75,0.4)] hover:shadow-[0_0_30px_rgba(255,42,75,0.6)] px-8 py-5 rounded-2xl font-black uppercase tracking-widest overflow-hidden transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
+                        className="group relative flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-600 to-cyan-800 text-white shadow-[0_0_20px_rgba(18,211,224,0.4)] hover:shadow-[0_0_30px_rgba(18,211,224,0.6)] px-8 py-5 rounded-2xl font-black uppercase tracking-widest overflow-hidden transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
                     >
-                        <div className="absolute inset-0 bg-red-500/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                        <div className="absolute inset-0 bg-cyan-500/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
                         <span className="relative z-10">Enter Mission</span>
                         <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                     </motion.button>
@@ -55,21 +55,21 @@ export default function Welcome() {
                 >
                     <button 
                         onClick={() => navigate('/')}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2a0c12] hover:bg-red-900/40 border border-red-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#163048] hover:bg-cyan-900/40 border border-cyan-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
                     >
-                        <Info className="w-4 h-4 text-red-400" /> System Information
+                        <Info className="w-4 h-4 text-cyan-400" /> System Information
                     </button>
                     <button 
                         onClick={() => navigate('/')}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2a0c12] hover:bg-red-900/40 border border-red-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#163048] hover:bg-cyan-900/40 border border-cyan-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
                     >
-                        <ShieldAlert className="w-4 h-4 text-red-400" /> About Project
+                        <ShieldAlert className="w-4 h-4 text-cyan-400" /> About Project
                     </button>
                     <button 
                         onClick={() => navigate('/')}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2a0c12] hover:bg-red-900/40 border border-red-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#163048] hover:bg-cyan-900/40 border border-cyan-500/30 text-white text-sm font-bold tracking-wide transition-colors drop-shadow-md backdrop-blur-md"
                     >
-                        <Users className="w-4 h-4 text-red-400" /> Team
+                        <Users className="w-4 h-4 text-cyan-400" /> Team
                     </button>
                 </motion.div>
             </motion.div>

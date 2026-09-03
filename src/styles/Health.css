@@ -1,6 +1,6 @@
 .health-card{
 
-background:#0f0507;
+background:#0a1a2b;
 
 padding:20px;
 
@@ -8,9 +8,9 @@ border-radius:18px;
 
 margin-top:20px;
 
-box-shadow:0 0 25px rgba(255,42,75,.2);
+box-shadow:0 0 25px rgba(18,211,224,.2);
 
-border:1px solid rgba(255,42,75,.3);
+border:1px solid rgba(18,211,224,.3);
 
 }
 
@@ -58,13 +58,13 @@ gap:18px;
 
 .health-item{
 
-background:#1a080c;
+background:#0f2438;
 
 padding:16px;
 
 border-radius:14px;
 
-border:1px solid rgba(255,42,75,0.15);
+border:1px solid rgba(18,211,224,0.15);
 
 }
 
@@ -84,7 +84,7 @@ color:#ffffff;
 
 height:10px;
 
-background:#180609;
+background:#0d1f30;
 
 border-radius:20px;
 

@@ -107,8 +107,8 @@ export default function Main() {
     ];
 
     const panelStyle = {
-        background: "linear-gradient(145deg, #1a080c, #0a0304)",
-        border: "1px solid rgba(255, 42, 75, 0.35)",
+        background: "linear-gradient(145deg, #0f2438, #0a0304)",
+        border: "1px solid rgba(18,211,224, 0.35)",
         boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.75)",
         backdropFilter: "blur(16px)",
         borderRadius: "1rem",
@@ -126,9 +126,9 @@ export default function Main() {
                 
                 {/* Top Banner (College Info) */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 p-6 sm:p-8 relative overflow-hidden text-center sm:text-left" style={panelStyle}>
-                    <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,42,75,0.2), transparent)' }}></div>
+                    <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(18,211,224,0.2), transparent)' }}></div>
                     
-                    <div className="w-28 h-28 sm:w-36 sm:h-36 bg-white rounded-full flex items-center justify-center p-1 sm:p-2 z-10 relative shadow-[0_0_30px_rgba(255,42,75,0.4)] border-2 border-red-500/70 shrink-0 overflow-hidden">
+                    <div className="w-28 h-28 sm:w-36 sm:h-36 bg-white rounded-full flex items-center justify-center p-1 sm:p-2 z-10 relative shadow-[0_0_30px_rgba(18,211,224,0.4)] border-2 border-cyan-500/70 shrink-0 overflow-hidden">
                         <img 
                             src="/rrce-logo.jpg" 
                             alt="College Logo" 
@@ -141,7 +141,7 @@ export default function Main() {
                         <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-wide uppercase drop-shadow-lg mb-2 text-center sm:text-left break-words">
                             RajaRajeswari College of Engineering
                         </h2>
-                        <h3 className="text-red-500 text-xs sm:text-sm md:text-base font-bold tracking-[0.15em] uppercase mb-1.5">
+                        <h3 className="text-cyan-500 text-xs sm:text-sm md:text-base font-bold tracking-[0.15em] uppercase mb-1.5">
                             Department of Robotics and Automation Engineering
                         </h3>
                         <p className="text-gray-400 text-[10px] sm:text-xs tracking-widest uppercase mb-1">
@@ -160,26 +160,26 @@ export default function Main() {
                     <div className="w-full lg:w-5/12 flex flex-col gap-6">
                         
                         {/* Project Hero Panel */}
-                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden" style={{...panelStyle, background: 'radial-gradient(circle at center, rgba(128,0,20,0.35) 0%, rgba(15,5,7,0.9) 100%)'}}>
+                        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden" style={{...panelStyle, background: 'radial-gradient(circle at center, rgba(128,0,20,0.35) 0%, rgba(10,26,43,0.9) 100%)'}}>
                             <div className="absolute inset-0 flex justify-center items-center opacity-[0.04] pointer-events-none">
                                 <Bot size={280} />
                             </div>
                             
-                            <span className="z-10 px-4 py-1.5 rounded-full border border-red-500/50 bg-red-950/50 text-red-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-6">
+                            <span className="z-10 px-4 py-1.5 rounded-full border border-cyan-500/50 bg-cyan-950/50 text-cyan-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-6">
                                 Major Project Phase 2
                             </span>
                             
-                            <h1 className="z-10 text-6xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-red-200 to-red-600 tracking-tighter mb-4" style={{ filter: 'drop-shadow(0 0 25px rgba(255,42,75,0.4))', fontFamily: '"Orbitron", sans-serif' }}>
+                            <h1 className="z-10 text-6xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-200 to-cyan-600 tracking-tighter mb-4" style={{ filter: 'drop-shadow(0 0 25px rgba(18,211,224,0.4))', fontFamily: '"Orbitron", sans-serif' }}>
                                 VSTY
                             </h1>
                             
-                            <div className="z-10 w-16 h-[2px] bg-red-500/50 mb-6"></div>
+                            <div className="z-10 w-16 h-[2px] bg-cyan-500/50 mb-6"></div>
                             
                             <h2 className="z-10 text-lg lg:text-xl font-bold text-white max-w-sm leading-relaxed mb-3 tracking-wide">
                                 Autonomous Submersible Micro Robot for Water Inspection & Monitoring
                             </h2>
                             
-                            <h3 className="z-10 text-sm font-semibold text-red-400 uppercase tracking-widest max-w-sm">
+                            <h3 className="z-10 text-sm font-semibold text-cyan-400 uppercase tracking-widest max-w-sm">
                                 AI-Based Underwater Inspection System
                             </h3>
                         </div>
@@ -187,11 +187,11 @@ export default function Main() {
                         {/* Guide Panel */}
                         <div className="p-6 flex items-center justify-between gap-4" style={panelStyle}>
                             <div className="flex items-center gap-5">
-                                <label className="w-16 h-16 bg-red-950/40 rounded-full flex items-center justify-center border border-red-500/30 shadow-[0_0_15px_rgba(255,42,75,0.2)] shrink-0 cursor-pointer overflow-hidden group relative">
+                                <label className="w-16 h-16 bg-cyan-950/40 rounded-full flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(18,211,224,0.2)] shrink-0 cursor-pointer overflow-hidden group relative">
                                     {guidePhoto ? (
                                         <img src={guidePhoto} alt="Guide" className="w-full h-full object-cover rounded-full" />
                                     ) : (
-                                        <GraduationCap className="text-red-400 group-hover:opacity-0 transition-opacity" size={32} />
+                                        <GraduationCap className="text-cyan-400 group-hover:opacity-0 transition-opacity" size={32} />
                                     )}
                                     <div className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center rounded-full">
                                         <span className="text-[9px] text-white font-bold uppercase tracking-widest text-center">Change</span>
@@ -204,15 +204,15 @@ export default function Main() {
                                     />
                                 </label>
                                 <div className="flex flex-col">
-                                    <span className="text-xs text-red-400 font-extrabold uppercase tracking-widest mb-1">Guided By</span>
+                                    <span className="text-xs text-cyan-400 font-extrabold uppercase tracking-widest mb-1">Guided By</span>
                                     <h4 className="text-xl md:text-2xl font-black text-white tracking-wide mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Dr. Vishwanath K C</h4>
-                                    <p className="text-xs text-red-200/90 font-bold uppercase tracking-wider mb-0.5">Professor</p>
+                                    <p className="text-xs text-cyan-200/90 font-bold uppercase tracking-wider mb-0.5">Professor</p>
                                     <p className="text-[10px] text-gray-300 font-medium uppercase tracking-widest">Dept. of Robotics & Automation Engineering</p>
                                 </div>
                             </div>
                             
-                            <div className="text-right border-l border-red-500/20 pl-5 flex flex-col justify-center h-full shrink-0">
-                                <p className="text-red-500 font-bold tracking-[0.2em] uppercase text-[10px] mb-1">Academic Year</p>
+                            <div className="text-right border-l border-cyan-500/20 pl-5 flex flex-col justify-center h-full shrink-0">
+                                <p className="text-cyan-500 font-bold tracking-[0.2em] uppercase text-[10px] mb-1">Academic Year</p>
                                 <p className="text-white text-xl md:text-2xl font-black tracking-widest" style={{ fontFamily: '"Orbitron", sans-serif' }}>2026–27</p>
                             </div>
                         </div>
@@ -222,21 +222,21 @@ export default function Main() {
                     {/* Right: Team Grid */}
                     <div className="w-full lg:w-7/12 flex flex-col" style={{...panelStyle, padding: '24px'}}>
                         
-                        <div className="flex items-center justify-center gap-4 mb-6 pb-4 border-b border-red-500/20">
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-red-500/50"></div>
+                        <div className="flex items-center justify-center gap-4 mb-6 pb-4 border-b border-cyan-500/20">
+                            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
                             <h2 className="text-xl md:text-2xl font-black text-white text-center tracking-[0.25em] uppercase" style={{ fontFamily: '"Orbitron", sans-serif' }}>
                                 Project Team
                             </h2>
-                            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-red-500/50"></div>
+                            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/50"></div>
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 h-full">
                             {teamMates.map((member, idx) => (
-                                <div key={idx} className="flex flex-col p-5 rounded-xl transition-all border border-red-500/20 shadow-inner h-full justify-between" style={{ background: 'rgba(26, 8, 12, 0.6)' }}>
+                                <div key={idx} className="flex flex-col p-5 rounded-xl transition-all border border-cyan-500/20 shadow-inner h-full justify-between" style={{ background: 'rgba(26, 8, 12, 0.6)' }}>
                                     
                                     {/* Top Area: Icon + Name */}
                                     <div className="flex items-center gap-4 mb-4">
-                                        <label className="w-12 h-12 rounded-full border border-red-500/30 shrink-0 flex items-center justify-center bg-black/60 shadow-[0_0_10px_rgba(255,42,75,0.2)] cursor-pointer overflow-hidden group relative">
+                                        <label className="w-12 h-12 rounded-full border border-cyan-500/30 shrink-0 flex items-center justify-center bg-black/60 shadow-[0_0_10px_rgba(18,211,224,0.2)] cursor-pointer overflow-hidden group relative">
                                             {memberPhotos[member.usn] ? (
                                                 <>
                                                     <img src={memberPhotos[member.usn]} alt={member.name} className="w-full h-full object-cover rounded-full" />
@@ -245,8 +245,8 @@ export default function Main() {
                                                     </div>
                                                 </>
                                             ) : (
-                                                <div className="flex items-center justify-center w-full h-full hover:bg-red-900/30 transition-colors">
-                                                    <Users className="text-red-400 w-6 h-6" />
+                                                <div className="flex items-center justify-center w-full h-full hover:bg-cyan-900/30 transition-colors">
+                                                    <Users className="text-cyan-400 w-6 h-6" />
                                                 </div>
                                             )}
                                             <input 
@@ -260,7 +260,7 @@ export default function Main() {
                                         <div className="flex flex-col">
                                             <h3 className="text-white text-lg font-bold flex items-center gap-2 tracking-wide">
                                                 {member.name}
-                                                {member.isLeader && <span className="text-[8px] bg-red-900/40 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded uppercase tracking-widest">Leader</span>}
+                                                {member.isLeader && <span className="text-[8px] bg-cyan-900/40 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-widest">Leader</span>}
                                             </h3>
                                         </div>
                                     </div>
@@ -269,16 +269,16 @@ export default function Main() {
                                     <div className="flex-1 flex flex-col justify-center gap-2 mb-4 pl-1">
                                         {member.roles.map((role, rIdx) => (
                                             <div key={rIdx} className="flex items-center gap-2">
-                                                <div className="w-1 h-1 rounded-full bg-red-500/70"></div>
+                                                <div className="w-1 h-1 rounded-full bg-cyan-500/70"></div>
                                                 <span className="text-gray-300 text-sm font-medium tracking-wide">{role}</span>
                                             </div>
                                         ))}
                                     </div>
                                     
                                     {/* Bottom Footer: USN */}
-                                    <div className="bg-black/80 rounded-lg p-3 border border-red-500/20 flex items-center justify-between">
+                                    <div className="bg-black/80 rounded-lg p-3 border border-cyan-500/20 flex items-center justify-between">
                                         <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">USN</span>
-                                        <span className="text-red-400 font-bold text-sm tracking-widest" style={{ fontFamily: '"Orbitron", sans-serif' }}>{member.usn}</span>
+                                        <span className="text-cyan-400 font-bold text-sm tracking-widest" style={{ fontFamily: '"Orbitron", sans-serif' }}>{member.usn}</span>
                                     </div>
                                 </div>
                             ))}
@@ -289,7 +289,7 @@ export default function Main() {
                 </div>
                 
                 <div className="flex justify-center items-center text-center w-full mt-6 mb-4 cursor-pointer" onClick={() => navigate('/login')}>
-                    <span className="text-red-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase drop-shadow-[0_0_15px_rgba(255,42,75,0.7)] bg-red-950/80 px-8 py-4 rounded-full border border-red-500/60 hover:bg-red-800/60 hover:text-white transition-all hover:scale-105 active:scale-95 animate-levitate mx-auto flex items-center justify-center text-center shadow-[0_0_25px_rgba(255,42,75,0.4)]">
+                    <span className="text-cyan-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase drop-shadow-[0_0_15px_rgba(18,211,224,0.7)] bg-cyan-950/80 px-8 py-4 rounded-full border border-cyan-500/60 hover:bg-cyan-800/60 hover:text-white transition-all hover:scale-105 active:scale-95 animate-levitate mx-auto flex items-center justify-center text-center shadow-[0_0_25px_rgba(18,211,224,0.4)]">
                         Press [ENTER] to initialise mission control
                     </span>
                 </div>

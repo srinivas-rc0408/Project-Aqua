@@ -6,7 +6,7 @@
   height: 100vh;
   z-index: -10;
   overflow: hidden;
-  background-color: #060203;
+  background-color: #04090f;
 }
 
 .water-gradient {
@@ -15,7 +15,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% -20%, #3a080f 0%, #170306 40%, #060203 100%);
+  background: radial-gradient(circle at 50% -20%, #123049 0%, #08131f 40%, #04090f 100%);
   opacity: 0.95;
 }
 
@@ -29,10 +29,10 @@
   background: repeating-linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 40, 70, 0.08) 2%,
+    rgba(18,211,224, 0.08) 2%,
     transparent 4%,
     transparent 6%,
-    rgba(255, 40, 70, 0.12) 8%,
+    rgba(18,211,224, 0.12) 8%,
     transparent 10%
   );
   transform: perspective(500px) rotateX(45deg);
@@ -59,8 +59,8 @@
   width: 100%;
   height: 100%;
   background-image: 
-    linear-gradient(rgba(255, 40, 70, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 40, 70, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(18,211,224, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18,211,224, 0.12) 1px, transparent 1px);
   background-size: 50px 50px;
   transform: perspective(500px) rotateX(60deg);
   transform-origin: bottom center;
@@ -90,11 +90,11 @@
 .bubble {
   position: absolute;
   bottom: -50px;
-  background: rgba(255, 40, 70, 0.12);
-  border: 1px solid rgba(255, 40, 70, 0.35);
+  background: rgba(18,211,224, 0.12);
+  border: 1px solid rgba(18,211,224, 0.35);
   border-radius: 50%;
   animation: floatUp linear infinite;
-  box-shadow: inset 0 0 10px rgba(255, 40, 70, 0.25), 0 0 5px rgba(255, 40, 70, 0.2);
+  box-shadow: inset 0 0 10px rgba(18,211,224, 0.25), 0 0 5px rgba(18,211,224, 0.2);
 }
 
 @keyframes floatUp {

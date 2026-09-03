@@ -7,16 +7,16 @@
    ============================================================ */
 :root{
     /* surfaces & text */
-    --bg:#080304;
-    --surface:#0f0507;
-    --surface-2:#1a080c;
+    --bg:#060d16;
+    --surface:#0a1a2b;
+    --surface-2:#0f2438;
     --text:#f1f5f9;
-    --text-muted:#d19ca3;
+    --text-muted:#9fb3c8;
 
     /* brand accents */
-    --accent:#ff2a4b;
-    --accent-strong:#ff1a3c;
-    --accent-deep:#990019;
+    --accent:#12d3e0;
+    --accent-strong:#2ee6f0;
+    --accent-deep:#0a6b78;
 
     /* status */
     --ok:#22c55e;

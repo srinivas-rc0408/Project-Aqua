@@ -71,10 +71,10 @@ export default function Splash() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="flex flex-col items-center mb-16"
                 >
-                    <div className="w-24 h-24 bg-red-950/60 rounded-3xl flex items-center justify-center border border-red-500/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-8 relative overflow-hidden backdrop-blur-md">
-                        <Navigation className="w-12 h-12 text-red-500 drop-shadow-md" />
+                    <div className="w-24 h-24 bg-cyan-950/60 rounded-3xl flex items-center justify-center border border-cyan-500/40 shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-8 relative overflow-hidden backdrop-blur-md">
+                        <Navigation className="w-12 h-12 text-cyan-500 drop-shadow-md" />
                         <motion.div
-                            className="absolute inset-0 bg-gradient-to-t from-red-500/20 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-t from-cyan-500/20 to-transparent"
                             animate={{ y: ["100%", "-100%"] }}
                             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                         />
@@ -84,19 +84,19 @@ export default function Splash() {
                         <br />
                         Micro Robot
                     </h1>
-                    <p className="text-red-500 tracking-[0.2em] text-sm md:text-base font-bold uppercase opacity-90 text-center drop-shadow-md">
+                    <p className="text-cyan-500 tracking-[0.2em] text-sm md:text-base font-bold uppercase opacity-90 text-center drop-shadow-md">
                         AI Powered Ocean Inspection System
                     </p>
                 </motion.div>
 
                 {/* Loading Status */}
-                <div className="w-full max-w-md flex flex-col items-center bg-[#1a080c]/80 p-6 rounded-3xl backdrop-blur-md border border-red-500/30 shadow-2xl">
-                    <div className="flex justify-between w-full text-xs font-bold font-mono text-red-300 mb-3 px-1 drop-shadow-md">
+                <div className="w-full max-w-md flex flex-col items-center bg-[#0f2438]/80 p-6 rounded-3xl backdrop-blur-md border border-cyan-500/30 shadow-2xl">
+                    <div className="flex justify-between w-full text-xs font-bold font-mono text-cyan-300 mb-3 px-1 drop-shadow-md">
                         <span className="uppercase flex items-center gap-2">
                             <motion.span
                                 animate={{ opacity: [1, 0, 1] }}
                                 transition={{ duration: 1, repeat: Infinity }}
-                                className="w-2 h-2 rounded-full bg-red-500 inline-block shadow-[0_0_8px_rgba(255,42,75,1)]"
+                                className="w-2 h-2 rounded-full bg-cyan-500 inline-block shadow-[0_0_8px_rgba(18,211,224,1)]"
                             />
                             Scanning...
                         </span>
@@ -104,9 +104,9 @@ export default function Splash() {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden relative mb-5 border border-red-500/20">
+                    <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden relative mb-5 border border-cyan-500/20">
                         <motion.div 
-                            className="h-full bg-gradient-to-r from-red-800 via-red-500 to-red-300 shadow-[0_0_10px_rgba(255,42,75,0.8)]"
+                            className="h-full bg-gradient-to-r from-cyan-800 via-cyan-500 to-cyan-300 shadow-[0_0_10px_rgba(18,211,224,0.8)]"
                             style={{ width: `${progress}%` }}
                         />
                         {/* Scanning beam effect */}
@@ -126,7 +126,7 @@ export default function Splash() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -15 }}
                                 transition={{ duration: 0.3 }}
-                                className="text-xs font-bold font-mono text-red-400 flex items-center gap-2 tracking-wider uppercase drop-shadow-md"
+                                className="text-xs font-bold font-mono text-cyan-400 flex items-center gap-2 tracking-wider uppercase drop-shadow-md"
                             >
                                 {stages[loadingStage]?.icon}
                                 {stages[loadingStage]?.text}

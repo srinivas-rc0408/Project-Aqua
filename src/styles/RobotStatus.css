@@ -1,14 +1,14 @@
 .robot-card{
 
-background:#0f0507;
+background:#0a1a2b;
 
 padding:20px;
 
 border-radius:18px;
 
-box-shadow:0 0 25px rgba(255,42,75,.2);
+box-shadow:0 0 25px rgba(18,211,224,.2);
 
-border:1px solid rgba(255,42,75,.3);
+border:1px solid rgba(18,211,224,.3);
 
 }
 
@@ -32,7 +32,7 @@ gap:15px;
 
 .robot-item{
 
-background:#1a080c;
+background:#0f2438;
 
 padding:16px;
 
@@ -40,13 +40,13 @@ border-radius:14px;
 
 color:#ffffff;
 
-border:1px solid rgba(255,42,75,0.15);
+border:1px solid rgba(18,211,224,0.15);
 
 }
 
 .robot-name{
 
-color:#d19ca3;
+color:#9fb3c8;
 
 font-size:14px;
 

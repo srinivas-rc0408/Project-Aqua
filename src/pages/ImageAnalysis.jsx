@@ -193,7 +193,7 @@ return (
                     <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #7b61ff, #6d28d9)'}} onClick={handleUploadClick}>
                         📤 Upload Image
                     </button>
-                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #ff2a4b, #b91c1c)'}} onClick={() => navigate("/history")}>
+                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #12d3e0, #b91c1c)'}} onClick={() => navigate("/history")}>
                         🕒 View History
                     </button>
                     <input 
@@ -231,10 +231,10 @@ return (
                                 <div style={{
                                     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, 
                                     background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', 
-                                    justifyContent: 'center', flexDirection: 'column', color: '#ff2a4b',
+                                    justifyContent: 'center', flexDirection: 'column', color: '#12d3e0',
                                     borderRadius: '12px'
                                 }}>
-                                    <div className="spinner" style={{width: '50px', height: '50px', border: '4px solid #ff2a4b', borderTop: '4px solid transparent', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div>
+                                    <div className="spinner" style={{width: '50px', height: '50px', border: '4px solid #12d3e0', borderTop: '4px solid transparent', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div>
                                     <style>{'@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }'}</style>
                                     <h3 style={{marginTop: '15px'}}>AI is Processing...</h3>
                                 </div>

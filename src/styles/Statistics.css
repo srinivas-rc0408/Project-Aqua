@@ -1,14 +1,14 @@
 .statistics-card{
 
-background:#0f0507;
+background:#0a1a2b;
 
 padding:20px;
 
 border-radius:18px;
 
-box-shadow:0 0 25px rgba(255,42,75,.2);
+box-shadow:0 0 25px rgba(18,211,224,.2);
 
-border:1px solid rgba(255,42,75,.3);
+border:1px solid rgba(18,211,224,.3);
 
 }
 
@@ -62,7 +62,7 @@ align-items:center;
 
 gap:16px;
 
-background:#1a080c;
+background:#0f2438;
 
 padding:18px;
 
@@ -70,7 +70,7 @@ border-radius:14px;
 
 transition:.3s;
 
-border:1px solid rgba(255,42,75,0.15);
+border:1px solid rgba(18,211,224,0.15);
 
 }
 
@@ -78,7 +78,7 @@ border:1px solid rgba(255,42,75,0.15);
 
 transform:translateY(-4px);
 
-box-shadow:0 0 18px rgba(255,42,75,.3);
+box-shadow:0 0 18px rgba(18,211,224,.3);
 
 }
 
@@ -98,13 +98,13 @@ align-items:center;
 
 font-size:26px;
 
-color:#ff2a4b;
+color:#12d3e0;
 
 }
 
 .statistics-title{
 
-color:#d19ca3;
+color:#9fb3c8;
 
 font-size:14px;
 

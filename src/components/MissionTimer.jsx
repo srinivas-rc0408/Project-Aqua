@@ -52,7 +52,7 @@ export default function MissionTimer() {
             setIsRunning(false);
             setTime(0);
           }}
-          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          className="p-2 text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
           title="Reset Timer"
         >
           <Square className="w-5 h-5 fill-current" />

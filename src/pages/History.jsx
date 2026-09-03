@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import TopNav from "../components/TopNav";
 import { useNavigate } from "react-router-dom";
 import { generateInspectionReport } from "../utils/pdfGenerator";
 import { confirmDialog } from "../components/ConfirmDialog";
@@ -33,6 +34,7 @@ export default function History() {
 
     return (
         <div className="history-page">
+            <TopNav />
             <Header />
             <div className="page-toolbar" style={{ margin: '20px' }}>
                 <button 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TopNav from "../components/TopNav";
 import { useNavigate } from "react-router-dom";
 import { Activity } from "lucide-react";
 import Header from "../components/Header";
@@ -49,6 +50,7 @@ export default function Dashboard() {
 
     return (
         <div className="dashboard">
+            <TopNav />
             
             <Header />
             {/* TOP 3-COMPONENT MAIN GRID: CAMERA 60% (LEFT) | MISSION STATUS + TOOLBAR 40% (RIGHT) */}

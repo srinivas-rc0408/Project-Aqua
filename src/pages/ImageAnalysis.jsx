@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import TopNav from "../components/TopNav";
 import { useNavigate } from "react-router-dom";
 import { useMission } from "../context/MissionContext";
 import { toast } from "../components/Toast";
@@ -172,6 +173,7 @@ export default function ImageAnalysis() {
     };
 return (
         <div className="analysis-page">
+            <TopNav />
             <Header />
             <div className="page-toolbar" style={{ margin: '20px' }}>
                 <button 

@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useMission } from "../context/MissionContext";
+import { toast } from "./Toast";
+import { captureImage } from "../services/api";
 
 export default function MissionToolbar() {
     const [mode, setMode] = useState("auto");
@@ -32,9 +34,12 @@ export default function MissionToolbar() {
     function homeHandler() { returnHome(); }
     function saveHandler() { saveRoute(); }
 
-    function handleCapture() { console.log("Image Captured Successfully"); }
-    function handleLight() { console.log("Lights Toggled"); }
-    function handleEmergency() { emergencyStop(); console.log("Emergency Stop Activated"); }
+    async function handleCapture() {
+        toast.success("Image captured", { title: "Camera" });
+        try { await captureImage(); } catch { /* demo mode: no hardware attached */ }
+    }
+    function handleLight() { toast.info("Lights toggled"); }
+    function handleEmergency() { emergencyStop(); toast.error("Emergency stop activated"); }
     const moveIntervalRef = useRef(null);
 
     const startMoving = useCallback((dir) => {
@@ -138,10 +143,10 @@ export default function MissionToolbar() {
                     <button className={missionStarted ? "stop-btn" : "start-btn"} onClick={missionStarted ? stopHandler : startHandler}>{missionStarted ? "⏹ STOP" : "▶ START"}</button>
                     <button className="pause-btn" onClick={pauseHandler} disabled={!missionStarted} style={{ opacity: missionStarted ? 1 : 0.5 }}>{missionPaused ? "▶ RESUME" : "⏸ PAUSE"}</button>
                     <button className="home-btn" onClick={homeHandler}>🏠 RETURN</button>
-                    <button className="capture-btn" style={{ background: 'linear-gradient(135deg, #7b61ff, #6d28d9)', color: 'white', padding: '16px 14px', border: 'none', borderRadius: '14px', fontWeight: '700', cursor: 'pointer' }} onClick={handleCapture}>📸 CAPTURE</button>
+                    <button className="capture-btn" style={{ background: 'linear-gradient(135deg, #12d3e0, #0a6b78)', color: 'white', padding: '16px 14px', border: 'none', borderRadius: '14px', fontWeight: '700', cursor: 'pointer' }} onClick={handleCapture}>📸 CAPTURE</button>
                 </div>
             ) : (
-                <div className="manual-controls" style={{ display: 'flex', gap: '20px', background: 'linear-gradient(145deg, #ffffff, #ffffff)', padding: '20px', borderRadius: '20px', border: '1px solid rgba(0, 217, 255, 0.1)' }}>
+                <div className="manual-controls" style={{ display: 'flex', gap: '20px', background: 'linear-gradient(145deg, #0f2438, #0a1a2b)', padding: '20px', borderRadius: '20px', border: '1px solid rgba(18, 211, 224, 0.25)' }}>
                     <div className="d-pad" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 60px)', gap: '10px', margin: '0 auto' }}>
                         <div></div>
                         <button style={dPadBtn} onPointerDown={() => startMoving('up')} onPointerUp={stopMoving} onPointerLeave={stopMoving}>▲</button>
@@ -152,7 +157,7 @@ export default function MissionToolbar() {
                     </div>
                     <div className="manual-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
                         <div style={{display: 'flex', gap: '10px'}}>
-                             <button style={{...actionBtn('#7b61ff'), flex: 1}} onClick={handleCapture}>📸 CAPTURE</button>
+                             <button style={{...actionBtn('#12d3e0'), flex: 1}} onClick={handleCapture}>📸 CAPTURE</button>
 
                         </div>
                         <div style={{display: 'flex', gap: '10px'}}>

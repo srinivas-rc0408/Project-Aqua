@@ -480,13 +480,13 @@ box-shadow:0 0 25px rgba(18,211,224,.2);
 .home-btn:hover { box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4); }
 
 .save-btn {
-    background: linear-gradient(135deg, #7b61ff, #9b59b6);
+    background: linear-gradient(135deg, #12d3e0, #0a6b78);
     color: #ffffff;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(123, 97, 255, 0.4);
-    box-shadow: 0 4px 15px rgba(123, 97, 255, 0.3);
+    border: 1px solid rgba(18, 211, 224, 0.4);
+    box-shadow: 0 4px 15px rgba(18, 211, 224, 0.3);
 }
-.save-btn:hover { box-shadow: 0 8px 25px rgba(123, 97, 255, 0.4); }
+.save-btn:hover { box-shadow: 0 8px 25px rgba(18, 211, 224, 0.4); }
 
 .mission-status {
     margin-top: 0;

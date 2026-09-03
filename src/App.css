@@ -2067,7 +2067,7 @@ grid-template-columns:1fr;
 
     margin-top:30px;
 
-    background:#ffffff;
+    background:var(--surface);
 
     border-radius:22px;
 
@@ -2399,8 +2399,8 @@ background:linear-gradient(135deg,#2563eb,#3b82f6);
 }
 
 .capture{
-    background:linear-gradient(135deg,#7b61ff,#6d28d9);
-    box-shadow: 0 4px 12px rgba(123, 97, 255, 0.3);
+    background:linear-gradient(135deg,#12d3e0,#0a6b78);
+    box-shadow: 0 4px 12px rgba(18, 211, 224, 0.3);
 }
 
 .report{
@@ -3330,7 +3330,7 @@ position:absolute;
 
 border-radius:50%;
 
-border:5px solid #7c3aed;
+border:5px solid #12d3e0;
 
 animation:spinRing 1.4s linear infinite;
 
@@ -3579,7 +3579,7 @@ left:50%;
 
 border-radius:50%;
 
-border:3px solid rgba(124,58,237,.7);
+border:3px solid rgba(18,211,224,.7);
 
 transform:translate(-50%,-50%);
 
@@ -3706,11 +3706,11 @@ transform:translate(-50%,-50%);
 
 border-radius:50%;
 
-background:radial-gradient(circle,#000 0%,#f0f0f0 40%,#7c3aed 80%,transparent 100%);
+background:radial-gradient(circle,#000 0%,#f0f0f0 40%,#12d3e0 80%,transparent 100%);
 
 box-shadow:
-0 0 80px #7c3aed,
-0 0 160px #9333ea,
+0 0 80px #12d3e0,
+0 0 160px #0a6b78,
 0 0 240px cyan;
 
 animation:portalPulse .8s infinite alternate;
@@ -3729,9 +3729,9 @@ transform:translate(-50%,-50%);
 
 border-radius:50%;
 
-border:4px solid rgba(124,58,237,.55);
+border:4px solid rgba(18,211,224,.55);
 
-box-shadow:0 0 25px #9333ea;
+box-shadow:0 0 25px #0a6b78;
 
 }
 

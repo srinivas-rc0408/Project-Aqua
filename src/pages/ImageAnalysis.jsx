@@ -191,7 +191,7 @@ return (
                     <button className="start-mission" style={{width: 'auto', padding: '10px 20px'}} onClick={handleCaptureESP}>
                         📸 Capture ESP Cam
                     </button>
-                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #7b61ff, #6d28d9)'}} onClick={handleUploadClick}>
+                    <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #12d3e0, #0a6b78)'}} onClick={handleUploadClick}>
                         📤 Upload Image
                     </button>
                     <button className="start-mission" style={{width: 'auto', padding: '10px 20px', background: 'linear-gradient(135deg, #12d3e0, #0a6b78)'}} onClick={() => navigate("/history")}>

@@ -28,7 +28,7 @@ function AuditLogsPanel() {
 
   return (
     <div style={{
-      background: "#0a1a2b",
+      background: "#0e1524",
       borderRadius: "22px",
       padding: "25px",
       boxShadow: "0 0 25px rgba(18,211,224,.2)",
@@ -39,14 +39,14 @@ function AuditLogsPanel() {
       flexDirection: "column"
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-         <h2 style={{ color: "#12d3e0", fontSize: "24px", display: 'flex', alignItems: 'center', gap: '10px' }}>
+         <h2 style={{ color: "#22d3ee", fontSize: "24px", display: 'flex', alignItems: 'center', gap: '10px' }}>
            <Key size={26} /> Biometric Audit Logs
          </h2>
          <div style={{
              padding: '5px 15px',
              borderRadius: '20px',
              background: 'rgba(18,211,224, 0.2)',
-             color: '#12d3e0',
+             color: '#22d3ee',
              fontWeight: 'bold',
              display: 'flex',
              alignItems: 'center',
@@ -61,10 +61,10 @@ function AuditLogsPanel() {
          {logs.length > 0 ? (
              logs.map((log) => (
                  <div key={log.id} style={{ 
-                     background: '#0f2438', 
+                     background: '#16203a', 
                      borderRadius: '12px', 
                      padding: '12px 16px', 
-                     borderLeft: `4px solid ${log.success ? '#22c55e' : '#12d3e0'}`,
+                     borderLeft: `4px solid ${log.success ? '#22c55e' : '#22d3ee'}`,
                      display: 'flex',
                      justifyContent: 'space-between',
                      alignItems: 'center'
@@ -72,7 +72,7 @@ function AuditLogsPanel() {
                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                          <div style={{ 
                              background: log.success ? 'rgba(34,197,94,0.2)' : 'rgba(18,211,224,0.2)',
-                             color: log.success ? '#22c55e' : '#12d3e0',
+                             color: log.success ? '#22c55e' : '#22d3ee',
                              padding: '10px',
                              borderRadius: '50%'
                          }}>
@@ -80,13 +80,13 @@ function AuditLogsPanel() {
                          </div>
                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                              <div style={{ color: 'white', fontWeight: 'bold', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                 <LogIn size={14} color="#12d3e0" /> 
+                                 <LogIn size={14} color="#22d3ee" /> 
                                  {log.note || (log.success ? "Authentication Granted" : "Authentication Denied")}
                              </div>
-                             <div style={{ color: '#9fb3c8', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                             <div style={{ color: '#93a1bc', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                  <Monitor size={12} /> {log.deviceId}
                              </div>
-                             <div style={{ color: '#12d3e0', fontSize: '12px', opacity: 0.8 }}>
+                             <div style={{ color: '#22d3ee', fontSize: '12px', opacity: 0.8 }}>
                                  {new Date(log.timestamp).toLocaleString()}
                              </div>
                          </div>
@@ -97,11 +97,11 @@ function AuditLogsPanel() {
                          alignItems: 'flex-end',
                          gap: '5px'
                      }}>
-                         <div style={{ fontSize: '12px', color: '#9fb3c8', textTransform: 'uppercase', letterSpacing: '1px' }}>Confidence</div>
+                         <div style={{ fontSize: '12px', color: '#93a1bc', textTransform: 'uppercase', letterSpacing: '1px' }}>Confidence</div>
                          <div style={{ 
                              fontSize: '20px', 
                              fontWeight: 'black', 
-                             color: log.confidence >= 90 ? '#22c55e' : (log.confidence >= 70 ? '#ffd600' : '#12d3e0'),
+                             color: log.confidence >= 90 ? '#22c55e' : (log.confidence >= 70 ? '#ffd600' : '#22d3ee'),
                              fontFamily: '"Orbitron", sans-serif'
                          }}>
                              {log.confidence}%
@@ -110,10 +110,10 @@ function AuditLogsPanel() {
                  </div>
              ))
          ) : (
-             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(18,211,224,0.05)', borderRadius: '16px', color: '#12d3e0', gap: '15px', padding: '40px' }}>
+             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(18,211,224,0.05)', borderRadius: '16px', color: '#22d3ee', gap: '15px', padding: '40px' }}>
                 <Key size={50} style={{ opacity: 0.5 }} />
                 <h3 style={{ fontSize: '20px' }}>No Audit Logs</h3>
-                <p style={{ color: '#9fb3c8' }}>Biometric authentication attempts will appear here.</p>
+                <p style={{ color: '#93a1bc' }}>Biometric authentication attempts will appear here.</p>
              </div>
          )}
       </div>

@@ -243,7 +243,7 @@ export default function MissionReportColumn() {
     <>
       {/* COMPACT FRONT PANEL (Compact Card matching AI Inspection / GPS block) */}
       <div className="mission-report-compact-card" style={{
-        background: "#0a1a2b",
+        background: "#0e1524",
         borderRadius: "22px",
         padding: "20px",
         boxShadow: "0 0 25px rgba(18,211,224, .2)",
@@ -257,13 +257,13 @@ export default function MissionReportColumn() {
         {/* Header */}
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-            <h2 style={{ color: "#12d3e0", fontSize: "20px", fontWeight: "800", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+            <h2 style={{ color: "#22d3ee", fontSize: "20px", fontWeight: "800", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
               <FileText size={22} /> Mission Report
             </h2>
             <span style={{
               background: missionCompleted ? "rgba(34,197,94,0.18)" : "rgba(18,211,224,0.18)",
-              color: missionCompleted ? "#4ade80" : "#12d3e0",
-              border: `1px solid ${missionCompleted ? "#22c55e" : "#12d3e0"}`,
+              color: missionCompleted ? "#4ade80" : "#22d3ee",
+              border: `1px solid ${missionCompleted ? "#22c55e" : "#22d3ee"}`,
               padding: "3px 10px",
               borderRadius: "16px",
               fontSize: "10.5px",
@@ -293,7 +293,7 @@ export default function MissionReportColumn() {
               height: "85px",
               borderRadius: "10px",
               overflow: "hidden",
-              border: "1px solid #12d3e0",
+              border: "1px solid #22d3ee",
               position: "relative"
             }}>
               <img src={image} alt="Defect Snapshot" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -315,11 +315,11 @@ export default function MissionReportColumn() {
             {/* Target & Telemetry Details */}
             <div style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "11px", overflow: "hidden" }}>
               <div style={{ color: "#ffffff", fontWeight: "bold", display: "flex", alignItems: "center", gap: "4px" }}>
-                <Droplet size={13} color="#12d3e0" />
+                <Droplet size={13} color="#22d3ee" />
                 <span>Target: <strong>{environmentType}</strong></span>
               </div>
-              <div style={{ color: "#9fb3c8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "flex", alignItems: "center", gap: "4px" }}>
-                <MapPin size={13} color="#12d3e0" />
+              <div style={{ color: "#93a1bc", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "flex", alignItems: "center", gap: "4px" }}>
+                <MapPin size={13} color="#22d3ee" />
                 <span>{address}</span>
               </div>
               <div style={{ color: "#8296a8", display: "flex", alignItems: "center", gap: "8px", fontSize: "10.5px" }}>
@@ -355,14 +355,14 @@ export default function MissionReportColumn() {
               transition: "all 0.2s ease"
             }}
           >
-            <Eye size={15} color="#12d3e0" /> View Details
+            <Eye size={15} color="#22d3ee" /> View Details
           </button>
 
           {/* OPTION 2: Download PDF Directly */}
           <button
             onClick={handleDownloadPdf}
             style={{
-              background: "#12d3e0",
+              background: "#22d3ee",
               color: "#ffffff",
               border: "none",
               padding: "10px 12px",
@@ -399,9 +399,9 @@ export default function MissionReportColumn() {
           overflowY: "auto"
         }}>
           <div style={{
-            background: "#0a1a2b",
+            background: "#0e1524",
             borderRadius: "24px",
-            border: "1px solid #12d3e0",
+            border: "1px solid #22d3ee",
             boxShadow: "0 0 35px rgba(18,211,224, 0.4)",
             width: "100%",
             maxWidth: "850px",
@@ -416,7 +416,7 @@ export default function MissionReportColumn() {
             {/* Modal Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(18,211,224,0.3)", paddingBottom: "12px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <FileText size={24} color="#12d3e0" />
+                <FileText size={24} color="#22d3ee" />
                 <div>
                   <h3 style={{ margin: 0, fontSize: "20px", fontWeight: "900", color: "#ffffff" }}>
                     📋 Full Mission Completion & Defect Report Details
@@ -430,7 +430,7 @@ export default function MissionReportColumn() {
                 onClick={() => setShowModal(false)}
                 style={{
                   background: "rgba(18,211,224,0.15)",
-                  color: "#12d3e0",
+                  color: "#22d3ee",
                   border: "1px solid rgba(18,211,224,0.3)",
                   borderRadius: "50%",
                   width: "36px",
@@ -447,7 +447,7 @@ export default function MissionReportColumn() {
 
             {/* Quick Presets */}
             <div style={{ background: "#18080c", padding: "10px 14px", borderRadius: "12px", border: "1px solid rgba(18,211,224,0.2)" }}>
-              <div style={{ color: "#12d3e0", fontSize: "11px", fontWeight: "bold", textTransform: "uppercase", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{ color: "#22d3ee", fontSize: "11px", fontWeight: "bold", textTransform: "uppercase", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
                 <Layers size={13} /> Defect Scenario Quick Presets:
               </div>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -456,9 +456,9 @@ export default function MissionReportColumn() {
                     key={idx}
                     onClick={() => handleSelectPreset(preset)}
                     style={{
-                      background: defectType === preset.type ? "#12d3e0" : "#0d0406",
+                      background: defectType === preset.type ? "#22d3ee" : "#0d0406",
                       color: "#ffffff",
-                      border: defectType === preset.type ? "1px solid #12d3e0" : "1px solid rgba(18,211,224,0.3)",
+                      border: defectType === preset.type ? "1px solid #22d3ee" : "1px solid rgba(18,211,224,0.3)",
                       padding: "4px 10px",
                       borderRadius: "6px",
                       fontSize: "11px",
@@ -477,7 +477,7 @@ export default function MissionReportColumn() {
               
               {/* Target Environment */}
               <div style={{ background: "#0a1826", padding: "14px", borderRadius: "12px", border: "1px solid rgba(18,211,224,0.2)", display: "flex", flexDirection: "column", gap: "10px" }}>
-                <div style={{ color: "#12d3e0", fontSize: "12px", fontWeight: "bold", display: "flex", alignItems: "center", gap: "6px" }}>
+                <div style={{ color: "#22d3ee", fontSize: "12px", fontWeight: "bold", display: "flex", alignItems: "center", gap: "6px" }}>
                   <Droplet size={15} /> 1. Mission Target Environment
                 </div>
 
@@ -541,7 +541,7 @@ export default function MissionReportColumn() {
 
                   {isCustomEnv && (
                     <div style={{ marginTop: "8px" }}>
-                      <label style={{ color: "#12d3e0", fontSize: "10.5px", fontWeight: "bold", display: "block", marginBottom: "3px" }}>
+                      <label style={{ color: "#22d3ee", fontSize: "10.5px", fontWeight: "bold", display: "block", marginBottom: "3px" }}>
                         Enter Custom Target Location Name:
                       </label>
                       <input
@@ -552,7 +552,7 @@ export default function MissionReportColumn() {
                         style={{
                           width: "100%",
                           background: "#07101a",
-                          border: "1px solid #12d3e0",
+                          border: "1px solid #22d3ee",
                           color: "#ffffff",
                           padding: "8px 10px",
                           borderRadius: "8px",
@@ -569,13 +569,13 @@ export default function MissionReportColumn() {
 
               {/* Address & IP Telemetry */}
               <div style={{ background: "#0a1826", padding: "14px", borderRadius: "12px", border: "1px solid rgba(18,211,224,0.2)", display: "flex", flexDirection: "column", gap: "10px" }}>
-                <div style={{ color: "#12d3e0", fontSize: "12px", fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ color: "#22d3ee", fontSize: "12px", fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <span style={{ display: "flex", alignItems: "center", gap: "6px" }}><MapPin size={15} /> 2. Infected Area Address & IP</span>
                   <button
                     onClick={handleSyncGpsAddress}
                     style={{
                       background: "rgba(18,211,224,0.15)",
-                      color: "#12d3e0",
+                      color: "#22d3ee",
                       border: "1px solid rgba(18,211,224,0.3)",
                       padding: "2px 8px",
                       borderRadius: "6px",
@@ -650,11 +650,11 @@ export default function MissionReportColumn() {
 
             {/* Section 3: Image Snapshot */}
             <div style={{ background: "#0a1826", padding: "14px", borderRadius: "12px", border: "1px solid rgba(18,211,224,0.2)" }}>
-              <div style={{ color: "#12d3e0", fontSize: "12px", fontWeight: "bold", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ color: "#22d3ee", fontSize: "12px", fontWeight: "bold", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: "6px" }}><Camera size={15} /> 3. Infected Area Image Snapshot</span>
                 <div style={{ display: "flex", gap: "8px" }}>
                   <label style={{
-                    background: "#12d3e0",
+                    background: "#22d3ee",
                     color: "#ffffff",
                     padding: "4px 10px",
                     borderRadius: "6px",
@@ -690,7 +690,7 @@ export default function MissionReportColumn() {
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: "14px", alignItems: "center" }}>
-                <div style={{ width: "100%", height: "130px", borderRadius: "10px", overflow: "hidden", border: "2px solid #12d3e0" }}>
+                <div style={{ width: "100%", height: "130px", borderRadius: "10px", overflow: "hidden", border: "2px solid #22d3ee" }}>
                   <img src={image} alt="Defect Snapshot" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
@@ -808,9 +808,9 @@ export default function MissionReportColumn() {
                   onClick={handleSaveReport}
                   disabled={saving}
                   style={{
-                    background: "#0f2438",
+                    background: "#16203a",
                     color: "#ffffff",
-                    border: "1px solid #12d3e0",
+                    border: "1px solid #22d3ee",
                     padding: "10px 16px",
                     borderRadius: "10px",
                     fontSize: "12px",
@@ -831,7 +831,7 @@ export default function MissionReportColumn() {
                     setShowModal(false);
                   }}
                   style={{
-                    background: "#12d3e0",
+                    background: "#22d3ee",
                     color: "#ffffff",
                     border: "none",
                     padding: "10px 18px",

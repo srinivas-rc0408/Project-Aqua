@@ -160,6 +160,7 @@
 }
 .feature-tile h4 { color: #fff; font-size: 16px; }
 .feature-tile p { color: var(--text-dim); font-size: 13px; line-height: 1.55; }
+.home-hiw-cta { display: flex; justify-content: center; margin-top: var(--space-6); }
 
 /* Team */
 .home-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }

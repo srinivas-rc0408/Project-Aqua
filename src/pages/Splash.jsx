@@ -26,7 +26,7 @@ export default function Splash() {
     return (
         <motion.div
             className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden px-6"
-            style={{ background: '#060d16' }}
+            style={{ background: '#070b14' }}
             animate={{ opacity: leaving ? 0 : 1 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
         >
@@ -63,7 +63,7 @@ export default function Splash() {
                     fontFamily: '"Orbitron", sans-serif',
                     letterSpacing: '0.12em',
                     lineHeight: 1.1,
-                    background: 'linear-gradient(180deg,#eaf6ff 0%,#12d3e0 55%,#4f7bff 100%)',
+                    background: 'linear-gradient(180deg,#eaf6ff 0%,#22d3ee 55%,#4f7bff 100%)',
                     WebkitBackgroundClip: 'text',
                     backgroundClip: 'text',
                     color: 'transparent',
@@ -86,7 +86,7 @@ export default function Splash() {
             <div className="absolute bottom-0 left-0 right-0" style={{ height: 2, background: 'rgba(18,211,224,0.1)', overflow: 'hidden' }}>
                 {!reduce && (
                     <motion.div
-                        style={{ height: '100%', width: '30%', background: 'linear-gradient(90deg, transparent, #12d3e0, transparent)' }}
+                        style={{ height: '100%', width: '30%', background: 'linear-gradient(90deg, transparent, #22d3ee, transparent)' }}
                         animate={{ x: ['-100%', '430%'] }}
                         transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
                     />

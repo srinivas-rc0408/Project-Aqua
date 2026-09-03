@@ -186,15 +186,15 @@ export default function CameraPanel() {
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(Math.cos(angle) * 140, Math.sin(angle) * 140);
-      ctx.strokeStyle = "#12d3e0";
+      ctx.strokeStyle = "#22d3ee";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Simulated robot central indicator
       ctx.beginPath();
       ctx.arc(0, 0, 6, 0, Math.PI * 2);
-      ctx.fillStyle = "#12d3e0";
-      ctx.shadowColor = "#12d3e0";
+      ctx.fillStyle = "#22d3ee";
+      ctx.shadowColor = "#22d3ee";
       ctx.shadowBlur = 20;
       ctx.fill();
 
@@ -202,14 +202,14 @@ export default function CameraPanel() {
       ctx.font = "900 36px 'Arial Black', sans-serif";
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
-      ctx.shadowColor = "#12d3e0";
+      ctx.shadowColor = "#22d3ee";
       ctx.shadowBlur = 15;
       ctx.fillText("VSTY SUBMERSIBLE", 0, 75);
 
       ctx.restore();
 
       // HUD Overlay details
-      ctx.fillStyle = "#12d3e0";
+      ctx.fillStyle = "#22d3ee";
       ctx.font = "bold 12px monospace";
       ctx.fillText("● AUTOMATIC VSTY STREAM FEED", 20, 30);
       ctx.fillText(`FPS: 60 | ESP32-CAM NOT CONNECTED 🔴`, canvas.width - 320, 30);
@@ -287,7 +287,7 @@ void loop() { delay(1000); }`;
 
   return (
     <div className="map-card camera-card" style={{
-      background: "#0a1a2b",
+      background: "#0e1524",
       borderRadius: "20px",
       padding: "20px",
       boxShadow: "0 0 25px rgba(18,211,224, .2)",
@@ -305,7 +305,7 @@ void loop() { delay(1000); }`;
             📹 Mission Camera Control
           </h2>
           <span className="map-status" style={{
-            background: espConnected ? '#15803d' : '#12d3e0',
+            background: espConnected ? '#15803d' : '#22d3ee',
             color: '#ffffff',
             padding: '6px 14px',
             borderRadius: '25px',
@@ -325,7 +325,7 @@ void loop() { delay(1000); }`;
             value={missionName || ""} 
             onChange={(e) => setMissionName && setMissionName(e.target.value)}
             disabled={missionStarted}
-            style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
+            style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #22d3ee', background: '#16203a', color: 'white', outline: 'none' }}
           />
           <select 
             value={isCustomEnv ? "Custom" : (inspectionArea || "")} 
@@ -341,7 +341,7 @@ void loop() { delay(1000); }`;
               }
             }}
             disabled={missionStarted}
-            style={{ flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
+            style={{ flex: 1, minWidth: '140px', padding: '10px', borderRadius: '8px', border: '1px solid #22d3ee', background: '#16203a', color: 'white', outline: 'none' }}
           >
             <option value="">Select Inspection Area</option>
             <option value="Water Tank">Water Tank</option>
@@ -360,7 +360,7 @@ void loop() { delay(1000); }`;
               value={inspectionArea || ""} 
               onChange={(e) => setInspectionArea && setInspectionArea(e.target.value)}
               disabled={missionStarted}
-              style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #12d3e0', background: '#0f2438', color: 'white', outline: 'none' }}
+              style={{ flex: 1, minWidth: '160px', padding: '10px', borderRadius: '8px', border: '1px solid #22d3ee', background: '#16203a', color: 'white', outline: 'none' }}
             />
           )}
         </div>
@@ -432,8 +432,8 @@ void loop() { delay(1000); }`;
             width: "10px",
             height: "10px",
             borderRadius: "50%",
-            background: missionPaused ? "#eab308" : activeSource === "esp-wifi" && espConnected ? "#22c55e" : "#12d3e0",
-            boxShadow: activeSource === "esp-wifi" && espConnected ? "0 0 10px #22c55e" : "0 0 10px #12d3e0"
+            background: missionPaused ? "#eab308" : activeSource === "esp-wifi" && espConnected ? "#22c55e" : "#22d3ee",
+            boxShadow: activeSource === "esp-wifi" && espConnected ? "0 0 10px #22c55e" : "0 0 10px #22d3ee"
           }} />
           <span style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
             {missionPaused ? "MISSION PAUSED" : activeSource === "esp-wifi" ? "ESP32-CAM WIRELESS STREAM" : "LIVE FEED ACTIVE"}
@@ -447,7 +447,7 @@ void loop() { delay(1000); }`;
             top: "12px",
             right: "12px",
             background: "rgba(13,26,40, 0.92)",
-            border: "1px solid #12d3e0",
+            border: "1px solid #22d3ee",
             borderRadius: "8px",
             padding: "8px 14px",
             display: "flex",
@@ -457,7 +457,7 @@ void loop() { delay(1000); }`;
             boxShadow: "0 0 15px rgba(18,211,224, 0.4)",
             zIndex: 10
           }}>
-            <WifiOff size={16} style={{ color: "#12d3e0" }} className="animate-pulse" />
+            <WifiOff size={16} style={{ color: "#22d3ee" }} className="animate-pulse" />
             <div>
               <div style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
                 ESP32-CAM NOT CONNECTED

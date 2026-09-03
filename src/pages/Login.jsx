@@ -60,7 +60,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-[#050b13] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[#070b14] flex items-center justify-center p-4">
             <button
                 type="button"
                 onClick={() => navigate('/home')}
@@ -72,7 +72,7 @@ export default function Login() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="w-full max-w-md bg-[#0a1a2b] rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/30"
+                className="w-full max-w-md bg-[#0e1524] rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/30"
             >
                 <div className="p-8 sm:p-10">
                     <div className="flex flex-col items-center mb-8">
@@ -107,7 +107,7 @@ export default function Login() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 style={{ paddingLeft: '3.25rem', paddingRight: '1rem' }}
-                                className="w-full bg-[#0f2438] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
+                                className="w-full bg-[#16203a] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
                                 required
                             />
                         </div>
@@ -121,7 +121,7 @@ export default function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 style={{ paddingLeft: '3.25rem', paddingRight: '3.25rem' }}
-                                className="w-full bg-[#0f2438] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
+                                className="w-full bg-[#16203a] border border-cyan-500/30 rounded-xl h-12 text-white text-base placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all leading-normal"
                                 required
                             />
                             <button 
@@ -168,7 +168,7 @@ export default function Login() {
                     <p className="text-center text-xs text-gray-500 mt-3">Sign-in is optional — explore the full dashboard as a guest.</p>
                 </div>
                 
-                <div className="bg-[#0d1f30] border-t border-cyan-500/20 p-4 flex justify-between items-center text-xs text-gray-400 font-medium px-8">
+                <div className="bg-[#16203a] border-t border-cyan-500/20 p-4 flex justify-between items-center text-xs text-gray-400 font-medium px-8">
                     <div className="flex items-center gap-1.5"><Activity className="w-3.5 h-3.5 text-green-400" /> Status: Online</div>
                     <div className="flex items-center gap-1.5"><Database className="w-3.5 h-3.5 text-green-400" /> Secure</div>
                     <div className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-cyan-400" /> v2.4.1</div>

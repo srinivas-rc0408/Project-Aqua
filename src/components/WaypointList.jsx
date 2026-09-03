@@ -8,7 +8,7 @@ export default function WaypointList() {
     const btnStyle = {
         background: "rgba(18,211,224, 0.2)",
         border: "1px solid rgba(18,211,224, 0.4)",
-        color: "#12d3e0",
+        color: "#22d3ee",
         borderRadius: "4px",
         padding: "3px 6px",
         cursor: "pointer",
@@ -18,8 +18,8 @@ export default function WaypointList() {
     };
 
     return (
-        <div className="timeline-card" style={{ background: '#0a1a2b', border: '1px solid rgba(18,211,224, 0.25)', borderRadius: '16px', padding: '16px' }}>
-            <h2 style={{ color: '#12d3e0', fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div className="timeline-card" style={{ background: '#0e1524', border: '1px solid rgba(18,211,224, 0.25)', borderRadius: '16px', padding: '16px' }}>
+            <h2 style={{ color: '#22d3ee', fontSize: '16px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Navigation size={18} />
                 Mission Waypoints & Thruster Times
             </h2>
@@ -44,7 +44,7 @@ export default function WaypointList() {
                                 padding: '10px 12px',
                                 marginBottom: '8px',
                                 background: isCurrent ? 'rgba(18,211,224, 0.15)' : 'rgba(15,36,56, 0.6)',
-                                border: `1px solid ${isCurrent ? '#12d3e0' : 'rgba(18,211,224, 0.15)'}`,
+                                border: `1px solid ${isCurrent ? '#22d3ee' : 'rgba(18,211,224, 0.15)'}`,
                                 borderRadius: '10px'
                             }}
                         >
@@ -61,7 +61,7 @@ export default function WaypointList() {
                                         WP #{seg.index}: {seg.to}
                                     </h4>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <span style={{ color: '#12d3e0', fontSize: '12px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif' }}>
+                                        <span style={{ color: '#22d3ee', fontSize: '12px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif' }}>
                                             {seg.distanceMeters.toFixed(1)} m
                                         </span>
                                         {!missionStarted && (

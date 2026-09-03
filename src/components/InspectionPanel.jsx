@@ -26,7 +26,7 @@ function InspectionPanel() {
   
   return (
     <div style={{
-      background: "#0a1a2b",
+      background: "#0e1524",
       borderRadius: "22px",
       padding: "25px",
       boxShadow: "0 0 25px rgba(18,211,224,.2)",
@@ -37,14 +37,14 @@ function InspectionPanel() {
       flexDirection: "column"
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-         <h2 style={{ color: "#12d3e0", fontSize: "24px", display: 'flex', alignItems: 'center', gap: '10px' }}>
+         <h2 style={{ color: "#22d3ee", fontSize: "24px", display: 'flex', alignItems: 'center', gap: '10px' }}>
            <Target size={26} /> AI Inspection Hub
          </h2>
          <div style={{ 
             padding: '5px 15px', 
             borderRadius: '20px', 
             background: latestItem ? (isGood ? 'rgba(34,197,94,0.2)' : 'rgba(18,211,224,0.2)') : 'rgba(18,211,224, 0.2)',
-            color: latestItem ? (isGood ? '#22c55e' : '#12d3e0') : '#12d3e0',
+            color: latestItem ? (isGood ? '#22c55e' : '#22d3ee') : '#22d3ee',
             fontWeight: 'bold',
             display: 'flex',
             alignItems: 'center',
@@ -58,11 +58,11 @@ function InspectionPanel() {
       <div style={{ display: 'grid', gridTemplateColumns: latestItem ? '1fr 1.2fr' : '1fr', gap: '25px', alignItems: 'stretch' }}>
         {latestItem ? (
            <>
-              <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: `2px solid ${isGood ? '#22c55e' : '#12d3e0'}` }}>
+              <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: `2px solid ${isGood ? '#22c55e' : '#22d3ee'}` }}>
                  <img src={latestItem.image} alt="Latest Inspection" style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: '180px' }} />
                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(0,0,0,0.7)', padding: '10px', backdropFilter: 'blur(4px)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '5px', fontSize: '14px'}}>
-                        <Clock size={14} color="#12d3e0" /> 
+                        <Clock size={14} color="#22d3ee" /> 
                         {new Date(latestItem.timestamp).toLocaleTimeString()}
                     </div>
                     <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Acc: {latestItem.accuracy}%</div>
@@ -71,12 +71,12 @@ function InspectionPanel() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                  {latestItem.detections && latestItem.detections.length > 0 ? (
                      latestItem.detections.slice(0, 3).map((det, idx) => (
-                         <div key={idx} style={{ background: '#0f2438', borderRadius: '12px', padding: '12px', borderLeft: `4px solid ${det.color}` }}>
+                         <div key={idx} style={{ background: '#16203a', borderRadius: '12px', padding: '12px', borderLeft: `4px solid ${det.color}` }}>
                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                                  <strong style={{ color: det.color, fontSize: '16px' }}>{det.type}</strong>
                                  <span style={{ background: det.color, color: '#000', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>{det.severity}</span>
                              </div>
-                             <p style={{ color: '#9fb3c8', fontSize: '13px', lineHeight: '1.4', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                             <p style={{ color: '#93a1bc', fontSize: '13px', lineHeight: '1.4', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                                  {det.solutionEnglish}
                              </p>
                          </div>
@@ -85,16 +85,16 @@ function InspectionPanel() {
                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(34,197,94,0.1)', borderRadius: '16px', color: '#22c55e', gap: '10px' }}>
                          <Shield size={40} />
                          <strong style={{ fontSize: '18px' }}>No Defects Detected</strong>
-                         <p style={{ fontSize: '14px', color: '#9fb3c8' }}>Structural integrity intact</p>
+                         <p style={{ fontSize: '14px', color: '#93a1bc' }}>Structural integrity intact</p>
                      </div>
                  )}
               </div>
            </>
         ) : (
-           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(18,211,224,0.05)', borderRadius: '16px', padding: '40px', color: '#12d3e0', gap: '15px' }}>
+           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(18,211,224,0.05)', borderRadius: '16px', padding: '40px', color: '#22d3ee', gap: '15px' }}>
               <Activity size={50} style={{ animation: 'pulse 2s infinite' }} />
               <h3 style={{ fontSize: '20px' }}>Waiting for AI Analysis</h3>
-              <p style={{ color: '#9fb3c8' }}>Capture an image or upload one in the AI system to see latest results here.</p>
+              <p style={{ color: '#93a1bc' }}>Capture an image or upload one in the AI system to see latest results here.</p>
            </div>
         )}
       </div>

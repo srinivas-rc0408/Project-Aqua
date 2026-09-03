@@ -61,7 +61,7 @@ export default function MapsGroundingPanel() {
                         width: "38px",
                         height: "38px",
                         borderRadius: "10px",
-                        background: "linear-gradient(135deg, #12d3e0, #0a6b78)",
+                        background: "linear-gradient(135deg, #22d3ee, #0a6b78)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -73,7 +73,7 @@ export default function MapsGroundingPanel() {
                         <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "700", color: "#ffffff", letterSpacing: "0.5px" }}>
                             Google Maps Site Intelligence
                         </h3>
-                        <p style={{ margin: 0, fontSize: "12px", color: "#9fb3c8" }}>
+                        <p style={{ margin: 0, fontSize: "12px", color: "#93a1bc" }}>
                             Grounded in real-time Google Maps data via Gemini 3.5 Flash
                         </p>
                     </div>
@@ -121,7 +121,7 @@ export default function MapsGroundingPanel() {
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.background = "rgba(18,211,224, 0.2)";
-                            e.currentTarget.style.borderColor = "#12d3e0";
+                            e.currentTarget.style.borderColor = "#22d3ee";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
@@ -136,7 +136,7 @@ export default function MapsGroundingPanel() {
             {/* Custom Query Search Bar */}
             <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
                 <div style={{ position: "relative", flex: 1 }}>
-                    <Search size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#9fb3c8" }} />
+                    <Search size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#93a1bc" }} />
                     <input
                         type="text"
                         placeholder="Ask Gemini to find nearby inspection targets, water plants, dams, or hardware suppliers..."
@@ -158,7 +158,7 @@ export default function MapsGroundingPanel() {
                     type="submit"
                     disabled={loading}
                     style={{
-                        background: "linear-gradient(135deg, #12d3e0, #0a6b78)",
+                        background: "linear-gradient(135deg, #22d3ee, #0a6b78)",
                         color: "#ffffff",
                         border: "none",
                         borderRadius: "10px",
@@ -198,14 +198,14 @@ export default function MapsGroundingPanel() {
                 <div style={{
                     textAlign: "center",
                     padding: "30px",
-                    color: "#9fb3c8",
+                    color: "#93a1bc",
                     fontSize: "13px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     gap: "10px"
                 }}>
-                    <RefreshCw size={28} style={{ animation: "spin 1s linear infinite", color: "#12d3e0" }} />
+                    <RefreshCw size={28} style={{ animation: "spin 1s linear infinite", color: "#22d3ee" }} />
                     <div>Retrieving real-time spatial data via <strong>Gemini 3.5 Flash</strong> + <strong>Google Maps Grounding</strong>...</div>
                 </div>
             )}
@@ -236,7 +236,7 @@ export default function MapsGroundingPanel() {
                                                 {place.title}
                                             </div>
                                             {place.address && (
-                                                <div style={{ fontSize: "11px", color: "#9fb3c8", marginBottom: "6px" }}>
+                                                <div style={{ fontSize: "11px", color: "#93a1bc", marginBottom: "6px" }}>
                                                     📍 {place.address}
                                                 </div>
                                             )}

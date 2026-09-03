@@ -75,7 +75,7 @@ export default function History() {
                                     <div className="file-name" style={{ fontWeight: 'bold', color: '#ffffff', fontSize: '14px' }}>
                                         {item.missionName || "Mission Inspection"}
                                     </div>
-                                    <div style={{ fontSize: '11px', color: '#12d3e0', fontWeight: 'bold', margin: '4px 0' }}>
+                                    <div style={{ fontSize: '11px', color: '#22d3ee', fontWeight: 'bold', margin: '4px 0' }}>
                                         Location: {item.inspectionArea || "Lake"}
                                     </div>
                                     <div style={{ fontSize: '11px', color: '#8296a8', marginBottom: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -103,7 +103,7 @@ export default function History() {
                                         e.stopPropagation();
                                         generateInspectionReport(item);
                                     }}
-                                    style={{ background: '#12d3e0', color: '#ffffff', border: 'none', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' }}
+                                    style={{ background: '#22d3ee', color: '#ffffff', border: 'none', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' }}
                                 >
                                     📄 PDF
                                 </button>
@@ -122,7 +122,7 @@ export default function History() {
         <div style={{display: 'flex', gap: '15px'}}>
             <button 
                 onClick={() => generateInspectionReport(selectedItem)}
-                style={{ background: '#12d3e0', color: '#ffffff', border: 'none', padding: '8px 15px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}
+                style={{ background: '#22d3ee', color: '#ffffff', border: 'none', padding: '8px 15px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}
             >
                 📄 Download PDF
             </button>

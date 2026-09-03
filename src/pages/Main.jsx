@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info } from "lucide-react";
+import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info, BookOpen } from "lucide-react";
 import { PROJECT, INSTITUTION, GUIDE, TEAM } from "../data/project";
 import TopNav from "../components/TopNav";
 import AboutModal from "../components/AboutModal";
+import HowItWorksModal from "../components/HowItWorksModal";
 import Button from "../components/ui/Button";
 import "../styles/Home.css";
 
@@ -24,6 +25,7 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
 export default function Main() {
     const navigate = useNavigate();
     const [aboutOpen, setAboutOpen] = useState(false);
+    const [howOpen, setHowOpen] = useState(false);
     const [memberPhotos, setMemberPhotos] = useState({});
     const [guidePhoto, setGuidePhoto] = useState(null);
 
@@ -99,7 +101,7 @@ export default function Main() {
                         initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                     >
-                        <span className="home-wordmark">{PROJECT.phase} · {PROJECT.wordmark}</span>
+                        <span className="home-wordmark">{PROJECT.phase}</span>
                         <h1 className="home-title">{PROJECT.name}</h1>
                         <p className="home-tagline">{PROJECT.tagline}</p>
                         <p className="home-desc">{PROJECT.description}</p>
@@ -131,6 +133,11 @@ export default function Main() {
                         </motion.div>
                     ))}
                 </motion.div>
+                <div className="home-hiw-cta">
+                    <Button variant="secondary" size="md" iconLeft={<BookOpen size={17} />} onClick={() => setHowOpen(true)}>
+                        How It Works
+                    </Button>
+                </div>
             </motion.section>
 
             {/* ---------------- TEAM ---------------- */}
@@ -196,6 +203,7 @@ export default function Main() {
             </footer>
 
             <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
+            <HowItWorksModal open={howOpen} onClose={() => setHowOpen(false)} />
         </div>
     );
 }

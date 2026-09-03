@@ -56,7 +56,7 @@ export default function Statistics() {
       title: "Images Analyzed",
       value: statsData.totalImages,
       icon: <ImageIcon size={26} />,
-      color: "#12d3e0",
+      color: "#22d3ee",
       bg: "rgba(18,211,224, 0.15)"
     },
     {
@@ -70,7 +70,7 @@ export default function Statistics() {
       title: "Avg Accuracy",
       value: `${statsData.avgAccuracy}%`,
       icon: <Target size={26} />,
-      color: "#12d3e0",
+      color: "#22d3ee",
       bg: "rgba(18,211,224, 0.15)"
     },
     {
@@ -99,9 +99,9 @@ export default function Statistics() {
   return (
     <div className="statistics-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="statistics-header">
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><BrainCircuit color="#12d3e0" /> AI Analysis Statistics</h2>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(18,211,224,0.2)', color: '#12d3e0', padding: '6px 14px', borderRadius: '20px', fontSize: '13px' }}>
-           <span className="live-dot" style={{width: '8px', height: '8px', background: '#12d3e0', borderRadius: '50%', display: 'inline-block'}}></span>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><BrainCircuit color="#22d3ee" /> AI Analysis Statistics</h2>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(18,211,224,0.2)', color: '#22d3ee', padding: '6px 14px', borderRadius: '20px', fontSize: '13px' }}>
+           <span className="live-dot" style={{width: '8px', height: '8px', background: '#22d3ee', borderRadius: '50%', display: 'inline-block'}}></span>
            LIVE SYNC
         </span>
       </div>
@@ -111,7 +111,7 @@ export default function Statistics() {
             <div
               className="statistics-item"
               key={index}
-              style={{ padding: '15px', background: '#0f2438', border: '1px solid rgba(18,211,224,0.2)' }}
+              style={{ padding: '15px', background: '#16203a', border: '1px solid rgba(18,211,224,0.2)' }}
             >
               <div
                 className="statistics-icon"

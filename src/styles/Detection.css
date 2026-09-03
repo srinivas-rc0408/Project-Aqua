@@ -1,6 +1,6 @@
 .detect-card{
 
-background:#0a1a2b;
+background:#0e1524;
 
 padding:20px;
 
@@ -46,7 +46,7 @@ font-weight:bold;
 
 .detect-item{
 
-background:#0f2438;
+background:#16203a;
 
 padding:16px;
 
@@ -104,7 +104,7 @@ display:flex;
 
 justify-content:space-between;
 
-color:#9fb3c8;
+color:#93a1bc;
 
 margin-bottom:8px;
 
@@ -114,7 +114,7 @@ margin-bottom:8px;
 
 height:8px;
 
-background:#0f2438;
+background:#16203a;
 
 border-radius:20px;
 
@@ -155,7 +155,7 @@ margin-bottom:20px;
 
 .stat-box{
 
-background:#0f2438;
+background:#16203a;
 
 border-radius:12px;
 
@@ -163,7 +163,7 @@ padding:12px;
 
 text-align:center;
 
-border-left:4px solid #12d3e0;
+border-left:4px solid #22d3ee;
 
 }
 
@@ -171,7 +171,7 @@ border-left:4px solid #12d3e0;
 
 margin:0;
 
-color:#12d3e0;
+color:#22d3ee;
 
 font-size:22px;
 
@@ -183,7 +183,7 @@ margin-top:6px;
 
 font-size:13px;
 
-color:#9fb3c8;
+color:#93a1bc;
 
 }
 
@@ -209,7 +209,7 @@ margin-top:20px;
 
 padding:18px;
 
-background:#0f2438;
+background:#16203a;
 
 border-radius:14px;
 

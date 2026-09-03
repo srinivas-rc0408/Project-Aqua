@@ -7,23 +7,23 @@
    ============================================================ */
 :root{
     /* surfaces & text */
-    --bg:#060d16;
-    --surface:#0a1a2b;
-    --surface-2:#0f2438;
-    --text:#f1f5f9;
-    --text-muted:#9fb3c8;
+    --bg:#070b14;
+    --surface:#0e1524;
+    --surface-2:#16203a;
+    --text:#e8edf6;
+    --text-muted:#93a1bc;
 
     /* brand accents */
-    --accent:#12d3e0;
+    --accent:#22d3ee;
     --accent-strong:#2ee6f0;
     --accent-deep:#0a6b78;
 
     /* semantic aliases (spec naming) */
-    --primary:#12d3e0;
+    --primary:#22d3ee;
     --primary-strong:#2ee6f0;
     --primary-deep:#0a6b78;
-    --border:rgba(18,211,224,0.18);
-    --text-dim:#9fb3c8;
+    --border:#1e2a44;
+    --text-dim:#93a1bc;
 
     /* status */
     --ok:#22c55e;
@@ -83,7 +83,7 @@ body{
     font-family:var(--font-sans);
     background:var(--bg);
     color:var(--text);
-    overflow-x:hidden;
+    overflow-x:clip;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
 }

@@ -21,7 +21,7 @@ export default function MapMissionStatus() {
 
     return (
         <div style={{
-            background: 'linear-gradient(180deg, #0a1a2b 0%, #17070b 100%)',
+            background: 'linear-gradient(180deg, #0e1524 0%, #17070b 100%)',
             padding: '20px',
             borderRadius: '20px',
             border: '1px solid rgba(18,211,224, 0.3)',
@@ -36,7 +36,7 @@ export default function MapMissionStatus() {
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(18,211,224, 0.2)', paddingBottom: '12px' }}>
                 <div>
-                    <h3 style={{ color: '#12d3e0', fontSize: '18px', fontWeight: '900', margin: 0, textTransform: 'uppercase', letterSpacing: '1.2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ color: '#22d3ee', fontSize: '18px', fontWeight: '900', margin: 0, textTransform: 'uppercase', letterSpacing: '1.2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Navigation size={20} className="text-cyan-500 animate-pulse" />
                         Waypoint Distance & Hardware Control
                     </h3>
@@ -52,7 +52,7 @@ export default function MapMissionStatus() {
                     textTransform: 'uppercase',
                     letterSpacing: '1px',
                     background: thrustersActive ? 'rgba(34, 197, 94, 0.2)' : missionStarted ? 'rgba(234, 179, 8, 0.2)' : 'rgba(18,211,224, 0.15)',
-                    color: thrustersActive ? '#4ade80' : missionStarted ? '#fde047' : '#12d3e0',
+                    color: thrustersActive ? '#4ade80' : missionStarted ? '#fde047' : '#22d3ee',
                     border: `1px solid ${thrustersActive ? '#22c55e' : missionStarted ? '#eab308' : 'rgba(18,211,224, 0.4)'}`
                 }}>
                     {thrustersActive ? '⚡ THRUSTERS RUNNING' : missionStarted ? '🔄 AUTOTURNING' : '⚪ IDLE / READY'}
@@ -71,7 +71,7 @@ export default function MapMissionStatus() {
             }}>
                 <Zap size={18} className="text-yellow-400 shrink-0" />
                 <div style={{ fontSize: '11px', color: '#f3d0d5', lineHeight: '1.4' }}>
-                    <strong style={{ color: '#12d3e0' }}>Hardware Rule: </strong> 
+                    <strong style={{ color: '#22d3ee' }}>Hardware Rule: </strong> 
                     Distance ratio is calibrated at <strong>5.0 Meters = 20.0 Seconds</strong> Thruster Motor Run Time (4.0s per meter). The robot automatically turns to the target bearing before firing thrusters.
                 </div>
             </div>
@@ -79,24 +79,24 @@ export default function MapMissionStatus() {
             {/* Live Motor & Heading Status Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 {/* Heading Card */}
-                <div style={{ background: '#0f2438', padding: '14px', borderRadius: '14px', border: '1px solid rgba(18,211,224, 0.2)' }}>
-                    <div style={{ color: '#9fb3c8', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ background: '#16203a', padding: '14px', borderRadius: '14px', border: '1px solid rgba(18,211,224, 0.2)' }}>
+                    <div style={{ color: '#93a1bc', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <Compass size={14} className="text-cyan-400" /> Auto-Turn Heading
                     </div>
                     <div style={{ fontSize: '24px', fontWeight: '900', color: '#ffffff', fontFamily: '"Orbitron", sans-serif' }}>
                         {robot.heading.toFixed(0)}°
                     </div>
-                    <div style={{ fontSize: '10px', color: '#12d3e0', marginTop: '4px', fontWeight: 'bold' }}>
+                    <div style={{ fontSize: '10px', color: '#22d3ee', marginTop: '4px', fontWeight: 'bold' }}>
                         Target Bearing: {targetBearing}° | {getBearingCardinal(robot.heading)}
                     </div>
                 </div>
 
                 {/* Thruster Motor Card */}
-                <div style={{ background: '#0f2438', padding: '14px', borderRadius: '14px', border: '1px solid rgba(18,211,224, 0.2)' }}>
-                    <div style={{ color: '#9fb3c8', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ background: '#16203a', padding: '14px', borderRadius: '14px', border: '1px solid rgba(18,211,224, 0.2)' }}>
+                    <div style={{ color: '#93a1bc', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <Clock size={14} className="text-yellow-400" /> Thruster Motor Timer
                     </div>
-                    <div style={{ fontSize: '24px', fontWeight: '900', color: thrustersActive ? '#4ade80' : '#12d3e0', fontFamily: '"Orbitron", sans-serif' }}>
+                    <div style={{ fontSize: '24px', fontWeight: '900', color: thrustersActive ? '#4ade80' : '#22d3ee', fontFamily: '"Orbitron", sans-serif' }}>
                         {thrustersActive ? `${activeThrusterTime.toFixed(1)}s` : '0.0s'}
                     </div>
                     <div style={{ fontSize: '10px', color: thrustersActive ? '#4ade80' : '#888888', marginTop: '4px', fontWeight: 'bold' }}>
@@ -111,7 +111,7 @@ export default function MapMissionStatus() {
                     <span style={{ color: '#ffffff', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                         Waypoint Distance & Thruster Schedule
                     </span>
-                    <span style={{ color: '#12d3e0', fontSize: '11px', fontWeight: 'bold' }}>
+                    <span style={{ color: '#22d3ee', fontSize: '11px', fontWeight: 'bold' }}>
                         {waypoints.length} Waypoints Set
                     </span>
                 </div>
@@ -124,7 +124,7 @@ export default function MapMissionStatus() {
                     <div style={{ overflowX: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px', textAlign: 'left' }}>
                             <thead>
-                                <tr style={{ color: '#9fb3c8', borderBottom: '1px solid rgba(18,211,224, 0.2)', background: 'rgba(18,211,224, 0.05)' }}>
+                                <tr style={{ color: '#93a1bc', borderBottom: '1px solid rgba(18,211,224, 0.2)', background: 'rgba(18,211,224, 0.05)' }}>
                                     <th style={{ padding: '8px' }}>Segment</th>
                                     <th style={{ padding: '8px' }}>Distance</th>
                                     <th style={{ padding: '8px' }}>Auto-Turn Angle</th>
@@ -144,7 +144,7 @@ export default function MapMissionStatus() {
                                             <td style={{ padding: '8px', color: '#ffffff', fontWeight: 'bold' }}>
                                                 {seg.from} ➔ {seg.to}
                                             </td>
-                                            <td style={{ padding: '8px', color: '#12d3e0', fontWeight: '900', fontFamily: '"Orbitron", sans-serif' }}>
+                                            <td style={{ padding: '8px', color: '#22d3ee', fontWeight: '900', fontFamily: '"Orbitron", sans-serif' }}>
                                                 {seg.distanceMeters.toFixed(2)} m
                                             </td>
                                             <td style={{ padding: '8px', color: '#60a5fa', fontWeight: 'bold' }}>
@@ -179,20 +179,20 @@ export default function MapMissionStatus() {
 
             {/* Total Route Totals Summary */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginTop: 'auto', paddingTop: '10px' }}>
-                <div style={{ background: '#0f2438', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
-                    <div style={{ color: '#9fb3c8', fontSize: '9px', textTransform: 'uppercase' }}>Total Route Distance</div>
-                    <div style={{ color: '#12d3e0', fontSize: '15px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif', marginTop: '2px' }}>
+                <div style={{ background: '#16203a', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
+                    <div style={{ color: '#93a1bc', fontSize: '9px', textTransform: 'uppercase' }}>Total Route Distance</div>
+                    <div style={{ color: '#22d3ee', fontSize: '15px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif', marginTop: '2px' }}>
                         {totalDistanceMeters.toFixed(1)} m
                     </div>
                 </div>
-                <div style={{ background: '#0f2438', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
-                    <div style={{ color: '#9fb3c8', fontSize: '9px', textTransform: 'uppercase' }}>Total Thruster Time</div>
+                <div style={{ background: '#16203a', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
+                    <div style={{ color: '#93a1bc', fontSize: '9px', textTransform: 'uppercase' }}>Total Thruster Time</div>
                     <div style={{ color: '#facc15', fontSize: '15px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif', marginTop: '2px' }}>
                         {totalThrusterTimeSec.toFixed(1)} s
                     </div>
                 </div>
-                <div style={{ background: '#0f2438', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
-                    <div style={{ color: '#9fb3c8', fontSize: '9px', textTransform: 'uppercase' }}>Hardware Rate</div>
+                <div style={{ background: '#16203a', padding: '10px', borderRadius: '10px', border: '1px solid rgba(18,211,224, 0.15)', textAlign: 'center' }}>
+                    <div style={{ color: '#93a1bc', fontSize: '9px', textTransform: 'uppercase' }}>Hardware Rate</div>
                     <div style={{ color: '#4ade80', fontSize: '15px', fontWeight: 'bold', fontFamily: '"Orbitron", sans-serif', marginTop: '2px' }}>
                         5m = 20s
                     </div>

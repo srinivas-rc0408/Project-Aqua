@@ -16,7 +16,7 @@ html{
 body{
     background:transparent;
     color:var(--text);
-    overflow-x:hidden;
+    overflow-x:clip;
 }
 
 .dashboard{
@@ -2399,7 +2399,7 @@ background:linear-gradient(135deg,#2563eb,#3b82f6);
 }
 
 .capture{
-    background:linear-gradient(135deg,#12d3e0,#0a6b78);
+    background:linear-gradient(135deg,#22d3ee,#0a6b78);
     box-shadow: 0 4px 12px rgba(18, 211, 224, 0.3);
 }
 
@@ -2560,7 +2560,7 @@ width:10px;
 
 ::-webkit-scrollbar-track{
 
-background:#050b13;
+background:#070b14;
 
 }
 
@@ -2707,7 +2707,7 @@ font-size:24px;
 }
 
 .ai{
-    background:linear-gradient(135deg,#12d3e0,#0a6b78);
+    background:linear-gradient(135deg,#22d3ee,#0a6b78);
     box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
 }
 
@@ -2741,7 +2741,7 @@ justify-content:center;
 
 align-items:center;
 
-background:#050b13;
+background:#070b14;
 
 color:#ffffff;
 
@@ -2765,7 +2765,7 @@ justify-content:center;
 
 align-items:center;
 
-background:#050b13;
+background:#070b14;
 
 }
 
@@ -2859,7 +2859,7 @@ justify-content:center;
 
 align-items:center;
 
-background:#050b13;
+background:#070b14;
 
 color:#ffffff;
 
@@ -3025,7 +3025,7 @@ justify-content:center;
 
 align-items:center;
 
-background:#050b13;
+background:#070b14;
 
 position:relative;
 
@@ -3211,7 +3211,7 @@ height:100%;
 
 z-index:0;
 
-background:#050b13;
+background:#070b14;
 
 }
 
@@ -3330,7 +3330,7 @@ position:absolute;
 
 border-radius:50%;
 
-border:5px solid #12d3e0;
+border:5px solid #22d3ee;
 
 animation:spinRing 1.4s linear infinite;
 
@@ -3706,10 +3706,10 @@ transform:translate(-50%,-50%);
 
 border-radius:50%;
 
-background:radial-gradient(circle,#000 0%,#f0f0f0 40%,#12d3e0 80%,transparent 100%);
+background:radial-gradient(circle,#000 0%,#f0f0f0 40%,#22d3ee 80%,transparent 100%);
 
 box-shadow:
-0 0 80px #12d3e0,
+0 0 80px #22d3ee,
 0 0 160px #0a6b78,
 0 0 240px cyan;
 
@@ -4040,8 +4040,8 @@ display:none;
 }
 
 .offline{
-    background:#12d3e0;
-    box-shadow:0 0 10px #12d3e0;
+    background:#22d3ee;
+    box-shadow:0 0 10px #22d3ee;
 }
 
 .camera-frame{
@@ -4237,12 +4237,12 @@ display:none;
 }
 
 .return{
-    background:linear-gradient(135deg,#0a6b78,#12d3e0);
+    background:linear-gradient(135deg,#0a6b78,#22d3ee);
     box-shadow: 0 4px 12px rgba(18, 211, 224, 0.3);
 }
 
 .capture{
-    background:linear-gradient(135deg,#0a6b78,#12d3e0);
+    background:linear-gradient(135deg,#0a6b78,#22d3ee);
     box-shadow: 0 4px 12px rgba(18, 211, 224, 0.3);
 }
 
@@ -4595,7 +4595,7 @@ margin-bottom:20px;
 
 padding:12px 15px;
 
-background:#0d1f30;
+background:#16203a;
 
 border-radius:12px;
 

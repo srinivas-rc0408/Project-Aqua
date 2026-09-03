@@ -4,13 +4,13 @@ export default function RobotStatus() {
 
   const status = [
     { name: "Robot", value: "ONLINE", color: "#22c55e" },
-    { name: "Battery", value: "92%", color: "#12d3e0" },
-    { name: "Signal", value: "98%", color: "#12d3e0" },
+    { name: "Battery", value: "92%", color: "#22d3ee" },
+    { name: "Signal", value: "98%", color: "#22d3ee" },
     { name: "GPS", value: "LOCKED", color: "#22c55e" },
     { name: "Camera", value: "CONNECTED", color: "#22c55e" },
     { name: "Motors", value: "HEALTHY", color: "#22c55e" },
     { name: "IMU", value: "ACTIVE", color: "#22c55e" },
-    { name: "AI", value: "READY", color: "#12d3e0" }
+    { name: "AI", value: "READY", color: "#22d3ee" }
   ];
 
   return (

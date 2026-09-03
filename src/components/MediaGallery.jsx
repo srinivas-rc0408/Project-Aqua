@@ -88,7 +88,7 @@ export default function MediaGallery() {
 
     return (
         <div style={{
-            background: "#0a1a2b",
+            background: "#0e1524",
             borderRadius: "22px",
             padding: "24px",
             boxShadow: "0 0 25px rgba(18,211,224, .2)",
@@ -101,7 +101,7 @@ export default function MediaGallery() {
         }}>
             {/* Header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
-                <h2 style={{ color: "#12d3e0", fontSize: "20px", fontWeight: "900", margin: 0, display: "flex", alignItems: "center", gap: "10px" }}>
+                <h2 style={{ color: "#22d3ee", fontSize: "20px", fontWeight: "900", margin: 0, display: "flex", alignItems: "center", gap: "10px" }}>
                     <Folder size={22} /> Backend Media Storage & Gallery
                 </h2>
 
@@ -110,8 +110,8 @@ export default function MediaGallery() {
                         onClick={loadMediaFromBackend}
                         disabled={loading}
                         style={{
-                            background: "#0f2438",
-                            color: "#12d3e0",
+                            background: "#16203a",
+                            color: "#22d3ee",
                             border: "1px solid rgba(18,211,224,0.4)",
                             padding: "8px 12px",
                             borderRadius: "10px",
@@ -128,7 +128,7 @@ export default function MediaGallery() {
                     </button>
 
                     <label style={{
-                        background: uploading ? "#0a6b78" : "#12d3e0",
+                        background: uploading ? "#0a6b78" : "#22d3ee",
                         color: "#ffffff",
                         padding: "8px 16px",
                         borderRadius: "10px",
@@ -166,8 +166,8 @@ export default function MediaGallery() {
             }}>
                 <Sparkles size={20} className="text-yellow-400 shrink-0" />
                 <div style={{ fontSize: "12px", color: "#f3d0d5", lineHeight: "1.5" }}>
-                    <strong style={{ color: "#12d3e0" }}>Backend Storage Active: </strong>
-                    Files uploaded here are saved directly to <code style={{ background: "#0f2438", padding: "2px 6px", borderRadius: "4px", color: "#60a5fa" }}>/public/media/</code> on the server and rendered dynamically in the frontend.
+                    <strong style={{ color: "#22d3ee" }}>Backend Storage Active: </strong>
+                    Files uploaded here are saved directly to <code style={{ background: "#16203a", padding: "2px 6px", borderRadius: "4px", color: "#60a5fa" }}>/public/media/</code> on the server and rendered dynamically in the frontend.
                 </div>
             </div>
 
@@ -188,7 +188,7 @@ export default function MediaGallery() {
             {/* Selected Media Lightbox Preview */}
             {selectedMedia && (
                 <div style={{
-                    background: "#0f2438",
+                    background: "#16203a",
                     border: "1px solid rgba(18,211,224, 0.5)",
                     borderRadius: "14px",
                     padding: "16px",
@@ -203,7 +203,7 @@ export default function MediaGallery() {
                         </span>
                         <button
                             onClick={() => setSelectedMedia(null)}
-                            style={{ background: "transparent", border: "none", color: "#12d3e0", fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
+                            style={{ background: "transparent", border: "none", color: "#22d3ee", fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
                         >
                             ✖ Close Preview
                         </button>
@@ -221,7 +221,7 @@ export default function MediaGallery() {
 
             {/* Loading Indicator */}
             {loading ? (
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "40px", color: "#9fb3c8", fontSize: "14px", gap: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "40px", color: "#93a1bc", fontSize: "14px", gap: "10px" }}>
                     <Loader2 size={20} className="animate-spin text-cyan-500" /> Loading backend media storage...
                 </div>
             ) : mediaItems.length === 0 ? (
@@ -237,7 +237,7 @@ export default function MediaGallery() {
                     alignItems: "center",
                     gap: "10px"
                 }}>
-                    <Folder size={36} style={{ color: "#12d3e0", opacity: 0.6 }} />
+                    <Folder size={36} style={{ color: "#22d3ee", opacity: 0.6 }} />
                     <div style={{ fontWeight: "bold", color: "#ffffff", fontSize: "14px" }}>No media files in backend storage</div>
                     <div style={{ fontSize: "12px", maxWidth: "360px" }}>
                         Click <strong>"Upload Image / Video"</strong> above to upload files directly into <code style={{ color: "#60a5fa" }}>/public/media/</code> on the backend server.
@@ -270,7 +270,7 @@ export default function MediaGallery() {
                                 onClick={() => setSelectedMedia(item)}
                                 style={{
                                     height: "120px",
-                                    background: "#050b13",
+                                    background: "#070b14",
                                     borderRadius: "8px",
                                     display: "flex",
                                     flexDirection: "column",
@@ -315,7 +315,7 @@ export default function MediaGallery() {
                                 </div>
                                 <button
                                     onClick={() => handleDelete(item)}
-                                    style={{ background: "transparent", border: "none", color: "#12d3e0", cursor: "pointer", padding: "2px" }}
+                                    style={{ background: "transparent", border: "none", color: "#22d3ee", cursor: "pointer", padding: "2px" }}
                                     title="Delete from backend storage"
                                 >
                                     <Trash2 size={14} />

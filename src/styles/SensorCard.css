@@ -1,6 +1,6 @@
 .sensor-card{
 
-background:#0a1a2b;
+background:#0e1524;
 
 border-radius:18px;
 
@@ -48,7 +48,7 @@ font-size:17px;
 
 font-weight:600;
 
-color:#12d3e0;
+color:#22d3ee;
 
 }
 
@@ -70,7 +70,7 @@ font-size:34px;
 
 font-weight:bold;
 
-color:#12d3e0;
+color:#22d3ee;
 
 margin-top:8px;
 
@@ -86,7 +86,7 @@ letter-spacing:-0.5px;
 
 font-size:18px;
 
-color:#9fb3c8;
+color:#93a1bc;
 
 margin-left:6px;
 
@@ -98,7 +98,7 @@ margin-top:12px;
 
 height:8px;
 
-background:#0d1f30;
+background:#16203a;
 
 border-radius:20px;
 
@@ -110,7 +110,7 @@ overflow:hidden;
 
 height:100%;
 
-background:linear-gradient(90deg,#12d3e0,#7fe9f0);
+background:linear-gradient(90deg,#22d3ee,#7fe9f0);
 
 border-radius:20px;
 

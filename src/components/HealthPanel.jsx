@@ -28,7 +28,7 @@ export default function HealthPanel() {
     <div className="health-card">
       <div className="health-header">
         <h2>❤️ Robot Health Monitor</h2>
-        <span style={{ background: overallStatus === "HEALTHY" ? "#22c55e" : "#12d3e0", color: "#ffffff", fontWeight: "bold", padding: "4px 12px", borderRadius: "12px" }}>
+        <span style={{ background: overallStatus === "HEALTHY" ? "#22c55e" : "#22d3ee", color: "#ffffff", fontWeight: "bold", padding: "4px 12px", borderRadius: "12px" }}>
           {overallStatus}
         </span>
       </div>
@@ -40,8 +40,8 @@ export default function HealthPanel() {
               className="health-item"
               key={index}
               style={{ 
-                border: item.status === "ERROR" ? "1px solid #12d3e0" : "1px solid rgba(18,211,224,0.2)",
-                backgroundColor: item.status === "ERROR" ? "rgba(18,211,224, 0.15)" : "#0f2438"
+                border: item.status === "ERROR" ? "1px solid #22d3ee" : "1px solid rgba(18,211,224,0.2)",
+                backgroundColor: item.status === "ERROR" ? "rgba(18,211,224, 0.15)" : "#16203a"
               }}
             >
               <div className="health-top">
@@ -63,7 +63,7 @@ export default function HealthPanel() {
                 </div>
               )}
               {item.solution && (
-                <div style={{ marginTop: "6px", fontSize: "13px", color: "#12d3e0" }}>
+                <div style={{ marginTop: "6px", fontSize: "13px", color: "#22d3ee" }}>
                   <strong>Fix:</strong> {item.solution}
                 </div>
               )}

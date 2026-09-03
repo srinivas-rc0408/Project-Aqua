@@ -44,7 +44,7 @@ export default function MissionStatus() {
                     <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         🤖 Submersible Robot Telemetry
                     </span>
-                    <span style={{ fontSize: '9px', background: 'rgba(18,211,224,0.15)', color: '#12d3e0', border: '1px solid rgba(18,211,224,0.3)', padding: '1px 6px', borderRadius: '8px', fontWeight: 'bold' }}>
+                    <span style={{ fontSize: '9px', background: 'rgba(18,211,224,0.15)', color: '#22d3ee', border: '1px solid rgba(18,211,224,0.3)', padding: '1px 6px', borderRadius: '8px', fontWeight: 'bold' }}>
                         {robot.status}
                     </span>
                 </div>
@@ -56,7 +56,7 @@ export default function MissionStatus() {
                             padding: '2px 8px',
                             borderRadius: '4px',
                             border: '1px solid rgba(18,211,224, 0.3)',
-                            background: activeTab === "auto" ? '#12d3e0' : 'rgba(18,211,224, 0.08)',
+                            background: activeTab === "auto" ? '#22d3ee' : 'rgba(18,211,224, 0.08)',
                             color: '#fff',
                             fontWeight: 'bold',
                             fontSize: '10px',
@@ -74,7 +74,7 @@ export default function MissionStatus() {
                             padding: '2px 8px',
                             borderRadius: '4px',
                             border: '1px solid rgba(18,211,224, 0.3)',
-                            background: activeTab === "manual" ? '#12d3e0' : 'rgba(18,211,224, 0.08)',
+                            background: activeTab === "manual" ? '#22d3ee' : 'rgba(18,211,224, 0.08)',
                             color: '#fff',
                             fontWeight: 'bold',
                             fontSize: '10px',
@@ -111,7 +111,7 @@ export default function MissionStatus() {
                 </div>
                 <div style={{ background: '#07101a', padding: '4px 8px', borderRadius: '5px', border: '1px solid rgba(18,211,224,0.15)' }}>
                     <div style={{ color: '#8296a8', fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Calibration</div>
-                    <div style={{ color: '#12d3e0', fontSize: '11px', fontWeight: 'bold' }}>5m = 20s</div>
+                    <div style={{ color: '#22d3ee', fontSize: '11px', fontWeight: 'bold' }}>5m = 20s</div>
                 </div>
             </div>
 
@@ -119,10 +119,10 @@ export default function MissionStatus() {
             {activeTab === "auto" && (
                 <div style={{ background: '#07101a', borderRadius: '8px', padding: '8px', border: '1px solid rgba(18,211,224, 0.15)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ color: '#9fb3c8', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ color: '#93a1bc', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <Navigation size={12} className="text-cyan-500" /> Waypoint Distance & Thruster Schedule
                         </span>
-                        <span style={{ color: '#12d3e0', fontSize: '10px', fontWeight: 'bold' }}>
+                        <span style={{ color: '#22d3ee', fontSize: '10px', fontWeight: 'bold' }}>
                             {waypoints.length} Waypoints
                         </span>
                     </div>
@@ -149,7 +149,7 @@ export default function MissionStatus() {
                                         return (
                                             <tr key={i} style={{ borderBottom: '1px solid rgba(18,211,224,0.08)', background: isCurrent ? 'rgba(18,211,224, 0.12)' : 'transparent' }}>
                                                 <td style={{ padding: '4px 6px', color: '#ffffff', fontWeight: 'bold' }}>{seg.from} ➔ {seg.to}</td>
-                                                <td style={{ padding: '4px 6px', color: '#12d3e0', fontWeight: 'bold' }}>{seg.distanceMeters.toFixed(1)} m</td>
+                                                <td style={{ padding: '4px 6px', color: '#22d3ee', fontWeight: 'bold' }}>{seg.distanceMeters.toFixed(1)} m</td>
                                                 <td style={{ padding: '4px 6px', color: '#60a5fa' }}>{seg.bearingDeg}°</td>
                                                 <td style={{ padding: '4px 6px', color: '#facc15', fontWeight: 'bold' }}>{seg.thrusterSec.toFixed(1)} s</td>
                                                 <td style={{ padding: '4px 6px' }}>
@@ -170,7 +170,7 @@ export default function MissionStatus() {
                     )}
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#8296a8', paddingTop: '4px', borderTop: '1px solid rgba(18,211,224,0.1)' }}>
-                        <span>Total Dist: <strong style={{ color: '#12d3e0' }}>{totalDistanceMeters.toFixed(1)} m</strong></span>
+                        <span>Total Dist: <strong style={{ color: '#22d3ee' }}>{totalDistanceMeters.toFixed(1)} m</strong></span>
                         <span>Total Thruster: <strong style={{ color: '#facc15' }}>{totalThrusterTimeSec.toFixed(1)} s</strong></span>
                         <span>Rate: <strong style={{ color: '#4ade80' }}>5m = 20s (4.0s/m)</strong></span>
                     </div>
@@ -181,19 +181,19 @@ export default function MissionStatus() {
             {activeTab === "manual" && (
                 <div style={{ background: '#07101a', borderRadius: '8px', padding: '10px', border: '1px solid rgba(18,211,224, 0.15)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ color: '#9fb3c8', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ color: '#93a1bc', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <Calculator size={12} className="text-cyan-500" /> Distance & Thruster Calculator
                         </span>
                         <div style={{ display: 'flex', gap: '4px' }}>
                             <button
                                 onClick={() => setCalcMode("preset")}
-                                style={{ padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(18,211,224, 0.3)', background: calcMode === "preset" ? '#12d3e0' : 'transparent', color: '#fff', fontSize: '9px', fontWeight: 'bold', cursor: 'pointer' }}
+                                style={{ padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(18,211,224, 0.3)', background: calcMode === "preset" ? '#22d3ee' : 'transparent', color: '#fff', fontSize: '9px', fontWeight: 'bold', cursor: 'pointer' }}
                             >
                                 Preset
                             </button>
                             <button
                                 onClick={() => setCalcMode("gps")}
-                                style={{ padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(18,211,224, 0.3)', background: calcMode === "gps" ? '#12d3e0' : 'transparent', color: '#fff', fontSize: '9px', fontWeight: 'bold', cursor: 'pointer' }}
+                                style={{ padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(18,211,224, 0.3)', background: calcMode === "gps" ? '#22d3ee' : 'transparent', color: '#fff', fontSize: '9px', fontWeight: 'bold', cursor: 'pointer' }}
                             >
                                 GPS
                             </button>
@@ -229,7 +229,7 @@ export default function MissionStatus() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', background: '#0a1826', padding: '6px', borderRadius: '6px', border: '1px solid rgba(18,211,224,0.1)' }}>
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ color: '#8296a8', fontSize: '8px', textTransform: 'uppercase' }}>Distance</div>
-                            <div style={{ color: '#12d3e0', fontSize: '13px', fontWeight: 'bold' }}>{effectiveDistance.toFixed(2)} m</div>
+                            <div style={{ color: '#22d3ee', fontSize: '13px', fontWeight: 'bold' }}>{effectiveDistance.toFixed(2)} m</div>
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ color: '#8296a8', fontSize: '8px', textTransform: 'uppercase' }}>Thruster Time</div>

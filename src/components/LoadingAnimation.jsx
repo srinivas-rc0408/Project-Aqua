@@ -10,7 +10,7 @@ export default function LoadingAnimation() {
         inset: 0,
         display: "grid",
         placeItems: "center",
-        background: "#060d16",
+        background: "#070b14",
         zIndex: 40,
       }}
     >
@@ -20,7 +20,7 @@ export default function LoadingAnimation() {
           height: 46,
           borderRadius: "50%",
           border: "3px solid rgba(18,211,224,0.18)",
-          borderTopColor: "#12d3e0",
+          borderTopColor: "#22d3ee",
           animation: "sub-spin 0.75s linear infinite",
           boxShadow: "0 0 24px rgba(18,211,224,0.25)",
         }}

@@ -27,7 +27,7 @@ export default function ConfirmHost() {
     };
 
     const danger = state?.tone === "danger";
-    const accent = danger ? "#ff4d6d" : "#12d3e0";
+    const accent = danger ? "#ff4d6d" : "#22d3ee";
 
     return (
         <AnimatePresence>
@@ -111,7 +111,7 @@ export default function ConfirmHost() {
                                     borderRadius: 11,
                                     background: danger
                                         ? "linear-gradient(135deg,#ff4d6d,#c81e3f)"
-                                        : "linear-gradient(135deg,#12d3e0,#0a6b78)",
+                                        : "linear-gradient(135deg,#22d3ee,#0a6b78)",
                                     color: "#fff",
                                     fontWeight: 700,
                                     fontSize: 14,

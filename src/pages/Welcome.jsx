@@ -12,7 +12,7 @@ export default function Welcome() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-                className="relative z-10 w-full max-w-4xl p-8 md:p-12 bg-gradient-to-br from-[#0f2438] to-[#050b13] backdrop-blur-2xl border border-cyan-500/30 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center"
+                className="relative z-10 w-full max-w-4xl p-8 md:p-12 bg-gradient-to-br from-[#16203a] to-[#070b14] backdrop-blur-2xl border border-cyan-500/30 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center"
             >
                 <motion.h1 
                     initial={{ opacity: 0, y: -20 }}

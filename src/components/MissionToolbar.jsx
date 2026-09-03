@@ -124,14 +124,14 @@ export default function MissionToolbar() {
                 <button
                     className={`mode-btn ${mode === "auto" ? "active" : ""}`}
                     onClick={() => setMode("auto")}
-                    style={{ flex: 1, padding: '12px', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', background: mode === 'auto' ? 'linear-gradient(135deg, #12d3e0, #7fe9f0)' : '#0f2438', color: '#fff' }}
+                    style={{ flex: 1, padding: '12px', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', background: mode === 'auto' ? 'linear-gradient(135deg, #22d3ee, #7fe9f0)' : '#16203a', color: '#fff' }}
                 >
                     🤖 AUTO MODE
                 </button>
                 <button
                     className={`mode-btn ${mode === "manual" ? "active" : ""}`}
                     onClick={() => setMode("manual")}
-                    style={{ flex: 1, padding: '12px', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', background: mode === 'manual' ? 'linear-gradient(135deg, #f1a208, #facc15)' : '#0f2438', color: '#fff' }}
+                    style={{ flex: 1, padding: '12px', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', background: mode === 'manual' ? 'linear-gradient(135deg, #f1a208, #facc15)' : '#16203a', color: '#fff' }}
                 >
                     🕹 MANUAL MODE
                 </button>
@@ -143,10 +143,10 @@ export default function MissionToolbar() {
                     <button className={missionStarted ? "stop-btn" : "start-btn"} onClick={missionStarted ? stopHandler : startHandler}>{missionStarted ? "⏹ STOP" : "▶ START"}</button>
                     <button className="pause-btn" onClick={pauseHandler} disabled={!missionStarted} style={{ opacity: missionStarted ? 1 : 0.5 }}>{missionPaused ? "▶ RESUME" : "⏸ PAUSE"}</button>
                     <button className="home-btn" onClick={homeHandler}>🏠 RETURN</button>
-                    <button className="capture-btn" style={{ background: 'linear-gradient(135deg, #12d3e0, #0a6b78)', color: 'white', padding: '16px 14px', border: 'none', borderRadius: '14px', fontWeight: '700', cursor: 'pointer' }} onClick={handleCapture}>📸 CAPTURE</button>
+                    <button className="capture-btn" style={{ background: 'linear-gradient(135deg, #22d3ee, #0a6b78)', color: 'white', padding: '16px 14px', border: 'none', borderRadius: '14px', fontWeight: '700', cursor: 'pointer' }} onClick={handleCapture}>📸 CAPTURE</button>
                 </div>
             ) : (
-                <div className="manual-controls" style={{ display: 'flex', gap: '20px', background: 'linear-gradient(145deg, #0f2438, #0a1a2b)', padding: '20px', borderRadius: '20px', border: '1px solid rgba(18, 211, 224, 0.25)' }}>
+                <div className="manual-controls" style={{ display: 'flex', gap: '20px', background: 'linear-gradient(145deg, #16203a, #0e1524)', padding: '20px', borderRadius: '20px', border: '1px solid rgba(18, 211, 224, 0.25)' }}>
                     <div className="d-pad" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 60px)', gap: '10px', margin: '0 auto' }}>
                         <div></div>
                         <button style={dPadBtn} onPointerDown={() => startMoving('up')} onPointerUp={stopMoving} onPointerLeave={stopMoving}>▲</button>
@@ -157,18 +157,18 @@ export default function MissionToolbar() {
                     </div>
                     <div className="manual-actions" style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
                         <div style={{display: 'flex', gap: '10px'}}>
-                             <button style={{...actionBtn('#12d3e0'), flex: 1}} onClick={handleCapture}>📸 CAPTURE</button>
+                             <button style={{...actionBtn('#22d3ee'), flex: 1}} onClick={handleCapture}>📸 CAPTURE</button>
 
                         </div>
                         <div style={{display: 'flex', gap: '10px'}}>
                              <button 
-                                 style={{...actionBtn(missionStarted ? '#12d3e0' : '#22c55e'), flex: 1, color: 'white'}} 
+                                 style={{...actionBtn(missionStarted ? '#22d3ee' : '#22c55e'), flex: 1, color: 'white'}} 
                                  onClick={missionStarted ? stopHandler : startHandler}
                              >
                                  {missionStarted ? '⏹ STOP' : '▶ START'}
                              </button>
                              <button 
-                                 style={{...actionBtn(missionPaused ? '#12d3e0' : '#facc15'), flex: 1, color: '#ffffff', opacity: missionStarted ? 1 : 0.5}} 
+                                 style={{...actionBtn(missionPaused ? '#22d3ee' : '#facc15'), flex: 1, color: '#ffffff', opacity: missionStarted ? 1 : 0.5}} 
                                  onClick={pauseHandler}
                                  disabled={!missionStarted}
                              >

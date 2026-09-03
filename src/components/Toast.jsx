@@ -22,7 +22,7 @@ const STYLES = {
     success: { Icon: CheckCircle2, color: "#22c55e", tint: "rgba(34,197,94,0.12)" },
     error: { Icon: XCircle, color: "#ff4d6d", tint: "rgba(255,77,109,0.12)" },
     warning: { Icon: AlertTriangle, color: "#ffb703", tint: "rgba(255,183,3,0.12)" },
-    info: { Icon: Info, color: "#12d3e0", tint: "rgba(18,211,224,0.12)" },
+    info: { Icon: Info, color: "#22d3ee", tint: "rgba(18,211,224,0.12)" },
 };
 
 export default function ToastHost() {

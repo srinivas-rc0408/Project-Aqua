@@ -1,5 +1,5 @@
 .control-card{
-    background:#0a1a2b;
+    background:#0e1524;
     border-radius:18px;
     padding:20px;
     margin-top:18px;
@@ -130,7 +130,7 @@
 }
 
 .status-item{
-    background:#0f2438;
+    background:#16203a;
     border-radius:12px;
     padding:12px;
     color:#ffffff;
@@ -139,12 +139,12 @@
 
 .status-label{
     font-size:12px;
-    color:#9fb3c8;
+    color:#93a1bc;
     margin-bottom:6px;
 }
 
 .status-value{
     font-size:18px;
     font-weight:bold;
-    color:#12d3e0;
+    color:#22d3ee;
 }

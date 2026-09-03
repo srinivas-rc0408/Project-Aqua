@@ -1,116 +1,109 @@
-.animated-bg-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -10;
-  overflow: hidden;
-  background-color: #04090f;
+.aqua-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    background: #03080f;
+    pointer-events: none;
 }
 
-.water-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 50% -20%, #123049 0%, #08131f 40%, #04090f 100%);
-  opacity: 0.95;
+/* ---- depth: surface glow at top fading to abyss ---- */
+.aqua-bg__depth {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(130% 90% at 50% -12%, rgba(22, 66, 88, 0.55) 0%, rgba(9, 22, 36, 0.42) 36%, transparent 66%),
+        linear-gradient(180deg, #07131f 0%, #050d17 46%, #030811 100%);
 }
 
-/* Light rays coming from the surface */
-.light-rays {
-  position: absolute;
-  top: -20%;
-  left: 0;
-  width: 100%;
-  height: 150%;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(34,211,238, 0.03) 2%,
-    transparent 4%,
-    transparent 6%,
-    rgba(34,211,238, 0.045) 8%,
-    transparent 10%
-  );
-  transform: perspective(500px) rotateX(45deg);
-  transform-origin: top center;
-  animation: sway 20s ease-in-out infinite alternate;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.6;
+/* ---- caustics: large blurred light pools drifting slowly ---- */
+.aqua-bg__caustic {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(64px);
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+}
+.aqua-bg__caustic--1 {
+    width: 62vw; height: 62vw; top: -16%; left: -12%;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 62%);
+    animation: aqua-caustic-1 34s ease-in-out infinite;
+}
+.aqua-bg__caustic--2 {
+    width: 52vw; height: 52vw; bottom: -20%; right: -10%;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.13), transparent 62%);
+    animation: aqua-caustic-2 44s ease-in-out infinite;
+}
+.aqua-bg__caustic--3 {
+    width: 46vw; height: 46vw; top: 28%; left: 34%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.1), transparent 60%);
+    animation: aqua-caustic-3 52s ease-in-out infinite;
+}
+@keyframes aqua-caustic-1 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
+    50% { transform: translate3d(8vw, 6vh, 0) scale(1.18); opacity: 1; }
+}
+@keyframes aqua-caustic-2 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); opacity: 0.55; }
+    50% { transform: translate3d(-7vw, -5vh, 0) scale(1); opacity: 0.9; }
+}
+@keyframes aqua-caustic-3 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
+    50% { transform: translate3d(-6vw, 7vh, 0) scale(1.22); opacity: 0.8; }
 }
 
-@keyframes sway {
-  0% {
-    transform: perspective(500px) rotateX(45deg) skewX(-10deg);
-  }
-  100% {
-    transform: perspective(500px) rotateX(45deg) skewX(10deg);
-  }
+/* ---- god-rays from the surface ---- */
+.aqua-bg__rays {
+    position: absolute;
+    top: -25%; left: -15%;
+    width: 130%; height: 150%;
+    background: repeating-linear-gradient(
+        74deg,
+        transparent 0 6%,
+        rgba(34, 211, 238, 0.05) 6.4%,
+        transparent 6.9% 12%
+    );
+    mix-blend-mode: screen;
+    opacity: 0.5;
+    transform-origin: top center;
+    animation: aqua-rays 18s ease-in-out infinite alternate;
+    will-change: transform;
+}
+@keyframes aqua-rays {
+    0% { transform: skewX(-7deg) translateX(-2%); opacity: 0.35; }
+    100% { transform: skewX(7deg) translateX(2%); opacity: 0.6; }
 }
 
-/* Sonar/Grid effect */
-.sonar-grid {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    linear-gradient(rgba(34,211,238, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,211,238, 0.06) 1px, transparent 1px);
-  background-size: 54px 54px;
-  transform: perspective(500px) rotateX(60deg);
-  transform-origin: bottom center;
-  animation: gridMove 10s linear infinite;
-  opacity: 0.18;
+/* ---- floating motes (plankton) with depth ---- */
+.aqua-bg__motes { position: absolute; inset: 0; }
+.aqua-mote {
+    position: absolute;
+    bottom: -6vh;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%, rgba(196, 244, 255, 0.95), rgba(34, 211, 238, 0.22));
+    box-shadow: 0 0 6px rgba(34, 211, 238, 0.45);
+    animation-name: aqua-mote-rise;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+}
+@keyframes aqua-mote-rise {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(var(--drift, 0), -114vh, 0); }
 }
 
-@keyframes gridMove {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 50px;
-  }
+/* ---- vignette to focus content ---- */
+.aqua-bg__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(125% 100% at 50% 42%, transparent 54%, rgba(2, 6, 12, 0.6) 100%);
 }
 
-/* Bubbles */
-.bubbles-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.bubble {
-  position: absolute;
-  bottom: -50px;
-  background: rgba(18,211,224, 0.12);
-  border: 1px solid rgba(18,211,224, 0.35);
-  border-radius: 50%;
-  animation: floatUp linear infinite;
-  box-shadow: inset 0 0 10px rgba(18,211,224, 0.25), 0 0 5px rgba(18,211,224, 0.2);
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-110vh) scale(1.5) translateX(30px);
-    opacity: 0;
-  }
+@media (prefers-reduced-motion: reduce) {
+    .aqua-bg__caustic,
+    .aqua-bg__rays,
+    .aqua-mote {
+        animation: none !important;
+    }
+    .aqua-bg__caustic { opacity: 0.8; }
 }

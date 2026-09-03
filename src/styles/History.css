@@ -13,7 +13,7 @@
     margin-bottom: 10px;
 }
 .history-header p {
-    color: #fca5a5;
+    color: #93a1bc;
     font-size: 1.1rem;
 }
 .history-grid {
@@ -25,7 +25,7 @@
     margin: 0 auto;
 }
 .history-file-card {
-    background: rgba(18, 5, 7, 0.85);
+    background: rgba(14, 21, 36, 0.85);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(18,211,224, 0.25);
     border-radius: 12px;
@@ -44,7 +44,7 @@
 .gallery-thumbnail {
     width: 100%;
     height: 180px;
-    background: rgba(10, 2, 4, 0.8);
+    background: rgba(7, 11, 20, 0.8);
     overflow: hidden;
     border-bottom: 1px solid rgba(18,211,224, 0.2);
 }
@@ -93,7 +93,7 @@
     backdrop-filter: blur(5px);
 }
 .history-modal-content {
-    background: rgba(18, 5, 7, 0.95);
+    background: rgba(14, 21, 36, 0.95);
     backdrop-filter: blur(15px);
     width: 100%;
     max-width: 1200px;
@@ -111,7 +111,7 @@
     top: 20px;
     right: 25px;
     background: transparent;
-    color: #fca5a5;
+    color: #93a1bc;
     border: none;
     font-size: 28px;
     cursor: pointer;
@@ -133,7 +133,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(10, 2, 4, 0.8);
+    background: rgba(7, 11, 20, 0.8);
     border-radius: 12px;
     overflow: hidden;
     padding: 10px;

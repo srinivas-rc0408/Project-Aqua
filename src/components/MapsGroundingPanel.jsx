@@ -185,7 +185,7 @@ export default function MapsGroundingPanel() {
                     border: "1px solid rgba(239, 68, 68, 0.4)",
                     borderRadius: "10px",
                     padding: "12px",
-                    color: "#fca5a5",
+                    color: "#93a1bc",
                     fontSize: "13px",
                     marginBottom: "16px"
                 }}>

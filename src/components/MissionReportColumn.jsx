@@ -326,7 +326,7 @@ export default function MissionReportColumn() {
                 <span>IP: <strong style={{ color: "#ffffff" }}>{ipAddress}</strong></span>
                 <span>GPS: <strong style={{ color: "#4ade80" }}>{lat ? lat.toFixed(3) : "12.908"}</strong></span>
               </div>
-              <div style={{ color: "#fca5a5", fontWeight: "bold", fontSize: "10.5px", marginTop: "2px" }}>
+              <div style={{ color: "#93a1bc", fontWeight: "bold", fontSize: "10.5px", marginTop: "2px" }}>
                 Defect: {defectType}
               </div>
             </div>
@@ -757,7 +757,7 @@ export default function MissionReportColumn() {
                     width: "100%",
                     background: "#07101a",
                     border: "1px solid rgba(239, 68, 68, 0.4)",
-                    color: "#fca5a5",
+                    color: "#93a1bc",
                     padding: "8px 10px",
                     borderRadius: "8px",
                     fontSize: "11.5px",

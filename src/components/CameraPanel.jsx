@@ -418,7 +418,7 @@ void loop() { delay(1000); }`;
           position: "absolute",
           top: "12px",
           left: "12px",
-          background: "rgba(15, 5, 7, 0.85)",
+          background: "rgba(14, 21, 36, 0.85)",
           border: "1px solid rgba(18,211,224, 0.5)",
           borderRadius: "8px",
           padding: "6px 12px",

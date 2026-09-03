@@ -175,7 +175,7 @@ export default function MediaGallery() {
                 <div style={{
                     background: notice.includes("failed") || notice.includes("Failed") ? "rgba(239,68,68,0.2)" : "rgba(34,197,94,0.15)",
                     border: `1px solid ${notice.includes("failed") || notice.includes("Failed") ? "#ef4444" : "#22c55e"}`,
-                    color: notice.includes("failed") || notice.includes("Failed") ? "#fca5a5" : "#4ade80",
+                    color: notice.includes("failed") || notice.includes("Failed") ? "#93a1bc" : "#4ade80",
                     padding: "8px 12px",
                     borderRadius: "8px",
                     fontSize: "12px",

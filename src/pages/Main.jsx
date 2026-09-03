@@ -74,12 +74,6 @@ export default function Main() {
 
             {/* ---------------- HERO ---------------- */}
             <section className="home-hero">
-                <div className="home-hero__bg" aria-hidden>
-                    {Array.from({ length: 7 }).map((_, i) => (
-                        <span key={i} className={`bubble bubble-${i}`} />
-                    ))}
-                </div>
-
                 <div className="home-hero__inner">
                     <motion.div
                         className="home-banner"

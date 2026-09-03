@@ -60,7 +60,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-[#070b14] flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center p-4">
             <button
                 type="button"
                 onClick={() => navigate('/home')}

@@ -1,5 +1,6 @@
-/* Real, document-flow home page — scrolls naturally (no viewport-locked centering) */
-.home {
+/* Real, document-flow home page — scrolls naturally (no viewport-locked centering).
+   NOTE: class is .home-page (not .home) — .home is a RETURN-HOME button style in App.css. */
+.home-page {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -164,7 +165,7 @@
 
 /* Team */
 .home-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-.team-card {
+.home-team-card {
     display: flex;
     flex-direction: column;
     padding: var(--space-6);
@@ -174,7 +175,7 @@
     box-shadow: var(--shadow-1);
     transition: transform 0.16s ease-out, border-color 0.16s ease-out;
 }
-.team-card:hover { transform: translateY(-4px); border-color: rgba(18, 211, 224, 0.45); }
+.home-team-card:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, 0.45); }
 .team-card__top { display: flex; align-items: center; gap: 14px; margin-bottom: var(--space-4); }
 .team-card__avatar {
     position: relative;

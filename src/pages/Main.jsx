@@ -69,7 +69,7 @@ export default function Main() {
     }, [navigate]);
 
     return (
-        <div className="home">
+        <div className="home-page">
             <TopNav onAbout={() => setAboutOpen(true)} />
 
             {/* ---------------- HERO ---------------- */}
@@ -148,7 +148,7 @@ export default function Main() {
                 <h3 className="home-section__title"><Users size={18} /> Project Team</h3>
                 <motion.div className="home-team" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.12 }}>
                     {TEAM.map((m) => (
-                        <motion.div key={m.usn} className="team-card" variants={reveal}>
+                        <motion.div key={m.usn} className="home-team-card" variants={reveal}>
                             <div className="team-card__top">
                                 <label className="team-card__avatar" title="Upload photo">
                                     {memberPhotos[m.usn] ? <img src={memberPhotos[m.usn]} alt={m.name} /> : <Users size={22} />}

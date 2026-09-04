@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import "../styles/AnimatedBackground.css";
 
-// Deep-ocean ambient background. Layers (all behind content, pointer-events none):
-//   depth gradient · drifting caustic light pools · soft god-rays ·
-//   depth-varied floating motes · vignette. Only transform/opacity animate.
+// Deep-ocean ambient background, tuned for smoothness: soft radial gradients
+// (no blur filters), no blend modes, only transform/opacity animate. Layers sit
+// behind content (z-index -10, pointer-events none) and freeze on reduced-motion.
 export default function AnimatedBackground() {
     const [motes, setMotes] = useState([]);
 
     useEffect(() => {
-        const arr = Array.from({ length: 26 }).map((_, i) => {
+        const arr = Array.from({ length: 16 }).map((_, i) => {
             const depth = Math.random(); // 0 = far/small/dim, 1 = near/big/bright
             return {
                 id: i,
                 left: Math.random() * 100,
-                size: 2 + depth * 5,
-                opacity: 0.08 + depth * 0.32,
-                blur: (1 - depth) * 2.2,
-                duration: 24 + Math.random() * 22,
-                delay: -Math.random() * 46, // negative → start mid-flight, no empty first frame
-                drift: (Math.random() - 0.5) * 70,
+                size: 2 + depth * 4,
+                opacity: 0.08 + depth * 0.28,
+                duration: 26 + Math.random() * 22,
+                delay: -Math.random() * 46, // negative → start mid-flight
+                drift: (Math.random() - 0.5) * 64,
             };
         });
         setMotes(arr);
@@ -41,7 +40,6 @@ export default function AnimatedBackground() {
                             width: m.size,
                             height: m.size,
                             opacity: m.opacity,
-                            filter: `blur(${m.blur}px)`,
                             animationDuration: `${m.duration}s`,
                             animationDelay: `${m.delay}s`,
                             "--drift": `${m.drift}px`,

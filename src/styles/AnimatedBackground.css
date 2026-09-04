@@ -5,83 +5,82 @@
     overflow: hidden;
     background: #03080f;
     pointer-events: none;
+    /* isolate compositing so the animated layers never repaint page content */
+    contain: strict;
 }
 
-/* ---- depth: surface glow at top fading to abyss ---- */
+/* ---- depth: surface glow at top fading to abyss (static, cheap) ---- */
 .aqua-bg__depth {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(130% 90% at 50% -12%, rgba(22, 66, 88, 0.55) 0%, rgba(9, 22, 36, 0.42) 36%, transparent 66%),
+        radial-gradient(130% 90% at 50% -12%, rgba(22, 66, 88, 0.5) 0%, rgba(9, 22, 36, 0.4) 36%, transparent 66%),
         linear-gradient(180deg, #07131f 0%, #050d17 46%, #030811 100%);
 }
 
-/* ---- caustics: large blurred light pools drifting slowly ---- */
+/* ---- caustics: soft radial light-pools (gradient IS the softness — no blur
+       filter, no blend mode; only transform animates) ---- */
 .aqua-bg__caustic {
     position: absolute;
     border-radius: 50%;
-    filter: blur(64px);
-    mix-blend-mode: screen;
-    will-change: transform, opacity;
+    will-change: transform;
 }
 .aqua-bg__caustic--1 {
-    width: 62vw; height: 62vw; top: -16%; left: -12%;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 62%);
-    animation: aqua-caustic-1 34s ease-in-out infinite;
+    width: 78vw; height: 78vw; top: -24%; left: -18%;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, rgba(34, 211, 238, 0.04) 34%, transparent 60%);
+    animation: aqua-caustic-1 40s ease-in-out infinite;
 }
 .aqua-bg__caustic--2 {
-    width: 52vw; height: 52vw; bottom: -20%; right: -10%;
-    background: radial-gradient(circle, rgba(45, 212, 191, 0.13), transparent 62%);
-    animation: aqua-caustic-2 44s ease-in-out infinite;
+    width: 66vw; height: 66vw; bottom: -26%; right: -16%;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.09) 0%, rgba(45, 212, 191, 0.03) 34%, transparent 60%);
+    animation: aqua-caustic-2 48s ease-in-out infinite;
 }
 .aqua-bg__caustic--3 {
-    width: 46vw; height: 46vw; top: 28%; left: 34%;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.1), transparent 60%);
-    animation: aqua-caustic-3 52s ease-in-out infinite;
+    width: 58vw; height: 58vw; top: 24%; left: 30%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, transparent 58%);
+    animation: aqua-caustic-3 56s ease-in-out infinite;
 }
 @keyframes aqua-caustic-1 {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
-    50% { transform: translate3d(8vw, 6vh, 0) scale(1.18); opacity: 1; }
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(6vw, 5vh, 0) scale(1.12); }
 }
 @keyframes aqua-caustic-2 {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); opacity: 0.55; }
-    50% { transform: translate3d(-7vw, -5vh, 0) scale(1); opacity: 0.9; }
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
+    50% { transform: translate3d(-6vw, -4vh, 0) scale(1); }
 }
 @keyframes aqua-caustic-3 {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
-    50% { transform: translate3d(-6vw, 7vh, 0) scale(1.22); opacity: 0.8; }
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-5vw, 6vh, 0) scale(1.16); }
 }
 
-/* ---- god-rays from the surface ---- */
+/* ---- god-rays from the surface (no blend mode; low opacity) ---- */
 .aqua-bg__rays {
     position: absolute;
     top: -25%; left: -15%;
     width: 130%; height: 150%;
     background: repeating-linear-gradient(
         74deg,
-        transparent 0 6%,
-        rgba(34, 211, 238, 0.05) 6.4%,
+        transparent 0 5.5%,
+        rgba(34, 211, 238, 0.035) 6.2%,
         transparent 6.9% 12%
     );
-    mix-blend-mode: screen;
-    opacity: 0.5;
+    opacity: 0.7;
     transform-origin: top center;
-    animation: aqua-rays 18s ease-in-out infinite alternate;
+    animation: aqua-rays 20s ease-in-out infinite alternate;
     will-change: transform;
 }
 @keyframes aqua-rays {
-    0% { transform: skewX(-7deg) translateX(-2%); opacity: 0.35; }
-    100% { transform: skewX(7deg) translateX(2%); opacity: 0.6; }
+    0% { transform: skewX(-6deg) translateX(-1.5%); }
+    100% { transform: skewX(6deg) translateX(1.5%); }
 }
 
-/* ---- floating motes (plankton) with depth ---- */
+/* ---- floating motes (plankton) — cheap: soft gradient dot, transform only ---- */
 .aqua-bg__motes { position: absolute; inset: 0; }
 .aqua-mote {
     position: absolute;
     bottom: -6vh;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 32%, rgba(196, 244, 255, 0.95), rgba(34, 211, 238, 0.22));
-    box-shadow: 0 0 6px rgba(34, 211, 238, 0.45);
+    background: radial-gradient(circle at 38% 34%, rgba(196, 244, 255, 0.9) 0%, rgba(34, 211, 238, 0.15) 55%, transparent 72%);
     animation-name: aqua-mote-rise;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -92,7 +91,7 @@
     100% { transform: translate3d(var(--drift, 0), -114vh, 0); }
 }
 
-/* ---- vignette to focus content ---- */
+/* ---- vignette to focus content (static) ---- */
 .aqua-bg__vignette {
     position: absolute;
     inset: 0;
@@ -105,5 +104,4 @@
     .aqua-mote {
         animation: none !important;
     }
-    .aqua-bg__caustic { opacity: 0.8; }
 }

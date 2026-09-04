@@ -117,7 +117,11 @@ export default function Main() {
                 className="home-section"
                 variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
             >
-                <h3 className="home-section__title">What it does</h3>
+                <div className="home-section__head">
+                    <span className="home-section__kicker">Capabilities</span>
+                    <h3 className="home-section__title">What it does</h3>
+                    <p className="home-section__sub">Four systems working together to turn a manual underwater survey into an autonomous, AI-assisted inspection.</p>
+                </div>
                 <motion.div className="home-features" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
                     {FEATURES.map(({ icon: Icon, title, text }) => (
                         <motion.div key={title} className="feature-tile" variants={reveal}>

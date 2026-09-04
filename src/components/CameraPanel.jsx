@@ -132,7 +132,7 @@ export default function CameraPanel() {
     }
   };
 
-  // Canvas Fallback Renderer for Simulated VSTY Underwater View when ESP is offline
+  // Canvas Fallback Renderer for Simulated Underwater View when ESP is offline
   useEffect(() => {
     if (espConnected || activeSource !== "esp-wifi") return;
 
@@ -198,20 +198,20 @@ export default function CameraPanel() {
       ctx.shadowBlur = 20;
       ctx.fill();
 
-      // VSTY Text Logo
-      ctx.font = "900 36px 'Arial Black', sans-serif";
+      // Product text logo
+      ctx.font = "900 32px 'Orbitron', 'Arial Black', sans-serif";
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.shadowColor = "#22d3ee";
       ctx.shadowBlur = 15;
-      ctx.fillText("VSTY SUBMERSIBLE", 0, 75);
+      ctx.fillText("SUBMERSIBLE", 0, 75);
 
       ctx.restore();
 
       // HUD Overlay details
       ctx.fillStyle = "#22d3ee";
       ctx.font = "bold 12px monospace";
-      ctx.fillText("● AUTOMATIC VSTY STREAM FEED", 20, 30);
+      ctx.fillText("● AUTOMATIC STREAM FEED", 20, 30);
       ctx.fillText(`FPS: 60 | ESP32-CAM NOT CONNECTED 🔴`, canvas.width - 320, 30);
 
       animationFrameId = requestAnimationFrame(render);
@@ -398,7 +398,7 @@ void loop() { delay(1000); }`;
           </div>
         ) : (
           <div style={{ width: "100%", height: "100%", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", background: "#050103" }}>
-            {/* Automatic VSTY Canvas Video Stream when ESP is not connected */}
+            {/* Automatic canvas video stream when ESP is not connected */}
             <canvas
               ref={canvasRef}
               width={1280}

@@ -6,6 +6,14 @@ import "../styles/AnimatedBackground.css";
 // behind content (z-index -10, pointer-events none) and freeze on reduced-motion.
 export default function AnimatedBackground() {
     const [motes, setMotes] = useState([]);
+    const [paused, setPaused] = useState(false);
+
+    // Pause the ambient animations while the tab is hidden — no wasted CPU/GPU.
+    useEffect(() => {
+        const onVis = () => setPaused(document.visibilityState === "hidden");
+        document.addEventListener("visibilitychange", onVis);
+        return () => document.removeEventListener("visibilitychange", onVis);
+    }, []);
 
     useEffect(() => {
         const arr = Array.from({ length: 16 }).map((_, i) => {
@@ -24,7 +32,7 @@ export default function AnimatedBackground() {
     }, []);
 
     return (
-        <div className="aqua-bg" aria-hidden>
+        <div className={`aqua-bg${paused ? " is-paused" : ""}`} aria-hidden>
             <div className="aqua-bg__depth" />
             <div className="aqua-bg__caustic aqua-bg__caustic--1" />
             <div className="aqua-bg__caustic aqua-bg__caustic--2" />

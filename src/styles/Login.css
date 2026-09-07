@@ -186,6 +186,28 @@
 
 .signin-hint { text-align: center; font-size: 12px; color: var(--text-dim); }
 
+/* magic-link (subtle, link-like) */
+.signin-magic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.15s ease;
+}
+.signin-magic:hover { color: var(--primary); }
+.signin-magic:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* inline button spinner */
+.signin-spin { animation: signin-spin 0.7s linear infinite; }
+@keyframes signin-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .signin-spin { animation-duration: 1.6s; } }
+
 /* ---- status caption (outside + below the card) ---- */
 .signin-status { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 16px; color: var(--text-dim); font-size: 12px; }
 .signin-status span { display: inline-flex; align-items: center; gap: 5px; }

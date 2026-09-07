@@ -6,6 +6,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ToastHost from "./components/Toast";
 import ConfirmHost from "./components/ConfirmDialog";
+import { useAuth } from "./context/AuthContext";
 
 // Single import map: reused for both lazy() and idle prefetch so navigation is instant.
 const load = {
@@ -14,6 +15,7 @@ const load = {
   Login: () => import("./pages/Login"),
   Home: () => import("./pages/Main"),
   About: () => import("./pages/About"),
+  AuthCallback: () => import("./pages/AuthCallback"),
   Dashboard: () => import("./pages/Dashboard"),
   RoutePlanner: () => import("./pages/RoutePlanner"),
   ImageAnalysis: () => import("./pages/ImageAnalysis"),
@@ -25,14 +27,16 @@ const Welcome = lazy(load.Welcome);
 const Login = lazy(load.Login);
 const Home = lazy(load.Home);
 const About = lazy(load.About);
+const AuthCallback = lazy(load.AuthCallback);
 const Dashboard = lazy(load.Dashboard);
 const RoutePlanner = lazy(load.RoutePlanner);
 const ImageAnalysis = lazy(load.ImageAnalysis);
 const History = lazy(load.History);
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("token");
-  if (!isAuthenticated) {
+  const { isAuthed, loading } = useAuth();
+  if (loading) return <LoadingAnimation />;
+  if (!isAuthed) {
     return <Navigate to="/login" replace />;
   }
   return children;
@@ -50,6 +54,7 @@ function AnimatedRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/main" element={<Navigate to="/home" replace />} />
           <Route path="/about" element={<About />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
 

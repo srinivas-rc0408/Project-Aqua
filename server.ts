@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import http from "http";
 import https from "https";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 import fsLib from "fs";
@@ -1574,6 +1573,7 @@ app.use((err, req, res, next) => {
 async function startServer() {
   app.use(express.static(path.join(process.cwd(), "public")));
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -1592,4 +1592,10 @@ async function startServer() {
   });
 }
 
-startServer();
+// On Vercel the app runs as a serverless function (see api/index.ts) — export it and skip listen().
+// Locally (tsx dev / node dist/server.cjs) we start a real HTTP server + Vite/static middleware.
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;

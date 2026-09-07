@@ -9,3 +9,4 @@ coverage/
 
 # runtime data
 database.json
+graphify-out/

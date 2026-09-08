@@ -30,7 +30,7 @@
     margin: 0;
 }
 
-/* Tall track so the sticky stage stays pinned while the cross-fade scrubs. */
+/* Tall track so the sticky stage stays pinned while the render settles. */
 .hwr-track { position: relative; }
 .hwr-sticky {
     position: sticky;
@@ -47,26 +47,22 @@
 .hwr-stage {
     position: relative;
     width: 100%;
-    max-width: 1080px;
-    aspect-ratio: 16 / 10;
+    max-width: 1120px;
+    aspect-ratio: 16 / 9;
     border-radius: 20px;
     background:
-        radial-gradient(120% 90% at 50% 40%, rgba(34, 211, 238, 0.06), transparent 70%),
-        var(--surface);
+        radial-gradient(120% 90% at 50% 42%, rgba(34, 211, 238, 0.07), transparent 70%),
+        #05070d;
     border: 1px solid var(--border);
     overflow: hidden;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
 }
-/* Contact-shadow ground under the model. */
+/* Soft vignette for depth. */
 .hwr-stage::after {
     content: "";
     position: absolute;
-    left: 12%;
-    right: 12%;
-    bottom: 7%;
-    height: 40px;
-    background: radial-gradient(50% 100% at 50% 0%, rgba(0, 0, 0, 0.5), transparent 72%);
-    filter: blur(2px);
+    inset: 0;
+    background: radial-gradient(120% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.45) 100%);
     pointer-events: none;
 }
 
@@ -76,88 +72,10 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    will-change: opacity, transform;
+    will-change: transform;
     user-select: none;
     -webkit-user-drag: none;
 }
-
-/* Leader lines drawn in normalized 0–100 space, stretched to the stage. */
-.hwr-lines {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-.hwr-line {
-    stroke: var(--primary);
-    stroke-width: 0.25;
-    opacity: 0.5;
-    vector-effect: non-scaling-stroke;
-    transition: opacity 0.18s ease;
-}
-.hwr-line.on { opacity: 1; stroke-width: 0.4; }
-.hwr-line.dim { opacity: 0.15; }
-
-.hwr-dot {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    border-radius: 50%;
-    background: var(--primary);
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    pointer-events: none;
-}
-.hwr-dot.on { transform: scale(1.35); box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.28); }
-
-.hwr-chip {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-    color: var(--text);
-    background: rgba(14, 21, 36, 0.86);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    backdrop-filter: blur(6px);
-    cursor: pointer;
-    transition: opacity 0.2s ease, border-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
-}
-.hwr-chip em { font-style: normal; color: var(--text-dim); font-size: 11px; }
-.hwr-chip:hover, .hwr-chip.on {
-    border-color: var(--primary);
-    color: var(--primary-strong);
-}
-.hwr-chip.on em { color: var(--primary); }
-.hwr-chip.dim { opacity: 0.35 !important; }
-.hwr-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-.hwr-card {
-    position: absolute;
-    left: 16px;
-    bottom: 16px;
-    min-width: 190px;
-    padding: 14px 16px;
-    background: rgba(14, 21, 36, 0.94);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--primary);
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-}
-.hwr-card h5 { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--text); }
-.hwr-card dl { margin: 0; display: grid; gap: 4px; }
-.hwr-card dl > div { display: flex; justify-content: space-between; gap: 16px; font-size: 12.5px; }
-.hwr-card dt { color: var(--text-dim); }
-.hwr-card dd { margin: 0; color: var(--text); font-weight: 600; }
 
 .hwr-state {
     position: absolute;
@@ -190,76 +108,11 @@
     border-radius: 5px;
 }
 
-.hwr-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 520px;
-    padding: 0 8px;
-}
-.hwr-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 15px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
-}
-.hwr-btn:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-1px); }
-.hwr-btn:active:not(:disabled) { transform: translateY(0); }
-.hwr-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.hwr-btn--ghost { background: transparent; color: var(--text-dim); }
-.hwr-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-.hwr-slider {
-    flex: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 6px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--primary-deep), var(--primary));
-    outline: none;
-    cursor: pointer;
-}
-.hwr-slider:disabled { opacity: 0.4; cursor: not-allowed; }
-.hwr-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--text);
-    border: 3px solid var(--primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-}
-.hwr-slider::-moz-range-thumb {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--text);
-    border: 3px solid var(--primary);
-    cursor: pointer;
-}
-.hwr-slider:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
-
 .hwr-caption {
     font-size: 12px;
     color: var(--text-dim);
     margin: 0;
     text-align: center;
-}
-
-@media (max-width: 640px) {
-    .hwr-chip { font-size: 11px; padding: 4px 8px; }
-    .hwr-card { left: 10px; bottom: 10px; min-width: 160px; padding: 11px 13px; }
-    .hwr-controls { flex-wrap: wrap; justify-content: center; }
-    .hwr-slider { order: -1; flex-basis: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

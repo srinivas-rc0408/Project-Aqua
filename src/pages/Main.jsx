@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info, BookOpen } from "lucide-react";
+import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info, BookOpen, Box } from "lucide-react";
 import { PROJECT, INSTITUTION, GUIDE, TEAM } from "../data/project";
 import TopNav from "../components/TopNav";
 import AboutModal from "../components/AboutModal";
 import HowItWorksModal from "../components/HowItWorksModal";
 import Button from "../components/ui/Button";
 import "../styles/Home.css";
+
+// Heavy (images + scroll engine) — split out so it never touches first paint.
+const HardwareReveal = lazy(() => import("../components/HardwareReveal"));
 
 const FEATURES = [
     { icon: Compass, title: "Autonomous Navigation", text: "Boustrophedon survey paths with auto-turn & hardware thruster timing." },
@@ -61,6 +64,13 @@ export default function Main() {
         reader.readAsDataURL(file);
     };
 
+    const scrollToHardware = () => {
+        const el = document.getElementById("hardware");
+        if (!el) return;
+        const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+    };
+
     // Enter stays as a bonus shortcut to the console.
     useEffect(() => {
         const onKey = (e) => { if (e.key === "Enter") navigate("/login"); };
@@ -106,6 +116,9 @@ export default function Main() {
                             <Button variant="secondary" size="lg" iconLeft={<Info size={18} />} onClick={() => setAboutOpen(true)}>
                                 About the Project
                             </Button>
+                            <Button variant="secondary" size="lg" iconLeft={<Box size={18} />} onClick={scrollToHardware}>
+                                Explore the Hardware
+                            </Button>
                         </div>
                         <span className="home-hint">or press <kbd>Enter</kbd></span>
                     </motion.div>
@@ -137,6 +150,11 @@ export default function Main() {
                     </Button>
                 </div>
             </motion.section>
+
+            {/* ---------------- HARDWARE REVEAL ---------------- */}
+            <Suspense fallback={null}>
+                <HardwareReveal />
+            </Suspense>
 
             {/* ---------------- TEAM ---------------- */}
             <motion.section

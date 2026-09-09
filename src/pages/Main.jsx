@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info, BookOpen, Box } from "lucide-react";
@@ -8,30 +8,6 @@ import AboutModal from "../components/AboutModal";
 import HowItWorksModal from "../components/HowItWorksModal";
 import Button from "../components/ui/Button";
 import "../styles/Home.css";
-
-// Heavy (three.js + drei) — split out so it never touches first paint.
-const Model3D = lazy(() => import("../components/Model3D"));
-
-// Only download the three.js chunk + model when the section nears the viewport.
-function DeferredModel() {
-    const ref = useRef(null);
-    const [show, setShow] = useState(false);
-    useEffect(() => {
-        const el = ref.current;
-        if (!el || show) return;
-        const io = new IntersectionObserver(
-            (entries) => { if (entries.some((e) => e.isIntersecting)) { setShow(true); io.disconnect(); } },
-            { rootMargin: "600px" }
-        );
-        io.observe(el);
-        return () => io.disconnect();
-    }, [show]);
-    return (
-        <div id="model" ref={ref} style={{ minHeight: show ? undefined : "60vh" }}>
-            {show && <Suspense fallback={null}><Model3D /></Suspense>}
-        </div>
-    );
-}
 
 const FEATURES = [
     { icon: Compass, title: "Autonomous Navigation", text: "Boustrophedon survey paths with auto-turn & hardware thruster timing." },
@@ -85,13 +61,6 @@ export default function Main() {
         reader.readAsDataURL(file);
     };
 
-    const scrollToModel = () => {
-        const el = document.getElementById("model");
-        if (!el) return;
-        const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        el.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
-    };
-
     // Enter stays as a bonus shortcut to the console.
     useEffect(() => {
         const onKey = (e) => { if (e.key === "Enter") navigate("/login"); };
@@ -137,7 +106,7 @@ export default function Main() {
                             <Button variant="secondary" size="lg" iconLeft={<Info size={18} />} onClick={() => setAboutOpen(true)}>
                                 About the Project
                             </Button>
-                            <Button variant="secondary" size="lg" iconLeft={<Box size={18} />} onClick={scrollToModel}>
+                            <Button as="a" href="/model" target="_blank" rel="noopener noreferrer" variant="secondary" size="lg" iconLeft={<Box size={18} />}>
                                 View 3D Model
                             </Button>
                         </div>
@@ -172,8 +141,6 @@ export default function Main() {
                 </div>
             </motion.section>
 
-            {/* ---------------- 3D MODEL ---------------- */}
-            <DeferredModel />
 
             {/* ---------------- TEAM ---------------- */}
             <motion.section

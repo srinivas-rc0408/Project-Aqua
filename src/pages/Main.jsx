@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Users, GraduationCap, Compass, Radar, ScanSearch, FileText, Rocket, Info, BookOpen, Box } from "lucide-react";
@@ -9,8 +9,29 @@ import HowItWorksModal from "../components/HowItWorksModal";
 import Button from "../components/ui/Button";
 import "../styles/Home.css";
 
-// Heavy (images + scroll engine) — split out so it never touches first paint.
-const HardwareReveal = lazy(() => import("../components/HardwareReveal"));
+// Heavy (three.js + drei) — split out so it never touches first paint.
+const Model3D = lazy(() => import("../components/Model3D"));
+
+// Only download the three.js chunk + model when the section nears the viewport.
+function DeferredModel() {
+    const ref = useRef(null);
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el || show) return;
+        const io = new IntersectionObserver(
+            (entries) => { if (entries.some((e) => e.isIntersecting)) { setShow(true); io.disconnect(); } },
+            { rootMargin: "600px" }
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, [show]);
+    return (
+        <div id="model" ref={ref} style={{ minHeight: show ? undefined : "60vh" }}>
+            {show && <Suspense fallback={null}><Model3D /></Suspense>}
+        </div>
+    );
+}
 
 const FEATURES = [
     { icon: Compass, title: "Autonomous Navigation", text: "Boustrophedon survey paths with auto-turn & hardware thruster timing." },
@@ -64,8 +85,8 @@ export default function Main() {
         reader.readAsDataURL(file);
     };
 
-    const scrollToHardware = () => {
-        const el = document.getElementById("hardware");
+    const scrollToModel = () => {
+        const el = document.getElementById("model");
         if (!el) return;
         const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         el.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
@@ -116,8 +137,8 @@ export default function Main() {
                             <Button variant="secondary" size="lg" iconLeft={<Info size={18} />} onClick={() => setAboutOpen(true)}>
                                 About the Project
                             </Button>
-                            <Button variant="secondary" size="lg" iconLeft={<Box size={18} />} onClick={scrollToHardware}>
-                                Explore the Hardware
+                            <Button variant="secondary" size="lg" iconLeft={<Box size={18} />} onClick={scrollToModel}>
+                                View 3D Model
                             </Button>
                         </div>
                         <span className="home-hint">or press <kbd>Enter</kbd></span>
@@ -151,10 +172,8 @@ export default function Main() {
                 </div>
             </motion.section>
 
-            {/* ---------------- HARDWARE REVEAL ---------------- */}
-            <Suspense fallback={null}>
-                <HardwareReveal />
-            </Suspense>
+            {/* ---------------- 3D MODEL ---------------- */}
+            <DeferredModel />
 
             {/* ---------------- TEAM ---------------- */}
             <motion.section

@@ -65,7 +65,13 @@ export default function Login() {
             // Browser redirects to the provider; nothing else to do here.
         } catch (err) {
             console.error(`${provider} sign-in error`, err);
-            toast.error(err.message || `Could not start ${key} sign-in.`, { title: 'Sign-in failed' });
+            const notEnabled = /provider is not enabled|unsupported provider/i.test(err?.message || '');
+            toast.error(
+                notEnabled
+                    ? `${key === 'google' ? 'Google' : 'Microsoft'} sign-in isn’t enabled yet — enable it in Supabase → Authentication → Providers.`
+                    : (err.message || `Could not start ${key} sign-in.`),
+                { title: 'Sign-in failed' }
+            );
             setBusy(null);
         }
     };
@@ -84,7 +90,13 @@ export default function Login() {
             toast.success('Verification code sent by SMS.', { title: 'Code sent' });
         } catch (err) {
             console.error('phone OTP error', err);
-            toast.error(err.message || 'Could not send the SMS code.', { title: 'Sign-in failed' });
+            const noProvider = /unsupported phone provider|provider is not enabled/i.test(err?.message || '');
+            toast.error(
+                noProvider
+                    ? 'Phone sign-in needs an SMS provider (Twilio/MessageBird) set up in Supabase. Use email instead.'
+                    : (err.message || 'Could not send the SMS code.'),
+                { title: 'Sign-in failed' }
+            );
         } finally {
             setBusy(null);
         }
@@ -122,7 +134,13 @@ export default function Login() {
             toast.success(`We sent a 6-digit code to ${addr}.`, { title: 'Check your inbox' });
         } catch (err) {
             console.error('email OTP error', err);
-            toast.error(err.message || 'Could not send the email code.', { title: 'Sign-in failed' });
+            const smtp = /sending|smtp|confirmation|email/i.test(err?.message || '');
+            toast.error(
+                smtp
+                    ? 'Could not send the email. Set up SMTP (Resend) in Supabase → Authentication → SMTP, with a verified sender domain.'
+                    : (err.message || 'Could not send the email code.'),
+                { title: 'Sign-in failed' }
+            );
         } finally {
             setBusy(null);
         }

@@ -10,6 +10,18 @@ import "../styles/Camera.css";
 
 const STANDARD_CAM_ENVIRONMENTS = ["Water Tank", "River", "Lake", "Pipeline", "Dam", "Wastewater Plant"];
 
+// Robot camera defaults are env-configurable (VITE_ESP_DEFAULT_*), then remembered per-browser
+// in localStorage — so you point the app at the real robot's IP without editing code.
+const DEFAULT_ESP_IP = import.meta.env.VITE_ESP_DEFAULT_IP || "192.168.1.100";
+const DEFAULT_ESP_PORT = import.meta.env.VITE_ESP_DEFAULT_PORT || "81";
+const DEFAULT_ESP_PATH = import.meta.env.VITE_ESP_DEFAULT_PATH || "/stream";
+const readLS = (k, fallback) => { try { return localStorage.getItem(k) ?? fallback; } catch { return fallback; } };
+
+const fieldLabel = { display: "flex", flexDirection: "column", gap: "5px", color: "#93a1bc", fontSize: "11px", fontWeight: 600 };
+const fieldInput = { padding: "9px 10px", borderRadius: "8px", border: "1px solid #22d3ee", background: "#16203a", color: "#fff", outline: "none", fontSize: "13px", width: "100%", boxSizing: "border-box" };
+const btnPrimary = { display: "inline-flex", alignItems: "center", gap: "7px", padding: "10px 16px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg,#22d3ee,#0a6b78)", color: "#04121a", fontWeight: 700, fontSize: "13px", cursor: "pointer" };
+const btnGhost = { display: "inline-flex", alignItems: "center", gap: "7px", padding: "10px 14px", borderRadius: "10px", border: "1px solid rgba(255,255,255,.15)", background: "transparent", color: "#c7d5e6", fontWeight: 600, fontSize: "13px", cursor: "pointer" };
+
 export default function CameraPanel() {
   const { missionName, setMissionName, inspectionArea, setInspectionArea, missionStarted, missionPaused } = useMission();
   const [isCustomEnv, setIsCustomEnv] = useState(() => Boolean(inspectionArea && !STANDARD_CAM_ENVIRONMENTS.includes(inspectionArea)));
@@ -31,11 +43,11 @@ export default function CameraPanel() {
   const [statusNotice, setStatusNotice] = useState("");
   const [isPlaying, setIsPlaying] = useState(true);
 
-  // ESP32-CAM Wireless WiFi Settings
-  const [espIp, setEspIp] = useState("192.168.1.100");
-  const [espPort, setEspPort] = useState("81");
-  const [espPath, setEspPath] = useState("/stream");
-  const [espUseProxy, setEspUseProxy] = useState(true); // Recommended: avoids CORS / HTTPS issues
+  // ESP32-CAM Wireless WiFi Settings (persisted so the robot's IP survives reloads)
+  const [espIp, setEspIp] = useState(() => readLS("espIp", DEFAULT_ESP_IP));
+  const [espPort, setEspPort] = useState(() => readLS("espPort", DEFAULT_ESP_PORT));
+  const [espPath, setEspPath] = useState(() => readLS("espPath", DEFAULT_ESP_PATH));
+  const [espUseProxy, setEspUseProxy] = useState(() => readLS("espUseProxy", "true") === "true"); // Recommended: avoids CORS / HTTPS issues
   const [espConnected, setEspConnected] = useState(false);
   const [espConnecting, setEspConnecting] = useState(false);
   const [espLatency, setEspLatency] = useState(null);
@@ -47,6 +59,12 @@ export default function CameraPanel() {
 
   // Re-show the offline notice whenever the connection state flips.
   useEffect(() => { setEspNoticeDismissed(false); }, [espConnected]);
+
+  // Remember the camera connection settings across reloads.
+  useEffect(() => { try { localStorage.setItem("espIp", espIp); } catch { /* ignore */ } }, [espIp]);
+  useEffect(() => { try { localStorage.setItem("espPort", espPort); } catch { /* ignore */ } }, [espPort]);
+  useEffect(() => { try { localStorage.setItem("espPath", espPath); } catch { /* ignore */ } }, [espPath]);
+  useEffect(() => { try { localStorage.setItem("espUseProxy", String(espUseProxy)); } catch { /* ignore */ } }, [espUseProxy]);
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -78,38 +96,50 @@ export default function CameraPanel() {
     loadSavedVideos();
   }, []);
 
-  // Connect & Ping ESP32-CAM Camera over WiFi
+  // Connect & Ping ESP32-CAM Camera over WiFi — a REAL reachability test via the backend.
   const handleConnectEsp = async () => {
-    if (!espIp) {
-      setEspMessage("Please enter your ESP32-CAM IP address (e.g. 192.168.1.100)");
+    const ip = espIp.trim();
+    if (!ip) {
+      setEspMessage("Enter your ESP32-CAM IP address (e.g. 192.168.1.100) — it prints in the Arduino Serial Monitor.");
       return;
     }
 
     setEspConnecting(true);
-    setEspMessage("Pinging ESP32-CAM camera stream over WiFi...");
+    setEspConnected(false);
+    setEspLatency(null);
+    setEspMessage(`Checking ${rawEspUrl} …`);
 
     try {
       const pingResult = await pingEspCam(rawEspUrl);
       if (pingResult?.online) {
         setEspConnected(true);
-        setEspLatency(pingResult.latencyMs || 18);
-        setEspMessage(`Connected to ESP32-CAM Live Camera Stream! (${pingResult.latencyMs || 18}ms)`);
+        setEspLatency(pingResult.latencyMs ?? null);
+        setEspMessage(`Connected — live stream reachable${pingResult.latencyMs != null ? ` (${pingResult.latencyMs} ms)` : ""}.`);
         setActiveSource("esp-wifi");
       } else {
+        // Honest failure: do NOT fake a connection. Give an actionable checklist.
         setEspConnected(false);
         setEspLatency(null);
-        setEspMessage(`WiFi Connection failed: ${pingResult.message || "Target unreachable"}. Check ESP32 power & IP.`);
+        setEspMessage(
+          `Not reachable at ${rawEspUrl}. ${pingResult?.message || ""} Check: (1) ESP32-CAM is powered on, ` +
+          `(2) this device is on the SAME WiFi as the robot, (3) the IP matches the Serial Monitor, ` +
+          `(4) if the site is on https, run the app locally on the robot's LAN.`
+        );
       }
     } catch (err) {
       console.error("ESP Ping Error:", err);
-      // Even if ping check times out or CORS blocks client ping, allow switching to stream mode with proxy
-      setEspConnected(true);
-      setEspLatency(35);
-      setEspMessage(`Connecting via Backend Stream Proxy to ${rawEspUrl}...`);
-      setActiveSource("esp-wifi");
+      setEspConnected(false);
+      setEspLatency(null);
+      setEspMessage("Connection check failed. Make sure the backend is running on the same WiFi as the robot, then retry.");
     } finally {
       setEspConnecting(false);
     }
+  };
+
+  const handleDisconnectEsp = () => {
+    setEspConnected(false);
+    setEspLatency(null);
+    setEspMessage("Disconnected from ESP32-CAM.");
   };
 
   // Capture Live Snapshot from ESP32-CAM Camera & Save to Backend Storage
@@ -316,7 +346,7 @@ void loop() { delay(1000); }`;
             fontSize: '12px',
             boxShadow: espConnected ? '0 0 15px rgba(34,197,94,.4)' : '0 0 15px rgba(18,211,224,.4)'
           }}>
-            {espConnected ? "LIVE ESP32" : "STANDBY"}
+            {espConnected ? "LIVE ESP32" : espConnecting ? "CHECKING…" : "STANDBY"}
           </span>
         </div>
 
@@ -478,6 +508,88 @@ void loop() { delay(1000); }`;
             >
               <X size={14} />
             </button>
+          </div>
+        )}
+      </div>
+
+      {/* ===== Camera Connection (ESP32-CAM over WiFi) — configurable + real reachability ===== */}
+      <div style={{ background: "#0b1424", border: "1px solid rgba(18,211,224,.25)", borderRadius: "14px", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
+          <h3 style={{ margin: 0, color: "#fff", fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "8px" }}>
+            <Radio size={17} style={{ color: "#22d3ee" }} /> Camera Connection
+          </h3>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "6px",
+            padding: "5px 11px", borderRadius: "999px", fontSize: "12px", fontWeight: 700,
+            color: espConnected ? "#052e16" : "#fff",
+            background: espConnected ? "#22c55e" : espConnecting ? "#eab308" : "#334155",
+          }}>
+            {espConnected ? <Wifi size={13} /> : <WifiOff size={13} />}
+            {espConnected ? `Connected${espLatency != null ? ` · ${espLatency} ms` : ""}` : espConnecting ? "Checking…" : "Disconnected"}
+          </span>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1.4fr", gap: "10px" }}>
+          <label style={fieldLabel}>Robot IP
+            <input value={espIp} onChange={(e) => setEspIp(e.target.value)} placeholder="192.168.1.100" style={fieldInput} inputMode="decimal" />
+          </label>
+          <label style={fieldLabel}>Port
+            <input value={espPort} onChange={(e) => setEspPort(e.target.value)} placeholder="81" style={fieldInput} inputMode="numeric" />
+          </label>
+          <label style={fieldLabel}>Path
+            <input value={espPath} onChange={(e) => setEspPath(e.target.value)} placeholder="/stream" style={fieldInput} />
+          </label>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: "8px", color: "#93a1bc", fontSize: "12px", cursor: "pointer" }}>
+            <input type="checkbox" checked={espUseProxy} onChange={(e) => setEspUseProxy(e.target.checked)} />
+            Route through backend proxy (recommended — avoids CORS &amp; https blocking)
+          </label>
+          <code style={{ fontSize: "11px", color: "#5f7793", fontFamily: "monospace", wordBreak: "break-all" }}>{rawEspUrl}</code>
+        </div>
+
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          {!espConnected ? (
+            <button onClick={handleConnectEsp} disabled={espConnecting} style={{ ...btnPrimary, opacity: espConnecting ? 0.7 : 1, cursor: espConnecting ? "wait" : "pointer" }}>
+              {espConnecting ? <Loader2 size={15} className="animate-spin" /> : <Wifi size={15} />}
+              {espConnecting ? "Checking…" : "Connect Camera"}
+            </button>
+          ) : (
+            <>
+              <button onClick={handleCaptureSnapshot} disabled={capturingSnapshot} style={{ ...btnPrimary, opacity: capturingSnapshot ? 0.7 : 1 }}>
+                {capturingSnapshot ? <Loader2 size={15} className="animate-spin" /> : <Camera size={15} />}
+                {capturingSnapshot ? "Capturing…" : "Capture Snapshot"}
+              </button>
+              <button onClick={handleDisconnectEsp} style={btnGhost}>
+                <WifiOff size={15} /> Disconnect
+              </button>
+            </>
+          )}
+          <button onClick={() => setShowEspSetupGuide((v) => !v)} style={btnGhost}>
+            <HelpCircle size={15} /> {showEspSetupGuide ? "Hide setup" : "Setup guide"}
+          </button>
+        </div>
+
+        {espMessage && (
+          <div style={{ fontSize: "12px", lineHeight: 1.5, color: espConnected ? "#4ade80" : "#c7d5e6", background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.06)", borderRadius: "8px", padding: "8px 11px" }}>
+            {espMessage}
+          </div>
+        )}
+
+        {showEspSetupGuide && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", flexWrap: "wrap" }}>
+              <span style={{ color: "#93a1bc", fontSize: "12px", display: "flex", alignItems: "center", gap: "6px" }}>
+                <Cpu size={14} /> Flash this to the ESP32-CAM, then read its IP from the Serial Monitor.
+              </span>
+              <button onClick={copyScriptToClipboard} style={{ ...btnGhost, padding: "6px 10px" }}>
+                {copiedCode ? <Check size={14} /> : <Copy size={14} />} {copiedCode ? "Copied" : "Copy"}
+              </button>
+            </div>
+            <pre style={{ margin: 0, maxHeight: "220px", overflow: "auto", background: "#05090f", border: "1px solid rgba(255,255,255,.06)", borderRadius: "8px", padding: "12px", fontSize: "11px", lineHeight: 1.5, color: "#a7c0d8" }}>
+              {espArduinoSketch}
+            </pre>
           </div>
         )}
       </div>

@@ -832,11 +832,38 @@ app.delete("/api/media/:filename", (req, res) => {
 // ESP32-CAM WIRELESS WIFI CAMERA STREAMING & PROXY
 // ==========================================================
 
+// SSRF guard: the camera is always a device on the user's LAN, so only allow the proxy to
+// fetch private/loopback addresses (or *.local mDNS names). This stops the open `?url=` param
+// from being pointed at cloud metadata (169.254.169.254) or arbitrary public/internal hosts.
+function validateCamUrl(raw: string): { ok: boolean; reason?: string } {
+  let url: URL;
+  try { url = new URL(raw); } catch { return { ok: false, reason: "Invalid URL" }; }
+  if (url.protocol !== "http:" && url.protocol !== "https:") return { ok: false, reason: "Only http/https is allowed" };
+  const host = url.hostname.toLowerCase();
+  if (host === "localhost" || host.endsWith(".local")) return { ok: true };
+  const m = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+  if (!m) return { ok: false, reason: "Camera address must be a private LAN IP or a .local name" };
+  if (m.slice(1).some((o) => Number(o) > 255)) return { ok: false, reason: "Invalid IP address" };
+  const a = Number(m[1]), b = Number(m[2]);
+  const isPrivate =
+    a === 10 ||
+    a === 127 ||
+    (a === 192 && b === 168) ||
+    (a === 172 && b >= 16 && b <= 31);
+  if (!isPrivate) return { ok: false, reason: "Only private LAN addresses (10.x, 172.16–31.x, 192.168.x) are allowed" };
+  return { ok: true };
+}
+
 // Ping/Test ESP32-CAM Camera connection over WiFi
 const handleCamPing = async (req: express.Request, res: express.Response) => {
   const targetUrl = req.query.url as string;
   if (!targetUrl) {
     if (!res.headersSent) return res.status(400).json({ online: false, message: "Missing target stream URL" });
+    return;
+  }
+  const guard = validateCamUrl(targetUrl);
+  if (!guard.ok) {
+    if (!res.headersSent) return res.status(400).json({ online: false, message: guard.reason });
     return;
   }
 
@@ -892,6 +919,11 @@ const handleCamProxy = (req: express.Request, res: express.Response) => {
     if (!res.headersSent) return res.status(400).send("Missing ESP32-CAM stream URL");
     return;
   }
+  const guard = validateCamUrl(targetUrl);
+  if (!guard.ok) {
+    if (!res.headersSent) return res.status(400).send(guard.reason);
+    return;
+  }
 
   try {
     const protocol = targetUrl.startsWith("https") ? https : http;
@@ -939,6 +971,11 @@ const handleCamSnapshot = async (req: express.Request, res: express.Response) =>
   const { url, filename } = req.body || {};
   if (!url) {
     if (!res.headersSent) return res.status(400).json({ success: false, message: "Missing stream URL" });
+    return;
+  }
+  const guard = validateCamUrl(url);
+  if (!guard.ok) {
+    if (!res.headersSent) return res.status(400).json({ success: false, message: guard.reason });
     return;
   }
 
@@ -1474,7 +1511,16 @@ app.get("/video_feed", async (req, res) => {
 // ==========================================================
 app.use(cookieParser());
 
-const JWT_SECRET = process.env.JWT_SECRET || "super-secure-underwater-secret";
+// JWT_SECRET must be set in any real deployment. We keep a dev-only fallback so
+// local runs work, but refuse to mint tokens with it in production (a known default
+// secret is forgeable). Set JWT_SECRET in the environment — see .env.example.
+const JWT_CONFIGURED = Boolean(process.env.JWT_SECRET);
+const JWT_SECRET = process.env.JWT_SECRET || "dev-only-insecure-secret-change-me";
+if (!JWT_CONFIGURED) {
+    const msg = "JWT_SECRET is not set — using an insecure development default.";
+    if (process.env.NODE_ENV === "production") logger.error(msg + " Legacy password login is disabled until it is set.");
+    else logger.warn(msg);
+}
 
 // Mock Database for Users
 let usersDB = [
@@ -1512,6 +1558,10 @@ app.all("/api/auth/login", loginLimiter, async (req, res) => {
         return res.status(405).json({ success: false, message: "Method Not Allowed" });
     }
     try {
+        // Never issue tokens signed with the insecure default in production.
+        if (process.env.NODE_ENV === "production" && !JWT_CONFIGURED) {
+            return res.status(503).json({ success: false, message: "Authentication is not configured on the server." });
+        }
         const { username, password } = req.body;
         if (!username || !password) {
             return res.status(400).json({ success: false, message: "Username and password required" });

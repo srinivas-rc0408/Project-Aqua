@@ -11,10 +11,23 @@
     flex: 1;
     min-height: 0;
     width: 100%;
-    background: #070b14;
+    /* Premium studio backdrop: a soft cyan-lit pool of light up top, falling to near-black. */
+    background:
+        radial-gradient(115% 80% at 50% 18%, #1a2f4b 0%, #0e1c30 34%, #070f1c 62%, #04060c 100%);
     overflow: hidden;
     touch-action: none; /* OrbitControls owns touch gestures — no page scroll steal */
 }
+/* Vignette to focus the eye on the model and hide the flat gradient edges. */
+.rv-stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(130% 105% at 50% 42%, transparent 52%, rgba(2, 5, 12, 0.55) 100%);
+    z-index: 1;
+}
+/* Keep the canvas below the vignette, controls/overlays above it. */
+.rv-canvas-wrap { z-index: 0; }
 
 .rv-canvas-wrap {
     position: absolute;
@@ -35,7 +48,8 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    background: #070b14;
+    background: rgba(4, 8, 16, 0.55);
+    backdrop-filter: blur(2px);
     color: var(--text);
     z-index: 4;
 }

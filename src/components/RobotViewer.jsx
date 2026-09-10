@@ -1,7 +1,7 @@
 import { Suspense, Component, useEffect, useRef, useState, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
-    OrbitControls, Environment, Lightformer, ContactShadows, Grid,
+    OrbitControls, Environment, Lightformer, ContactShadows,
     useGLTF, useProgress, AdaptiveDpr, AdaptiveEvents,
 } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
@@ -55,43 +55,55 @@ function Model({ url, active }) {
     return <primitive object={scene} />;
 }
 
-// Frames the model on load / reset, and eases a ~15% dolly-out on disassemble ("opens up").
+// Frames the model on load / reset, and eases a subtle dolly-out on disassemble ("opens up").
+// The model auto-rotates around Y, so its vertical extent is constant — we frame tight to the
+// height and the widest horizontal span (max of x/z), adaptive to the canvas aspect ratio.
 function Framing({ exploded, resetKey, reduce }) {
     const camera = useThree((s) => s.camera);
     const controls = useThree((s) => s.controls);
+    const size = useThree((s) => s.size);
     const { scene } = useGLTF(ASSEMBLED_URL, DRACO); // both models share ~the same extent
     const anim = useRef(null);
     const baseDist = useRef(0);
 
-    const start = useCallback((toDist, snap) => {
-        if (!controls) return;
+    const fit = useCallback(() => {
         const box = new THREE.Box3().setFromObject(scene);
-        const sph = box.getBoundingSphere(new THREE.Sphere());
-        const fromDir = camera.position.clone().sub(controls.target);
-        if (fromDir.lengthSq() < 1e-6) fromDir.set(1.1, 0.7, 1.4);
-        anim.current = {
-            t: 0, dur: snap || reduce ? 0.0001 : 0.75,
-            fromT: controls.target.clone(), toT: sph.center.clone(),
-            fromC: camera.position.clone(),
-            toC: sph.center.clone().add(fromDir.setLength(toDist)),
-        };
-    }, [controls, camera, scene, reduce]);
+        const s = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const fov = (camera.fov * Math.PI) / 180;
+        const aspect = camera.aspect || (size.width / Math.max(1, size.height)) || 1.6;
+        const distH = (s.y / 2) / Math.tan(fov / 2);
+        const distW = (Math.max(s.x, s.z) / 2) / (Math.tan(fov / 2) * aspect);
+        return { dist: Math.max(distH, distW) * 1.6, center };
+    }, [scene, camera, size]);
 
-    // Absolute fit on mount + reset.
+    const flyTo = useCallback((toDist, snap) => {
+        if (!controls) return;
+        const { center } = fit();
+        const fromDir = camera.position.clone().sub(controls.target);
+        if (fromDir.lengthSq() < 1e-6) fromDir.set(1.15, 0.72, 1.55);
+        anim.current = {
+            t: 0, dur: snap || reduce ? 0.0001 : 0.95,
+            fromT: controls.target.clone(), toT: center.clone(),
+            fromC: camera.position.clone(),
+            toC: center.clone().add(fromDir.setLength(toDist)),
+        };
+    }, [controls, camera, fit, reduce]);
+
+    // Animated fit on mount + reset (a gentle establishing push-in).
     useEffect(() => {
         if (!controls) return;
-        const box = new THREE.Box3().setFromObject(scene);
-        const sph = box.getBoundingSphere(new THREE.Sphere());
-        baseDist.current = (sph.radius / Math.sin((camera.fov * Math.PI) / 180 / 2)) * 1.15;
-        start(baseDist.current * (exploded ? 1.15 : 1), resetKey === 0);
+        const { dist } = fit();
+        baseDist.current = dist;
+        flyTo(dist * (exploded ? 1.1 : 1), false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [controls, resetKey]);
 
-    // Relative dolly on disassemble/reassemble.
+    // Subtle dolly on disassemble/reassemble.
     useEffect(() => {
         if (!controls || !baseDist.current) return;
         const cur = camera.position.distanceTo(controls.target);
-        start(cur * (exploded ? 1.15 : 1 / 1.15), false);
+        flyTo(cur * (exploded ? 1.1 : 1 / 1.1), false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [exploded]);
 
@@ -112,7 +124,6 @@ function Framing({ exploded, resetKey, reduce }) {
 function Scene({ exploded, resetKey, autoRotate, reduce, isMobile, controlsRef, onInteractStart, onInteractEnd }) {
     return (
         <>
-            <color attach="background" args={["#070b14"]} />
             <hemisphereLight args={["#dff4ff", "#0a1420", 0.65]} />
             <directionalLight position={[4, 6, 3]} intensity={1.25} />
             <directionalLight position={[-4, 2, -3]} intensity={0.45} color="#8bb6ff" />
@@ -131,12 +142,7 @@ function Scene({ exploded, resetKey, autoRotate, reduce, isMobile, controlsRef, 
                 <Framing exploded={exploded} resetKey={resetKey} reduce={reduce} />
             </Suspense>
 
-            <ContactShadows position={[0, 0, 0]} opacity={0.5} scale={5} blur={2.6} far={3} resolution={512} color="#000000" />
-            <Grid
-                position={[0, 0, 0]} args={[14, 14]} cellSize={0.2} cellThickness={0.6}
-                cellColor="#1e2a44" sectionSize={1} sectionThickness={1} sectionColor="#22d3ee"
-                fadeDistance={12} fadeStrength={1.6} infiniteGrid followCamera={false}
-            />
+            <ContactShadows position={[0, 0, 0]} opacity={0.65} scale={4} blur={3} far={2.5} resolution={1024} color="#000208" />
 
             <OrbitControls
                 ref={controlsRef} makeDefault
@@ -239,9 +245,9 @@ export default function RobotViewer() {
                                 frameloop={frameloop}
                                 shadows={false}
                                 dpr={[1, 2]}
-                                gl={{ antialias: true, powerPreference: "high-performance" }}
-                                camera={{ position: [1.6, 1.1, 1.9], fov: 42, near: 0.01, far: 100 }}
-                                onCreated={({ gl }) => { gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05; }}
+                                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+                                camera={{ position: [1.15, 0.72, 1.55], fov: 40, near: 0.01, far: 100 }}
+                                onCreated={({ gl }) => { gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.08; }}
                             >
                                 <Scene
                                     exploded={exploded} resetKey={resetKey} autoRotate={effectiveAutoRotate}

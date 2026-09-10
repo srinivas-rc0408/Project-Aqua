@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Phone, Mail, Loader2, Activity, Database, Cpu } from 'lucide-react';
+import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Phone, Mail, Loader2, Activity, Database, Cpu, AlertTriangle } from 'lucide-react';
 import { toast } from '../components/Toast';
-import { supabase, authRedirectTo } from '../lib/supabase';
+import { supabase, authRedirectTo, isSupabaseConfigured } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
@@ -223,6 +223,15 @@ export default function Login() {
                         <h2>Welcome Back</h2>
                         <p>{view === 'phone' ? 'Sign in with your phone number' : view === 'email' ? 'Sign in or register with an email code' : 'Sign in to access Mission Control'}</p>
                     </div>
+
+                    {!isSupabaseConfigured && (
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', background: 'rgba(255,183,3,0.10)', border: '1px solid rgba(255,183,3,0.35)', borderRadius: '10px', padding: '11px 13px', marginBottom: '4px' }}>
+                            <AlertTriangle size={16} style={{ color: 'var(--warning)', flexShrink: 0, marginTop: '2px' }} />
+                            <div style={{ fontSize: '12px', lineHeight: 1.5, color: 'var(--text-dim)' }}>
+                                <strong style={{ color: 'var(--text)' }}>Sign-in isn’t configured yet.</strong> Set <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code> in the environment, then redeploy. You can still explore everything with <em>Continue as Guest</em> below.
+                            </div>
+                        </div>
+                    )}
 
                     {view === 'phone' ? (
                         /* ---------- Phone OTP flow ---------- */

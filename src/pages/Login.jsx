@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Phone, Mail, Loader2, Activity, Database, Cpu, AlertTriangle } from 'lucide-react';
 import { toast } from '../components/Toast';
-import { supabase, authRedirectTo, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, authRedirectTo, isSupabaseConfigured, getEnabledProviders } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
@@ -43,6 +43,10 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [emailOtp, setEmailOtp] = useState('');
     const [emailOtpSent, setEmailOtpSent] = useState(false);
+    // null until known → show all; once known, hide providers the project hasn't enabled.
+    const [providers, setProviders] = useState(null);
+    useEffect(() => { let ok = true; getEnabledProviders().then((p) => ok && p && setProviders(p)); return () => { ok = false; }; }, []);
+    const showProvider = (k) => !providers || providers[k];
 
     const needsSupabase = () => {
         if (!supabase) {
@@ -321,15 +325,21 @@ export default function Login() {
                         /* ---------- Default: social + email/password ---------- */
                         <>
                             <div className="signin-social">
-                                <button type="button" className="signin-social__btn" onClick={signInWithGoogle} disabled={busy === 'google'} aria-label="Sign in with Google">
-                                    {busy === 'google' ? <Spinner /> : <GoogleIcon />} Google
-                                </button>
-                                <button type="button" className="signin-social__btn" onClick={signInWithMicrosoft} disabled={busy === 'microsoft'} aria-label="Sign in with Microsoft">
-                                    {busy === 'microsoft' ? <Spinner /> : <MicrosoftIcon />} Outlook
-                                </button>
-                                <button type="button" className="signin-social__btn" onClick={() => setView('phone')} aria-label="Sign in with phone">
-                                    <Phone size={16} /> Phone
-                                </button>
+                                {showProvider('google') && (
+                                    <button type="button" className="signin-social__btn" onClick={signInWithGoogle} disabled={busy === 'google'} aria-label="Sign in with Google">
+                                        {busy === 'google' ? <Spinner /> : <GoogleIcon />} Google
+                                    </button>
+                                )}
+                                {showProvider('azure') && (
+                                    <button type="button" className="signin-social__btn" onClick={signInWithMicrosoft} disabled={busy === 'microsoft'} aria-label="Sign in with Microsoft">
+                                        {busy === 'microsoft' ? <Spinner /> : <MicrosoftIcon />} Outlook
+                                    </button>
+                                )}
+                                {showProvider('phone') && (
+                                    <button type="button" className="signin-social__btn" onClick={() => setView('phone')} aria-label="Sign in with phone">
+                                        <Phone size={16} /> Phone
+                                    </button>
+                                )}
                             </div>
 
                             <div className="signin-divider"><span>or continue with email</span></div>

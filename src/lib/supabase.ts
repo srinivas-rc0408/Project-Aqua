@@ -15,10 +15,36 @@ const AUTH_OPTS = {
 const buildUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const buildKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
+// Track the resolved URL/key (from build-time or runtime config) for settings lookups.
+let activeUrl = buildUrl || "";
+let activeKey = buildKey || "";
+
 // `let` exports are live bindings — importers see these update once runtime config resolves.
 export let supabase: SupabaseClient | null =
     buildUrl && buildKey ? createClient(buildUrl, buildKey, AUTH_OPTS) : null;
 export let isSupabaseConfigured = Boolean(supabase);
+
+// Which auth providers the project actually has enabled — so the UI can hide ones that aren't,
+// instead of showing a button that errors. Returns null if it can't be determined (then show all).
+export async function getEnabledProviders(): Promise<
+    { google: boolean; azure: boolean; phone: boolean; email: boolean } | null
+> {
+    await supabaseReady;
+    if (!activeUrl || !activeKey) return null;
+    try {
+        const r = await fetch(`${activeUrl}/auth/v1/settings`, { headers: { apikey: activeKey } });
+        if (!r.ok) return null;
+        const s = await r.json();
+        return {
+            google: !!s?.external?.google,
+            azure: !!s?.external?.azure,
+            phone: !!s?.external?.phone,
+            email: !!s?.external?.email,
+        };
+    } catch {
+        return null;
+    }
+}
 
 // Where OAuth / magic-link providers redirect back to.
 export const authRedirectTo = `${window.location.origin}/auth/callback`;
@@ -32,6 +58,8 @@ export const supabaseReady: Promise<SupabaseClient | null> = (async () => {
         if (res.ok) {
             const cfg = await res.json();
             if (cfg?.supabaseUrl && cfg?.supabaseAnonKey) {
+                activeUrl = cfg.supabaseUrl;
+                activeKey = cfg.supabaseAnonKey;
                 supabase = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, AUTH_OPTS);
                 isSupabaseConfigured = true;
             }

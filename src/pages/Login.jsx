@@ -36,10 +36,13 @@ export default function Login() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [busy, setBusy] = useState(null); // 'google' | 'microsoft' | 'phone' | 'magic'
-    const [view, setView] = useState('default'); // 'default' | 'phone'
+    const [view, setView] = useState('default'); // 'default' | 'phone' | 'email'
     const [phone, setPhone] = useState('');
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
+    const [email, setEmail] = useState('');
+    const [emailOtp, setEmailOtp] = useState('');
+    const [emailOtpSent, setEmailOtpSent] = useState(false);
 
     const needsSupabase = () => {
         if (!supabase) {
@@ -103,19 +106,57 @@ export default function Login() {
         }
     };
 
-    // --- Email magic-link ---
+    // --- Email OTP code (register + sign in in one; auto-creates the user on first use) ---
+    const sendEmailOtp = async () => {
+        if (!needsSupabase()) return;
+        const addr = email.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) { toast.warning('Enter a valid email address.'); return; }
+        setBusy('email');
+        try {
+            const { error: err } = await supabase.auth.signInWithOtp({
+                email: addr,
+                options: { shouldCreateUser: true, emailRedirectTo: authRedirectTo },
+            });
+            if (err) throw err;
+            setEmailOtpSent(true);
+            toast.success(`We sent a 6-digit code to ${addr}.`, { title: 'Check your inbox' });
+        } catch (err) {
+            console.error('email OTP error', err);
+            toast.error(err.message || 'Could not send the email code.', { title: 'Sign-in failed' });
+        } finally {
+            setBusy(null);
+        }
+    };
+    const verifyEmailOtp = async () => {
+        if (!needsSupabase()) return;
+        if (!emailOtp.trim()) { toast.warning('Enter the 6-digit code from your email.'); return; }
+        setBusy('email');
+        try {
+            const { error: err } = await supabase.auth.verifyOtp({ email: email.trim(), token: emailOtp.trim(), type: 'email' });
+            if (err) throw err;
+            toast.success('Signed in.', { title: 'Welcome' });
+            navigate('/dashboard');
+        } catch (err) {
+            console.error('email verify error', err);
+            toast.error(err.message || 'Invalid or expired code.', { title: 'Verification failed' });
+        } finally {
+            setBusy(null);
+        }
+    };
+
+    // --- Email magic-link (fallback for people who prefer a link over a code) ---
     const sendMagicLink = async () => {
         if (!needsSupabase()) return;
-        const email = username.trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            toast.warning('Enter your email address in the username field first.');
+        const addr = (email.trim() || username.trim());
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) {
+            toast.warning('Enter your email address first.');
             return;
         }
         setBusy('magic');
         try {
-            const { error: err } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: authRedirectTo } });
+            const { error: err } = await supabase.auth.signInWithOtp({ email: addr, options: { shouldCreateUser: true, emailRedirectTo: authRedirectTo } });
             if (err) throw err;
-            toast.success(`Magic sign-in link sent to ${email}.`, { title: 'Check your inbox' });
+            toast.success(`Magic sign-in link sent to ${addr}.`, { title: 'Check your inbox' });
         } catch (err) {
             console.error('magic link error', err);
             toast.error(err.message || 'Could not send the magic link.', { title: 'Sign-in failed' });
@@ -166,7 +207,7 @@ export default function Login() {
 
     return (
         <div className="signin-page">
-            <button type="button" className="signin-back" onClick={() => (view === 'phone' ? setView('default') : navigate('/home'))}>
+            <button type="button" className="signin-back" onClick={() => (view !== 'default' ? setView('default') : navigate('/home'))}>
                 <ArrowLeft size={16} /> Back
             </button>
 
@@ -180,7 +221,7 @@ export default function Login() {
                     <div className="signin-head">
                         <span className="signin-badge"><ShieldCheck size={26} /></span>
                         <h2>Welcome Back</h2>
-                        <p>{view === 'phone' ? 'Sign in with your phone number' : 'Sign in to access Mission Control'}</p>
+                        <p>{view === 'phone' ? 'Sign in with your phone number' : view === 'email' ? 'Sign in or register with an email code' : 'Sign in to access Mission Control'}</p>
                     </div>
 
                     {view === 'phone' ? (
@@ -219,6 +260,33 @@ export default function Login() {
                             {otpSent && (
                                 <button type="button" className="signin-forgot" style={{ alignSelf: 'center' }} onClick={() => { setOtpSent(false); setOtp(''); }}>
                                     Use a different number
+                                </button>
+                            )}
+                        </div>
+                    ) : view === 'email' ? (
+                        /* ---------- Email OTP code flow (register + sign in) ---------- */
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <div className="signin-field">
+                                <span className="signin-field__icon"><Mail size={18} /></span>
+                                <input className="signin-input" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" disabled={emailOtpSent} />
+                            </div>
+                            {emailOtpSent && (
+                                <div className="signin-field">
+                                    <span className="signin-field__icon"><Lock size={18} /></span>
+                                    <input className="signin-input" type="text" inputMode="numeric" placeholder="6-digit code" value={emailOtp} onChange={(e) => setEmailOtp(e.target.value)} autoComplete="one-time-code" />
+                                </div>
+                            )}
+                            <button type="button" className="signin-primary" onClick={emailOtpSent ? verifyEmailOtp : sendEmailOtp} disabled={busy === 'email'}>
+                                {busy === 'email' ? <Spinner /> : null}
+                                {emailOtpSent ? 'Verify & Sign In' : 'Send Code'}
+                            </button>
+                            {emailOtpSent ? (
+                                <button type="button" className="signin-forgot" style={{ alignSelf: 'center' }} onClick={() => { setEmailOtpSent(false); setEmailOtp(''); }}>
+                                    Use a different email
+                                </button>
+                            ) : (
+                                <button type="button" className="signin-forgot" style={{ alignSelf: 'center' }} onClick={sendMagicLink} disabled={busy === 'magic'}>
+                                    {busy === 'magic' ? <Spinner /> : null} Prefer a link? Email me a magic link
                                 </button>
                             )}
                         </div>
@@ -272,8 +340,8 @@ export default function Login() {
                                 </button>
                             </form>
 
-                            <button type="button" className="signin-magic" onClick={sendMagicLink} disabled={busy === 'magic'}>
-                                {busy === 'magic' ? <Spinner /> : <Mail size={16} />} Email me a magic sign-in link
+                            <button type="button" className="signin-magic" onClick={() => setView('email')}>
+                                <Mail size={16} /> Continue with Email (one-time code)
                             </button>
 
                             <div className="signin-divider"><span>or</span></div>

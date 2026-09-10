@@ -27,7 +27,7 @@ export let isSupabaseConfigured = Boolean(supabase);
 // Which auth providers the project actually has enabled — so the UI can hide ones that aren't,
 // instead of showing a button that errors. Returns null if it can't be determined (then show all).
 export async function getEnabledProviders(): Promise<
-    { google: boolean; azure: boolean; phone: boolean; email: boolean } | null
+    { google: boolean; github: boolean; azure: boolean; phone: boolean; email: boolean } | null
 > {
     await supabaseReady;
     if (!activeUrl || !activeKey) return null;
@@ -37,6 +37,7 @@ export async function getEnabledProviders(): Promise<
         const s = await r.json();
         return {
             google: !!s?.external?.google,
+            github: !!s?.external?.github,
             azure: !!s?.external?.azure,
             phone: !!s?.external?.phone,
             email: !!s?.external?.email,

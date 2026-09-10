@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Phone, Mail, Loader2, Activity, Database, Cpu, AlertTriangle } from 'lucide-react';
+import { User, Lock, ArrowRight, ArrowLeft, UserCheck, Eye, EyeOff, ShieldCheck, Phone, Mail, Loader2, Activity, Database, Cpu, AlertTriangle, Github } from 'lucide-react';
 import { toast } from '../components/Toast';
 import { supabase, authRedirectTo, isSupabaseConfigured, getEnabledProviders } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -70,10 +70,11 @@ export default function Login() {
         } catch (err) {
             console.error(`${provider} sign-in error`, err);
             const notEnabled = /provider is not enabled|unsupported provider/i.test(err?.message || '');
+            const label = { google: 'Google', github: 'GitHub', microsoft: 'Microsoft' }[key] || key;
             toast.error(
                 notEnabled
-                    ? `${key === 'google' ? 'Google' : 'Microsoft'} sign-in isn’t enabled yet — enable it in Supabase → Authentication → Providers.`
-                    : (err.message || `Could not start ${key} sign-in.`),
+                    ? `${label} sign-in isn’t enabled yet — enable it in Supabase → Authentication → Providers.`
+                    : (err.message || `Could not start ${label} sign-in.`),
                 { title: 'Sign-in failed' }
             );
             setBusy(null);
@@ -81,6 +82,7 @@ export default function Login() {
     };
     const signInWithGoogle = () => oauth('google', 'google');
     const signInWithMicrosoft = () => oauth('azure', 'microsoft');
+    const signInWithGithub = () => oauth('github', 'github');
 
     // --- Phone SMS OTP ---
     const sendPhoneOtp = async () => {
@@ -328,6 +330,11 @@ export default function Login() {
                                 {showProvider('google') && (
                                     <button type="button" className="signin-social__btn" onClick={signInWithGoogle} disabled={busy === 'google'} aria-label="Sign in with Google">
                                         {busy === 'google' ? <Spinner /> : <GoogleIcon />} Google
+                                    </button>
+                                )}
+                                {showProvider('github') && (
+                                    <button type="button" className="signin-social__btn" onClick={signInWithGithub} disabled={busy === 'github'} aria-label="Sign in with GitHub">
+                                        {busy === 'github' ? <Spinner /> : <Github size={16} />} GitHub
                                     </button>
                                 )}
                                 {showProvider('azure') && (

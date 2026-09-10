@@ -10,21 +10,19 @@ import App from "./App.jsx";
 
 import { MissionProvider } from "./context/MissionContext";
 import { AuthProvider } from "./context/AuthContext";
+import { supabaseReady } from "./lib/supabase";
 
-createRoot(document.getElementById("root")).render(
+const mount = () =>
+    createRoot(document.getElementById("root")).render(
+        <StrictMode>
+            <AuthProvider>
+                <MissionProvider>
+                    <App />
+                </MissionProvider>
+            </AuthProvider>
+        </StrictMode>
+    );
 
-    <StrictMode>
-
-        <AuthProvider>
-
-            <MissionProvider>
-
-                <App />
-
-            </MissionProvider>
-
-        </AuthProvider>
-
-    </StrictMode>
-
-);
+// Resolve Supabase config (build-time or runtime /api/config) before first render so
+// sign-in is ready immediately. Never block the app if it fails — guest still works.
+supabaseReady.finally(mount);

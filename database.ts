@@ -9,7 +9,13 @@ const { Pool } = pkg;
 // The public API (getHistory / saveHistoryItem / deleteHistoryItem) is unchanged.
 
 const DB_PATH = path.join(process.cwd(), "database.json");
-const CONNECTION = process.env.DATABASE_URL;
+// Accept a few common names for the Postgres URL so a mislabeled host env var
+// (e.g. "neon_db"/"neno_db") still connects instead of silently falling back to JSON.
+const CONNECTION =
+    process.env.DATABASE_URL ||
+    process.env.NEON_DATABASE_URL ||
+    process.env.neon_db ||
+    process.env.neno_db;
 
 let pool: InstanceType<typeof Pool> | null = null;
 let ready: Promise<void> | null = null;

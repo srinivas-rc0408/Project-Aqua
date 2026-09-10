@@ -90,6 +90,16 @@ const generalLimiter = rateLimit({
 
 app.use("/api/", generalLimiter);
 
+// Public runtime config for the browser. The anon/publishable key is safe to expose.
+// Reading both VITE_-prefixed and unprefixed names means the client works no matter how
+// the host's env vars are named — no VITE_ prefix or rebuild required on the deploy.
+app.get("/api/config", (_req, res) => {
+  res.json({
+    supabaseUrl: process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || "",
+    supabaseAnonKey: process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "",
+  });
+});
+
 // ==========================================================
 // SIMULATED SYSTEM STATE
 // ==========================================================
